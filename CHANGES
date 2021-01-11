@@ -1,0 +1,54 @@
+J-Card Template: Changelog (CHANGES)
+------------------------------------
+
+Update 1
+========
+
+  Revision 4 (07/01/2020)
+  -----------------------
+- exiting now prompts on unsaved changes
+- ui: menu is now sticky
+- ui: moved improved instructions as Help to page bottom
+
+  Revision 3 (06/30/2020)
+  -----------------------
+- re-refactored again
+- template metrics restored back to Blaine Murphy's for consistency
+- ui: integrated EDEN Online stylesheets
+- ui: loading prompts on unsaved changes
+- ui: mobile menu
+- ui: added preview menu shortcut
+
+  Revision 2 (05/31/2020)
+  -----------------------
+- removed residual colon ':' on empty side labels in short back mode
+- lower title size works again
+- background color follows on print with non-Gecko user agents, fixes #1
+- ui: injected stopgap designs from EDEN Online and NET-Slides Concept UI
+
+  Revision 1 (12/13/2019)
+  -----------------------
+- changed default content separator to "&nbsp;• "
+- serialization filename now considers both upper and lower titles
+- removed residual colon ':' on empty sides in short back mode
+- ui: moved instructions to page bottom
+- ui: swapped save and load
+- ui: menu
+
+  Revision 0 (12/04/2019)
+  -----------------------
+- reforked and re-refactored
+- global bold font
+- fill cover
+- text alignment
+- text visibility
+- custom content separator
+- serialization
+
+
+Update 0
+========
+
+  Revision 0 (02/18/2019)
+  -----------------------
+- initial release
