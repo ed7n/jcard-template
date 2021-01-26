@@ -358,7 +358,7 @@ article > nav {
 
 @media print {
   header,
-  header + hr,
+  header + div.hr,
   footer,
   article > nav,
   .jcard-controls {
