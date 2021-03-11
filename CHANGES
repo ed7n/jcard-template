@@ -4,6 +4,14 @@ J-Card Template: Changelog (CHANGES)
 Update 1
 ========
 
+  Revision 5 (03/11/2021)
+  -----------------------
+- ui: remade with Unagi
+- ui: load, save, and help are now document sections
+- ui: separated load and save
+- ui: card text fields' font family follows that of the card
+- ui: no more sticky menu, use floating menu button instead
+
   Revision 4 (07/01/2020)
   -----------------------
 - exiting now prompts on unsaved changes

@@ -1,0 +1,155 @@
+body {
+  --paddingSelect: calc(var(--spacer) + (var(--lineHeight) - 1.2em) / 2);
+}
+
+button,
+input,
+output,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+button,
+input,
+output,
+textarea {
+  padding: var(--spacer);
+}
+
+input,
+meter,
+output,
+progress,
+select,
+textarea {
+  color: var(--colorAccentMax);
+}
+
+button,
+input[type="color"] {
+  background-color: var(--colorAccentMin);
+  border-block-end-color: var(--colorAccentLow);
+  border-block-end-style: solid;
+  border-block-end-width: 2px;
+  border-block-start-color: var(--colorAccentHigh);
+  border-block-start-style: solid;
+  border-block-start-width: 2px;
+  border-inline-end-color: var(--colorAccentLow);
+  border-inline-end-style: solid;
+  border-inline-end-width: 2px;
+  border-inline-start-color: var(--colorAccentHigh);
+  border-inline-start-style: solid;
+  border-inline-start-width: 2px;
+}
+
+button:hover,
+input[type="color"]:hover {
+  background-color: var(--colorButtonHoverBackground);
+}
+
+button:focus,
+input[type="color"]:focus {
+  outline: 1px solid var(--colorButtonFocusOutline);
+}
+
+button:active,
+input[type="color"]:active {
+  background-color: var(--colorButtonActiveBackground);
+  border-block-end-color: var(--colorAccentHigh);
+  border-block-start-color: var(--colorAccentLow);
+  border-inline-end-color: var(--colorAccentHigh);
+  border-inline-start-color: var(--colorAccentLow);
+}
+
+input[type="color"],
+meter,
+progress {
+  min-height: calc(var(--lineHeight) + (var(--spacer) * 2) + 3px);
+}
+
+input:not([type="color"]),
+meter,
+progress,
+output,
+select,
+textarea {
+  border-block-end-color: var(--colorAccentHigh);
+  border-block-end-style: solid;
+  border-block-end-width: 1px;
+  border-block-start-color: var(--colorAccentLow);
+  border-block-start-style: solid;
+  border-block-start-width: 2px;
+  border-inline-end-color: var(--colorAccentHigh);
+  border-inline-end-style: solid;
+  border-inline-end-width: 1px;
+  border-inline-start-color: var(--colorAccentLow);
+  border-inline-start-style: solid;
+  border-inline-start-width: 2px;
+}
+
+input:not([type="color"]),
+select,
+textarea {
+  background-color: var(--colorInputBackground);
+}
+
+input:not([type="color"]):hover,
+select:hover,
+textarea:hover {
+  border-block-start-color: var(--colorInputHoverBorder);
+  border-inline-start-color: var(--colorInputHoverBorder);
+}
+
+input:not([type="color"]):focus,
+select:focus,
+textarea:focus {
+  border-block-start-color: var(--colorInputFocusBorder);
+  border-inline-start-color: var(--colorInputFocusBorder);
+}
+
+input:not([type="color"]):active,
+select:active,
+textarea:active {
+  border-block-start-color: var(--colorInputActiveBorder);
+  border-inline-start-color: var(--colorInputActiveBorder);
+}
+
+input:not([type="color"]):invalid {
+  border-block-start-color: var(--colorInputInvalidBorder);
+  border-inline-start-color: var(--colorInputInvalidBorder);
+}
+
+legend {
+  font-weight: bold;
+}
+
+select {
+  padding-block-end: var(--paddingSelect);
+  padding-block-start: calc(var(--paddingSelect) - 1px);
+}
+
+@media (prefers-color-scheme: light), print {
+  button,
+  input[type="color"] {
+    border-block-end-color: var(--colorAccentHigh);
+    border-block-start-color: var(--colorAccentLow);
+    border-inline-end-color: var(--colorAccentHigh);
+    border-inline-start-color: var(--colorAccentLow);
+  }
+
+  button:active,
+  input[type="color"]:active,
+  input:not([type="color"]),
+  meter,
+  output,
+  progress,
+  select,
+  textarea {
+    border-block-end-color: var(--colorAccentLow);
+    border-block-start-color: var(--colorAccentHigh);
+    border-inline-end-color: var(--colorAccentLow);
+    border-inline-start-color: var(--colorAccentHigh);
+  }
+}

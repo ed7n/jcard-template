@@ -51,8 +51,8 @@ const JCard = (() => {
   });
   // Actions.
   const actions = Object.freeze({
-    load: new Action("load"),
-    save: new Action("save"),
+    load: new Action("button-load"),
+    save: new Action("button-save"),
   });
   // JSON MIME type.
   const mimeJson = new RegExp(/^(application\/json|text\/)/);
@@ -97,6 +97,7 @@ const JCard = (() => {
     addJCardListeners(previewOutputs);
     addJCardListeners(dupeOutputs);
     addSerializationListeners();
+    addControlListeners();
     reader.onload = readData;
     window.onbeforeunload = confirmExit;
     populateInputs(fields);
@@ -146,6 +147,14 @@ const JCard = (() => {
    */
   function addToggleListeners() {
     addToggleListener(inputs.print2.element, root, "print-2");
+  }
+
+  /*
+   * Adds style listeners to inputs that update controls, including themselves.
+   */
+  function addControlListeners() {
+    for (element of root.querySelectorAll(".card-text"))
+      addStyleListener(inputs.fontFamily.element, element, "fontFamily");
   }
 
   /*

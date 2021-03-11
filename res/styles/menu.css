@@ -1,0 +1,115 @@
+.menu {
+  font-size: var(--fontSize);
+}
+
+.menu.root,
+.menu.leaf {
+  display: flex;
+}
+
+.menu.root,
+.menu.stem {
+  background: var(--colorAccentMin);
+  border-block-end-color: var(--colorAccentLow);
+  border-block-end-style: solid;
+  border-block-end-width: 2px;
+  border-block-start-color: var(--colorAccentHigh);
+  border-block-start-style: solid;
+  border-block-start-width: 2px;
+  border-inline-end-color: var(--colorAccentLow);
+  border-inline-end-style: solid;
+  border-inline-end-width: 2px;
+  border-inline-start-color: var(--colorAccentHigh);
+  border-inline-start-style: solid;
+  border-inline-start-width: 2px;
+  display: none;
+  flex-flow: column nowrap;
+}
+
+.menu.root {
+  font-weight: bold;
+  padding: var(--spacer2);
+  user-select: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  /* non-standard */
+  -webkit-user-select: none;
+}
+
+.menu.root:hover {
+  background-color: var(--colorButtonHoverBackgroundSolid);
+}
+
+.menu.root:focus-within + .menu.root.doppelganger {
+  display: unset;
+  background-color: var(--colorButtonActiveBackgroundSolid);
+  border-block-end-color: var(--colorAccentHigh);
+  border-block-start-color: var(--colorAccentLow);
+  border-inline-end-color: var(--colorAccentHigh);
+  border-inline-start-color: var(--colorAccentLow);
+}
+
+.menu.root:focus-within > .menu.stem {
+  display: flex;
+}
+
+.menu.root > .menu.stem {
+  left: -2px;
+  bottom: 100%;
+}
+
+.menu.root.doppelganger {
+  display: none;
+}
+
+.menu.leaf {
+  border-block-end-color: var(--colorAccentLow);
+  border-block-end-style: solid;
+  border-block-end-width: 1px;
+  flex-flow: row nowrap;
+}
+
+.menu.leaf > a {
+  flex-grow: 1;
+  padding-block-end: var(--spacer2);
+  padding-block-start: var(--spacer2);
+  padding-inline-end: var(--spacer4);
+  padding-inline-start: var(--spacer4);
+  word-break: keep-all;
+}
+
+.menu.stem {
+  min-width: max-content;
+  position: absolute;
+  z-index: 1;
+}
+
+@media (max-width: 720px) {
+  .menu.root {
+    display: unset;
+  }
+}
+
+@media (prefers-color-scheme: light), print {
+  .menu.root,
+  .menu.stem {
+    border-block-end-color: var(--colorAccentHigh);
+    border-block-start-color: var(--colorAccentLow);
+    border-inline-end-color: var(--colorAccentHigh);
+    border-inline-start-color: var(--colorAccentLow);
+  }
+
+  .menu.root:focus-within + .menu.root.doppelganger {
+    border-block-end-color: var(--colorAccentLow);
+    border-block-start-color: var(--colorAccentHigh);
+    border-inline-end-color: var(--colorAccentLow);
+    border-inline-start-color: var(--colorAccentHigh);
+  }
+}
+
+@media print {
+  .menu.root {
+    display: none;
+  }
+}

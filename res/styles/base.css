@@ -1,0 +1,183 @@
+* {
+  /* epiphany */
+  border-radius: 0;
+  box-sizing: border-box;
+  color-adjust: exact;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact;
+}
+
+:focus {
+  /* chromium */
+  outline: none;
+}
+
+body {
+  background-color: var(--colorBackground);
+  color: var(--color);
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize);
+  --color: #efefef;
+  --colorAccentHigh: #afafaf;
+  --colorAccentHighBump: #a7a7a7;
+  --colorAccentHighDent: #b7b7b7;
+  --colorAccentLow: #4f4f4f;
+  --colorAccentLowBump: #474747;
+  --colorAccentLowDent: #575757;
+  --colorAccentMax: #dfdfdf;
+  --colorAccentMaxDent: #e7e7e7;
+  --colorAccentMaxBump: #d7d7d7;
+  --colorAccentMid: #7f7f7f;
+  --colorAccentMidDent: #878787;
+  --colorAccentMidBump: #777777;
+  --colorAccentMin: #1f1f1f;
+  --colorAccentMinDent: #272727;
+  --colorAccentMinBump: #171717;
+  --colorAnchor: #7f7fef;
+  --colorAnchorFocus: #bfefbf;
+  --colorAnchorFocusBackground: #0fef0f7f;
+  --colorAnchorFocusBackgroundSolid: #178717;
+  --colorAnchorHover: #bfbfef;
+  --colorAnchorHoverBackground: #0f0fef7f;
+  --colorAnchorHoverBackgroundSolid: #171787;
+  --colorBackground: #0f0f0f;
+  --colorButtonActiveBackground: #0fef0f3f;
+  --colorButtonActiveBackgroundSolid: #1b521b;
+  --colorButtonFocusOutline: #efbf0f;
+  --colorButtonHoverBackground: #0f0fef3f;
+  --colorButtonHoverBackgroundSolid: #1b1b52;
+  --colorHighlightBackground: #ef7f0f7f;
+  --colorHoverBackground: #efefef12;
+  --colorHoverBackgroundSolid: #1f1f1f;
+  --colorInputBackground: #000;
+  --colorInputActiveBorder: #0fefbf;
+  --colorInputFocusBorder: #0fbfef;
+  --colorInputHoverBorder: #0f0fef;
+  --colorInputInvalidBorder: #ef0fbf;
+  --colorTechnical: #efbf7f;
+  --fontFamily: "Cantarell", "Roboto", "San Francisco", "Segoe UI",
+    "Liberation Sans", "Arimo", "Arial", sans-serif;
+  --fontFamilyMonospace: "Liberation Mono", "Roboto Mono", "Cousine", monospace;
+  --fontSize: 12pt;
+  --fontSizeFactorInput: 0.9167;
+  --fontSizeInput: 11.0004pt;
+  --spacer: 0.25em;
+  --spacer2: 0.5em;
+  --spacer3: 0.75em;
+  --spacer4: 1em;
+  --spacer5: 1.25em;
+  --spacer6: 1.5em;
+  --spacer7: 1.75em;
+  --spacer8: 2em;
+  --spacer16: 4em;
+}
+
+a {
+  color: var(--colorAnchor);
+  margin-inline-end: 1px;
+  margin-inline-start: 1px;
+}
+
+a:hover {
+  background-color: var(--colorAnchorHoverBackground);
+  color: var(--colorAnchorHover);
+}
+
+a:focus {
+  background-color: var(--colorAnchorFocusBackground);
+  color: var(--colorAnchorFocus);
+}
+
+a:visited {
+  color: var(--colorAnchor);
+}
+
+a.out::before {
+  content: "*";
+}
+
+a.up::before {
+  content: "^";
+}
+
+.eden {
+  font-family: "Liberation Sans", "Arimo", "Arial", "Helvetica", sans-serif;
+  font-style: italic;
+}
+
+.highlight {
+  background-color: var(--colorHighlightBackground);
+  text-decoration: underline;
+}
+
+.no-margin * {
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+
+.no-padding {
+  padding-block-end: 0;
+  padding-block-start: 0;
+}
+
+.smaller {
+  font-size: smaller;
+}
+
+@media (max-width: 720px) {
+  body {
+    --fontSize: 11pt;
+    --fontSizeInput: 10.0837pt;
+  }
+}
+
+@media (prefers-color-scheme: light), print {
+  body {
+    --color: #0f0f0f;
+    --colorAccentHigh: #4f4f4f;
+    --colorAccentHighBump: #474747;
+    --colorAccentHighDent: #575757;
+    --colorAccentLow: #afafaf;
+    --colorAccentLowBump: #a7a7a7;
+    --colorAccentLowDent: #b7b7b7;
+    --colorAccentMax: #1f1f1f;
+    --colorAccentMaxDent: #272727;
+    --colorAccentMaxBump: #171717;
+    --colorAccentMid: #7f7f7f;
+    --colorAccentMidDent: #878787;
+    --colorAccentMidBump: #777777;
+    --colorAccentMin: #dfdfdf;
+    --colorAccentMinDent: #e7e7e7;
+    --colorAccentMinBump: #d7d7d7;
+    --colorAnchor: #0f0fef;
+    --colorAnchorFocus: #0f7f0f;
+    --colorAnchorFocusBackgroundSolid: #77e777;
+    --colorAnchorHover: #0f0f7f;
+    --colorAnchorHoverBackgroundSolid: #7777e7;
+    --colorAnchorVisited: #7f0fbf;
+    --colorBackground: #efefef;
+    --colorButtonActiveBackgroundSolid: #ace3ac;
+    --colorButtonHoverBackgroundSolid: #acace3;
+    --colorHoverBackground: #0f0f0f12;
+    --colorHoverBackgroundSolid: #dfdfdf;
+    --colorInputBackground: #fff;
+    --colorTechnical: #7f3f0f;
+  }
+}
+
+@media print {
+  body,
+  .highlight {
+    background-color: unset;
+  }
+
+  body {
+    background: unset;
+  }
+}
+
+.css-curtain {
+  display: none !important;
+}
