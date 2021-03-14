@@ -4,6 +4,10 @@ J-Card Template: Changelog (CHANGES)
 Update 1
 ========
 
+  Revision 6 (03/14/2021)
+  -----------------------
+  ui: floating menu no longer in printouts
+
   Revision 5 (03/11/2021)
   -----------------------
 - ui: remade with Unagi
