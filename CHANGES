@@ -4,9 +4,17 @@ J-Card Template: Changelog (CHANGES)
 Update 1
 ========
 
+  Revision 7 (04/08/2021)
+  -----------------------
+- card preview background no longer animates with the :target pseudo-class
+- brighten stock cover image
+- ui: load and save buttons' width span that of the document
+- ui: card preview scrolls on overflow
+- ui: added a link to this document under Help
+
   Revision 6 (03/14/2021)
   -----------------------
-  ui: floating menu no longer in printouts
+- ui: floating menu no longer in printouts
 
   Revision 5 (03/11/2021)
   -----------------------
