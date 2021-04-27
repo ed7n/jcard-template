@@ -11,8 +11,7 @@ body {
   --lengthInputShortRigid: calc(var(--spacer) * 26);
   --lengthLabelMax: calc(var(--spacer) * 42);
   --lengthLabelMin: calc(var(--spacer) * 26);
-  /* ack: epiphany */
-  --lengthInputSwitchDefault: 12px;
+  --lengthInputSwitchDefault: 14px;
 }
 
 form fieldset,

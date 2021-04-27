@@ -31,7 +31,7 @@ footer {
   padding-inline-start: var(--spacer4);
 }
 
-footer > nav > .page-jump-menu {
+footer > nav > .menu {
   justify-content: center;
 }
 
@@ -125,7 +125,7 @@ article > header > :only-child {
     margin: 0;
   }
 
-  footer > nav > .page-jump-menu {
+  footer > nav > .menu {
     display: none;
   }
 

@@ -35,6 +35,8 @@ body {
   --colorAccentMin: #1f1f1f;
   --colorAccentMinDent: #272727;
   --colorAccentMinBump: #171717;
+  --colorAccentOver: #fff;
+  --colorAccentUnder: #000;
   --colorAnchor: #7f7fef;
   --colorAnchorFocus: #bfefbf;
   --colorAnchorFocusBackground: #0fef0f7f;
@@ -51,18 +53,23 @@ body {
   --colorHighlightBackground: #ef7f0f7f;
   --colorHoverBackground: #efefef12;
   --colorHoverBackgroundSolid: #1f1f1f;
-  --colorInputBackground: #000;
+  --colorInputBackground: var(--colorAccentUnder);
   --colorInputActiveBorder: #0fefbf;
   --colorInputFocusBorder: #0fbfef;
   --colorInputHoverBorder: #0f0fef;
   --colorInputInvalidBorder: #ef0fbf;
+  --colorNetMenuActiveBackground: var(--colorButtonActiveBackground);
+  --colorNetMenuHoverBackground: var(--colorButtonHoverBackground);
+  --colorNetMenuFocusBackground: var(--colorButtonActiveBackground);
   --colorTechnical: #efbf7f;
   --fontFamily: "Cantarell", "Roboto", "San Francisco", "Segoe UI",
     "Liberation Sans", "Arimo", "Arial", sans-serif;
   --fontFamilyMonospace: "Liberation Mono", "Roboto Mono", "Cousine", monospace;
   --fontSize: 12pt;
   --fontSizeFactorInput: 0.9167;
+  --fontSizeFactorNetMenu: 0.875;
   --fontSizeInput: 11.0004pt;
+  --fontSizeNetMenu: 10.5pt;
   --spacer: 0.25em;
   --spacer2: 0.5em;
   --spacer3: 0.75em;
@@ -151,6 +158,8 @@ a.up::before {
     --colorAccentMin: #dfdfdf;
     --colorAccentMinDent: #e7e7e7;
     --colorAccentMinBump: #d7d7d7;
+    --colorAccentOver: #000;
+    --colorAccentUnder: #fff;
     --colorAnchor: #0f0fef;
     --colorAnchorFocus: #0f7f0f;
     --colorAnchorFocusBackgroundSolid: #77e777;
@@ -162,7 +171,6 @@ a.up::before {
     --colorButtonHoverBackgroundSolid: #acace3;
     --colorHoverBackground: #0f0f0f12;
     --colorHoverBackgroundSolid: #dfdfdf;
-    --colorInputBackground: #fff;
     --colorTechnical: #7f3f0f;
   }
 }
