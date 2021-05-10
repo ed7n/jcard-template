@@ -1,74 +1,61 @@
-J-Card Template: Changelog (CHANGES)
-------------------------------------
+J-Card Template: Changes
 
-Update 1
-========
+—Update 1
 
-  Revision 7 (04/08/2021)
-  -----------------------
-- card preview background no longer animates with the :target pseudo-class
-- brighten stock cover image
-- ui: load and save buttons' width span that of the document
-- ui: card preview scrolls on overflow
-- ui: added a link to this document under Help
+——Revision 7, 04/08/2021.
+- Brighten stock cover image.
+- UI: Card preview background no longer animates with the :target pseudo-class.
+- UI: Card preview scrolls on overflow.
+- UI: Load and save buttons' width span that of the document.
+- UI: Added a link to this document under Help.
 
-  Revision 6 (03/14/2021)
-  -----------------------
-- ui: floating menu no longer in printouts
+——Revision 6, 03/14/2021.
+- Fixed floating menu in printouts.
 
-  Revision 5 (03/11/2021)
-  -----------------------
-- ui: remade with Unagi
-- ui: load, save, and help are now document sections
-- ui: separated load and save
-- ui: card text fields' font family follows that of the card
-- ui: no more sticky menu, use floating menu button instead
+——Revision 5, 03/11/2021.
+- UI: Remade with Unagi.
+- UI: Card text fields' font family follows that of the card.
+- UI: Load, save, and help are document sections.
+- UI: Removed sticky menu, use floating menu.
+- UI: Separated load and save.
 
-  Revision 4 (07/01/2020)
-  -----------------------
-- exiting now prompts on unsaved changes
-- ui: menu is now sticky
-- ui: moved improved instructions as Help to page bottom
+——Revision 4, 07/01/2020.
+- UI: Exiting prompts on unsaved changes.
+- UI: Menu is sticky.
+- UI: Moved improved instructions as Help to page bottom.
 
-  Revision 3 (06/30/2020)
-  -----------------------
-- re-refactored again
-- template metrics restored back to Blaine Murphy's for consistency
-- ui: integrated EDEN Online stylesheets
-- ui: loading prompts on unsaved changes
-- ui: mobile menu
-- ui: added preview menu shortcut
+——Revision 3, 06/30/2020.
+- Re-refactored again.
+- Restored template metrics to those of Blaine Murphy's.
+- UI: Integrated EDEN Online stylesheets.
+- UI: Loading prompts on unsaved changes.
+- UI: Mobile menu.
+- UI: Preview menu shortcut.
 
-  Revision 2 (05/31/2020)
-  -----------------------
-- removed residual colon ':' on empty side labels in short back mode
-- lower title size works again
-- background color follows on print with non-Gecko user agents, fixes #1
-- ui: injected stopgap designs from EDEN Online and NET-Slides Concept UI
+——Revision 2, 05/31/2020.
+- Background color follows on print with non-Gecko user agents.
+- Fixed lower title size.
+- Removed residual colon ':' on empty side labels in short back mode.
+- UI: Injected stopgap designs from EDEN Online and NET-Slides Concept UI.
 
-  Revision 1 (12/13/2019)
-  -----------------------
-- changed default content separator to "&nbsp;• "
-- serialization filename now considers both upper and lower titles
-- removed residual colon ':' on empty sides in short back mode
-- ui: moved instructions to page bottom
-- ui: swapped save and load
-- ui: menu
+——Revision 1, 12/13/2019.
+- Changed default content separator to "&nbsp;• ".
+- Removed residual colon ':' on empty side contents in short back mode.
+- Serialization filename considers both upper and lower titles.
+- UI: Menu.
+- UI: Moved instructions to page bottom.
+- UI: Swapped save and load.
 
-  Revision 0 (12/04/2019)
-  -----------------------
-- reforked and re-refactored
-- global bold font
-- fill cover
-- text alignment
-- text visibility
-- custom content separator
-- serialization
+——Revision 0, 12/04/2019.
+- Reforked and re-refactored.
+- Custom content separator.
+- Fill cover.
+- Global bold font.
+- Serialization.
+- Text alignment.
+- Text visibility.
 
+—Update 0
 
-Update 0
-========
-
-  Revision 0 (02/18/2019)
-  -----------------------
-- initial release
+——Revision 0, 02/18/2019.
+- Initial release.
