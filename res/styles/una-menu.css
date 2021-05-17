@@ -84,15 +84,18 @@
   background-color: var(--colorNetMenuActiveBackground);
 }
 
+.una-menu.stem,
+.una-menu.twig,
+.una-menu.leaf,
+.una-menu.item > label,
+.una-menu.mnemonic {
+  min-width: max-content;
+}
+
 .una-menu.stem > label,
 .una-menu.item {
   padding-inline-end: var(--spacer2);
   padding-inline-start: var(--spacer2);
-}
-
-.una-menu.item > label,
-.una-menu.mnemonic {
-  min-width: max-content;
 }
 
 .una-menu.soil {
@@ -150,7 +153,7 @@
 }
 
 .una-menu.stem > label {
-  font-size: smaller;
+  font-size: var(--fontSizeSmaller);
   font-weight: bold;
 }
 

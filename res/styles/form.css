@@ -1,11 +1,11 @@
 body {
   --integerMax: 255;
   --lengthFieldRowMin: calc(
-    var(--lengthLabelMin) + var(--lengthInputRigid) * var(--fontSizeFactorInput)
+    var(--lengthLabelMin) + var(--lengthInputRigid) * var(--fontSizeFactorDent)
   );
   --lengthFieldRowSmallMin: calc(
     var(--lengthLabelMin) + var(--lengthInputShortRigid) *
-      var(--fontSizeFactorInput)
+      var(--fontSizeFactorDent)
   );
   --lengthInputRigid: calc(var(--spacer) * 52);
   --lengthInputShortRigid: calc(var(--spacer) * 26);
@@ -390,7 +390,7 @@ form .group > .field {
 }
 
 form .input {
-  font-size: var(--fontSizeInput);
+  font-size: var(--fontSizeDent);
 }
 
 form .input > span,

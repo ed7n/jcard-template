@@ -26,7 +26,7 @@ article > nav {
 }
 
 .menu.line.page > span:first-child {
-  font-size: smaller;
+  font-size: var(--fontSizeSmaller);
   font-weight: bold;
   margin-inline-end: var(--spacer2);
 }

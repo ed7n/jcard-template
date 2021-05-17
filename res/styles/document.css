@@ -51,7 +51,16 @@ article > section ul ul {
 article > section p::before {
   color: var(--colorAccentMin);
   content: "¶ ";
-  font-size: smaller;
+  font-size: var(--fontSizeSmaller);
+}
+
+article > section h2 {
+  font-size: var(--fontSizeH2);
+  font-weight: unset;
+}
+
+article > section h5 {
+  font-size: var(--fontSizeH5);
 }
 
 article > section pre {
@@ -77,8 +86,8 @@ article > section > header p::before {
 }
 
 article > section > header > .subtitle {
+  font-size: var(--fontSizeDent);
   font-style: italic;
-  font-weight: bold;
 }
 
 blockquote {
@@ -99,7 +108,7 @@ ul.technical > li > :not(ol):first-child,
 ul.technical > li > :not(ul):first-child {
   background-color: var(--colorAccentMin);
   font-family: var(--fontFamilyMonospace);
-  font-size: smaller;
+  font-size: var(--fontSizeSmaller);
   padding: var(--spacer);
 }
 

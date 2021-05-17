@@ -1,3 +1,7 @@
+article > header > h1 {
+  font-size: var(--fontSizeH1);
+}
+
 article > header > :not(:last-child) {
   margin-block-end: var(--spacer);
 }
@@ -22,7 +26,7 @@ footer {
   border-inline-start-color: var(--colorAccentLow);
   border-inline-start-style: solid;
   border-inline-start-width: 1px;
-  font-size: smaller;
+  font-size: var(--fontSizeSmaller);
   margin-inline-end: 4%;
   margin-inline-start: 4%;
   padding-block-end: 4%;

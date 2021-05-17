@@ -66,10 +66,18 @@ body {
     "Liberation Sans", "Arimo", "Arial", sans-serif;
   --fontFamilyMonospace: "Liberation Mono", "Roboto Mono", "Cousine", monospace;
   --fontSize: 12pt;
-  --fontSizeFactorInput: 0.9167;
-  --fontSizeFactorNetMenu: 0.875;
-  --fontSizeInput: 11.0004pt;
+  --fontSizeDent: 11.0004pt;
+  --fontSizeFactorDent: 0.9167;
+  --fontSizeFactorH1: 1.67;
+  --fontSizeFactorH2: 1.5;
+  --fontSizeFactorH5: 0.875;
+  --fontSizeFactorNetMenu: var(--fontSizeFactorH5);
+  --fontSizeFactorSmaller: var(--fontSizeFactorH5);
+  --fontSizeH1: 20.04pt;
+  --fontSizeH2: 18pt;
+  --fontSizeH5: 10.5pt;
   --fontSizeNetMenu: 10.5pt;
+  --fontSizeSmaller: var(--fontSizeH5);
   --spacer: 0.25em;
   --spacer2: 0.5em;
   --spacer3: 0.75em;
@@ -130,13 +138,16 @@ a.up::before {
 }
 
 .smaller {
-  font-size: smaller;
+  font-size: var(--fontSizeSmaller);
 }
 
 @media (max-width: 720px) {
   body {
     --fontSize: 11pt;
-    --fontSizeInput: 10.0837pt;
+    --fontSizeDent: 10.0837pt;
+    --fontSizeH1: 18.37pt;
+    --fontSizeH2: 16.5pt;
+    --fontSizeH5: 9.625pt;
   }
 }
 
