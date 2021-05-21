@@ -11,6 +11,11 @@ body {
   --lineHeight: calc(var(--spacer) * 6.68);
 }
 
+a {
+  margin-inline-end: 1px;
+  margin-inline-start: 1px;
+}
+
 article {
   margin-block-end: 4%;
   margin-block-start: var(--spacer4);
@@ -34,7 +39,6 @@ article > section:target {
 }
 
 article > section form,
-article > section h5,
 article > section li,
 article > section ol,
 article > section p,
@@ -48,31 +52,23 @@ article > section ul ul {
   margin-inline-start: var(--spacer2);
 }
 
+article > section h3,
+article > section h4,
+article > section h5,
+article > section h6,
+article > section pre,
+article > section > header {
+  margin-block-end: var(--spacer2);
+}
+
 article > section p::before {
   color: var(--colorAccentMin);
   content: "¶ ";
   font-size: var(--fontSizeSmaller);
 }
 
-article > section h2 {
-  font-size: var(--fontSizeH2);
-  font-weight: unset;
-}
-
-article > section h5 {
-  font-size: var(--fontSizeH5);
-}
-
-article > section pre {
-  margin-block-end: var(--spacer2);
-}
-
 article > section > div {
   margin-block-end: var(--spacer4);
-}
-
-article > section > header {
-  margin-block-end: var(--spacer2);
 }
 
 article > section > header p {
@@ -83,6 +79,11 @@ article > section > header p::before {
   color: unset;
   content: unset;
   font-size: unset;
+}
+
+article > section > header > h2,
+h3 {
+  font-weight: unset;
 }
 
 article > section > header > .subtitle {
@@ -101,9 +102,9 @@ blockquote {
 code,
 kbd > kbd,
 kbd > samp,
-pre,
 li.technical > :not(ol):first-child,
 li.technical > :not(ul):first-child,
+pre,
 ul.technical > li > :not(ol):first-child,
 ul.technical > li > :not(ul):first-child {
   background-color: var(--colorAccentMin);
@@ -113,17 +114,70 @@ ul.technical > li > :not(ul):first-child {
 }
 
 code,
-pre,
 li.technical > :not(ol):first-child,
 li.technical > :not(ul):first-child,
+pre,
 ul.technical > li > :not(ol):first-child,
 ul.technical > li > :not(ul):first-child {
   color: var(--colorTechnical);
 }
 
-pre {
-  line-height: initial;
-  overflow-x: auto;
+del {
+  color: var(--colorAccentMid);
+}
+
+div.hr {
+  border: 0;
+  border-block-end-color: var(--colorAccentLow);
+  border-block-end-style: solid;
+  border-block-end-width: 1px;
+  border-block-start-color: var(--colorAccentMin);
+  border-block-start-style: solid;
+  border-block-start-width: 1px;
+}
+
+h1 {
+  font-size: var(--fontSizeH1);
+}
+
+h2 {
+  font-size: var(--fontSizeH2);
+}
+
+h3 {
+  font-size: var(--fontSizeH3);
+  text-shadow: 1px 0 var(--color);
+}
+
+h4 {
+  font-size: var(--fontSizeH4);
+}
+
+h5 {
+  font-size: var(--fontSizeH5);
+}
+
+h6 {
+  font-size: var(--fontSizeH6);
+}
+
+img {
+  margin: auto;
+  max-width: 100%;
+}
+
+kbd > kbd,
+kbd > samp {
+  border-radius: 4px;
+  color: var(--colorAccentMax);
+}
+
+li {
+  margin-inline-start: var(--spacer4);
+}
+
+li > :not(ul):first-child + :not(ul)::before {
+  content: " — ";
 }
 
 li.anchor,
@@ -151,24 +205,9 @@ ul.headered > li > :not(ul):first-child {
   font-weight: bold;
 }
 
-kbd > kbd,
-kbd > samp {
-  border-radius: 4px;
-  color: var(--colorAccentMax);
-}
-
-del {
-  color: var(--colorAccentMid);
-}
-
-div.hr {
-  border: 0;
-  border-block-end-color: var(--colorAccentLow);
-  border-block-end-style: solid;
-  border-block-end-width: 1px;
-  border-block-start-color: var(--colorAccentMin);
-  border-block-start-style: solid;
-  border-block-start-width: 1px;
+pre {
+  line-height: initial;
+  overflow-x: auto;
 }
 
 ul {
@@ -179,19 +218,6 @@ ul ul.anchor,
 ul ul.headered,
 ul ul.technical {
   list-style: "⌎› " outside;
-}
-
-img {
-  margin: auto;
-  max-width: 100%;
-}
-
-li {
-  margin-inline-start: var(--spacer4);
-}
-
-li > :not(ul):first-child + :not(ul)::before {
-  content: " — ";
 }
 
 .smaller {

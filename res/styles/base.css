@@ -66,16 +66,24 @@ body {
     "Liberation Sans", "Arimo", "Arial", sans-serif;
   --fontFamilyMonospace: "Liberation Mono", "Roboto Mono", "Cousine", monospace;
   --fontSize: 12pt;
+  --fontSizeBump: 12.9996pt;
   --fontSizeDent: 11.0004pt;
+  --fontSizeFactorBump: 1.0833;
   --fontSizeFactorDent: 0.9167;
-  --fontSizeFactorH1: 1.67;
-  --fontSizeFactorH2: 1.5;
+  --fontSizeFactorH1: 1.6667;
+  --fontSizeFactorH2: 1.3333;
+  --fontSizeFactorH3: 1.125;
+  --fontSizeFactorH4: 1.0;
   --fontSizeFactorH5: 0.875;
+  --fontSizeFactorH6: 0.775;
   --fontSizeFactorNetMenu: var(--fontSizeFactorH5);
   --fontSizeFactorSmaller: var(--fontSizeFactorH5);
-  --fontSizeH1: 20.04pt;
-  --fontSizeH2: 18pt;
+  --fontSizeH1: 20.0004pt;
+  --fontSizeH2: 15.9996pt;
+  --fontSizeH3: 13.5pt;
+  --fontSizeH4: var(--fontSize);
   --fontSizeH5: 10.5pt;
+  --fontSizeH6: 9.3pt;
   --fontSizeNetMenu: 10.5pt;
   --fontSizeSmaller: var(--fontSizeH5);
   --spacer: 0.25em;
@@ -91,8 +99,6 @@ body {
 
 a {
   color: var(--colorAnchor);
-  margin-inline-end: 1px;
-  margin-inline-start: 1px;
 }
 
 a:hover {
@@ -144,10 +150,13 @@ a.up::before {
 @media (max-width: 720px) {
   body {
     --fontSize: 11pt;
+    --fontSizeBump: 11.9163pt;
     --fontSizeDent: 10.0837pt;
-    --fontSizeH1: 18.37pt;
-    --fontSizeH2: 16.5pt;
+    --fontSizeH1: 18.3337pt;
+    --fontSizeH2: 14.6663pt;
+    --fontSizeH3: 12.375pt;
     --fontSizeH5: 9.625pt;
+    --fontSizeH6: 8.525pt;
   }
 }
 
