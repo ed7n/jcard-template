@@ -74,301 +74,302 @@
         <div class="jcard-duplicate"></div>
       </section>
       <section id="options">
+        <header>
+          <h2>Options</h2>
+          <div class="hr"></div>
+        </header>
         <form>
+          <div class="columns">
+            <div class="columns-column-2">
+              <div class="field row no-label">
+                <div class="input shorter">
+                  <div class="field switch">
+                    <div class="input">
+                      <input id="bold" type="checkbox" />
+                    </div>
+                    <label for="bold"><b>Bold</b></label>
+                  </div>
+                  <div class="field switch">
+                    <div class="input">
+                      <input id="italicize" type="checkbox" />
+                    </div>
+                    <label for="italicize"><i>Italicize</i></label>
+                  </div>
+                  <div class="field switch">
+                    <div class="input">
+                      <input id="force-caps" type="checkbox" />
+                    </div>
+                    <label for="force-caps">Force CAPS</label>
+                  </div>
+                </div>
+              </div>
+              <div class="field row short-label">
+                <label for="font-family">Font Family</label>
+                <div class="input fluid">
+                  <input id="font-family" type="text" placeholder="Alte Haas Grotesk" />
+                </div>
+              </div>
+              <div class="field row short-label">
+                <label for="cover-image">Cover Image</label>
+                <div class="input fluid">
+                  <input id="cover-image" type="file" accept="image/*" />
+                </div>
+              </div>
+              <div class="field row no-label">
+                <div class="input shorter">
+                  <div class="field switch">
+                    <div class="input">
+                      <input id="print-2" type="checkbox" />
+                    </div>
+                    <label for="print-2">Print 2</label>
+                  </div>
+                  <div class="field switch">
+                    <div class="input">
+                      <input id="short-back" type="checkbox" />
+                    </div>
+                    <label for="short-back">Short Back</label>
+                  </div>
+                  <div class="field switch">
+                    <div class="input">
+                      <input id="fill-cover" type="checkbox" />
+                    </div>
+                    <label for="fill-cover">Fill Cover</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="columns-column">
+              <div class="field row small">
+                <label for="card-color">Card Color</label>
+                <div class="input short">
+                  <input id="card-color" type="color" />
+                </div>
+              </div>
+              <div class="field row small">
+                <label for="text-color">Text Color</label>
+                <div class="input short">
+                  <input id="text-color" type="color" />
+                </div>
+              </div>
+            </div>
+          </div>
           <fieldset>
-            <legend>Options</legend>
+            <legend>Titles</legend>
             <div class="columns">
               <div class="columns-column-2">
-                <div class="field row no-label">
-                  <div class="input shorter">
-                    <div class="field switch">
-                      <div class="input">
-                        <input id="bold" type="checkbox" />
-                      </div>
-                      <label for="bold"><b>Bold</b></label>
-                    </div>
-                    <div class="field switch">
-                      <div class="input">
-                        <input id="italicize" type="checkbox" />
-                      </div>
-                      <label for="italicize"><i>Italicize</i></label>
-                    </div>
-                    <div class="field switch">
-                      <div class="input">
-                        <input id="force-caps" type="checkbox" />
-                      </div>
-                      <label for="force-caps">Force CAPS</label>
-                    </div>
+                <div class="field row short-label">
+                  <label for="title-upper">Upper Text</label>
+                  <div class="input fluid">
+                    <input id="title-upper" class="card-text" type="text" />
                   </div>
                 </div>
                 <div class="field row short-label">
-                  <label for="font-family">Font Family</label>
+                  <label for="title-lower">Lower Text</label>
                   <div class="input fluid">
-                    <input id="font-family" type="text" placeholder="Alte Haas Grotesk" />
+                    <input id="title-lower" class="card-text" type="text" />
+                  </div>
+                </div>
+              </div>
+              <div class="columns-column">
+                <div class="field row short">
+                  <label for="title-upper-size">Upper Size</label>
+                  <div class="input short">
+                    <input id="title-upper-size" type="number" min="0" step="0.1" />
+                  </div>
+                </div>
+                <div class="field row short">
+                  <label for="title-lower-size">Lower Size</label>
+                  <div class="input short">
+                    <input id="title-lower-size" type="number" min="0" step="0.1" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="columns-column-2">
+                <h5>Alignment</h5>
+                <div class="field row short-label">
+                  <label for="front-title-alignment">Front</label>
+                  <div class="input short">
+                    <select id="front-title-alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
                   </div>
                 </div>
                 <div class="field row short-label">
-                  <label for="cover-image">Cover Image</label>
-                  <div class="input fluid">
-                    <input id="cover-image" type="file" accept="image/*" />
+                  <label for="spine-title-alignment">Spine</label>
+                  <div class="input short">
+                    <select id="spine-title-alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
                   </div>
                 </div>
-                <div class="field row no-label">
-                  <div class="input shorter">
-                    <div class="field switch">
-                      <div class="input">
-                        <input id="print-2" type="checkbox" />
-                      </div>
-                      <label for="print-2">Print 2</label>
-                    </div>
-                    <div class="field switch">
-                      <div class="input">
-                        <input id="short-back" type="checkbox" />
-                      </div>
-                      <label for="short-back">Short Back</label>
-                    </div>
-                    <div class="field switch">
-                      <div class="input">
-                        <input id="fill-cover" type="checkbox" />
-                      </div>
-                      <label for="fill-cover">Fill Cover</label>
-                    </div>
+              </div>
+              <div class="columns-column">
+                <h5>Visibility</h5>
+                <div class="field switch">
+                  <div class="input">
+                    <input id="front-title-visible" type="checkbox" />
+                  </div>
+                  <label for="front-title-visible">Front</label>
+                </div>
+                <div class="field switch">
+                  <div class="input">
+                    <input id="spine-title-visible" type="checkbox" />
+                  </div>
+                  <label for="spine-title-visible">Spine</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Footer</legend>
+            <div class="columns">
+              <div class="columns-column-2">
+                <div class="field row short-label">
+                  <label for="footer">Text</label>
+                  <div class="input fluid">
+                    <textarea id="footer" class="card-text"></textarea>
                   </div>
                 </div>
               </div>
               <div class="columns-column">
                 <div class="field row small">
-                  <label for="card-color">Card Color</label>
+                  <label for="footer-size">Size</label>
                   <div class="input short">
-                    <input id="card-color" type="color" />
+                    <input id="footer-size" type="number" min="0" step="0.1" />
                   </div>
                 </div>
-                <div class="field row small">
-                  <label for="text-color">Text Color</label>
+                <div class="field row short-label">
+                  <label for="footer-alignment">Alignment</label>
                   <div class="input short">
-                    <input id="text-color" type="color" />
+                    <select id="footer-alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
                   </div>
                 </div>
               </div>
             </div>
-            <fieldset>
-              <legend>Titles</legend>
-              <div class="columns">
-                <div class="columns-column-2">
-                  <div class="field row short-label">
-                    <label for="title-upper">Upper Text</label>
-                    <div class="input fluid">
-                      <input id="title-upper" class="card-text" type="text" />
-                    </div>
-                  </div>
-                  <div class="field row short-label">
-                    <label for="title-lower">Lower Text</label>
-                    <div class="input fluid">
-                      <input id="title-lower" class="card-text" type="text" />
-                    </div>
+          </fieldset>
+          <fieldset>
+            <legend>Notes</legend>
+            <div class="columns">
+              <div class="columns-column-2">
+                <div class="field row short-label">
+                  <label for="note-upper">Upper Text</label>
+                  <div class="input fluid">
+                    <input id="note-upper" class="card-text" type="text" />
                   </div>
                 </div>
-                <div class="columns-column">
-                  <div class="field row short">
-                    <label for="title-upper-size">Upper Size</label>
-                    <div class="input short">
-                      <input id="title-upper-size" type="number" min="0" step="0.1" />
-                    </div>
-                  </div>
-                  <div class="field row short">
-                    <label for="title-lower-size">Lower Size</label>
-                    <div class="input short">
-                      <input id="title-lower-size" type="number" min="0" step="0.1" />
-                    </div>
+                <div class="field row short-label">
+                  <label for="note-lower">Lower Text</label>
+                  <div class="input fluid">
+                    <input id="note-lower" class="card-text" type="text" />
                   </div>
                 </div>
               </div>
-              <div class="columns">
-                <div class="columns-column-2">
-                  <h5>Alignment</h5>
-                  <div class="field row short-label">
-                    <label for="front-title-alignment">Front</label>
-                    <div class="input short">
-                      <select id="front-title-alignment">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="field row short-label">
-                    <label for="spine-title-alignment">Spine</label>
-                    <div class="input short">
-                      <select id="spine-title-alignment">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
+              <div class="columns-column">
+                <div class="field row small">
+                  <label for="note-size">Size</label>
+                  <div class="input short">
+                    <input id="note-size" type="number" min="0" step="0.1" />
                   </div>
                 </div>
-                <div class="columns-column">
-                  <h5>Visibility</h5>
-                  <div class="field switch">
-                    <div class="input">
-                      <input id="front-title-visible" type="checkbox" />
-                    </div>
-                    <label for="front-title-visible">Front</label>
-                  </div>
-                  <div class="field switch">
-                    <div class="input">
-                      <input id="spine-title-visible" type="checkbox" />
-                    </div>
-                    <label for="spine-title-visible">Spine</label>
+                <div class="field row small">
+                  <label for="note-alignment">Alignment</label>
+                  <div class="input short">
+                    <select id="note-alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
                   </div>
                 </div>
               </div>
-            </fieldset>
-            <fieldset>
-              <legend>Footer</legend>
-              <div class="columns">
-                <div class="columns-column-2">
-                  <div class="field row short-label">
-                    <label for="footer">Text</label>
-                    <div class="input fluid">
-                      <textarea id="footer" class="card-text"></textarea>
-                    </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Contents</legend>
+            <div class="columns">
+              <div class="columns-column-2">
+                <div class="field row short-label">
+                  <div class="label">
+                    <input id="side-a-label" class="card-text" type="text" placeholder="Side A" />
+                  </div>
+                  <div class="input fluid">
+                    <textarea id="side-a-contents" class="card-text" rows="5"></textarea>
                   </div>
                 </div>
-                <div class="columns-column">
-                  <div class="field row small">
-                    <label for="footer-size">Size</label>
-                    <div class="input short">
-                      <input id="footer-size" type="number" min="0" step="0.1" />
-                    </div>
+                <div class="field row short-label">
+                  <div class="label">
+                    <input id="side-b-label" class="field-label-editable card-text" type="text" placeholder="Side B" />
                   </div>
-                  <div class="field row short-label">
-                    <label for="footer-alignment">Alignment</label>
-                    <div class="input short">
-                      <select id="footer-alignment">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
+                  <div class="input fluid">
+                    <textarea id="side-b-contents" class="card-text" rows="5"></textarea>
                   </div>
                 </div>
               </div>
-            </fieldset>
-            <fieldset>
-              <legend>Notes</legend>
-              <div class="columns">
-                <div class="columns-column-2">
-                  <div class="field row short-label">
-                    <label for="note-upper">Upper Text</label>
-                    <div class="input fluid">
-                      <input id="note-upper" class="card-text" type="text" />
-                    </div>
-                  </div>
-                  <div class="field row short-label">
-                    <label for="note-lower">Lower Text</label>
-                    <div class="input fluid">
-                      <input id="note-lower" class="card-text" type="text" />
-                    </div>
+              <div class="columns-column">
+                <div class="field row small">
+                  <label for="front-size">Front Size</label>
+                  <div class="input short">
+                    <input id="front-size" type="number" min="0" step="0.1" />
                   </div>
                 </div>
-                <div class="columns-column">
-                  <div class="field row small">
-                    <label for="note-size">Size</label>
-                    <div class="input short">
-                      <input id="note-size" type="number" min="0" step="0.1" />
-                    </div>
+                <div class="field row small">
+                  <label for="back-size">Back Size</label>
+                  <div class="input short">
+                    <input id="back-size" type="number" min="0" step="0.1" />
                   </div>
-                  <div class="field row small">
-                    <label for="note-alignment">Alignment</label>
-                    <div class="input short">
-                      <select id="note-alignment">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
+                </div>
+                <div class="field row small">
+                  <label for="contents-separator">Separator</label>
+                  <div class="input short">
+                    <input id="contents-separator" class="field-input card-text" type="text" placeholder="&amp;nbsp;• " />
                   </div>
                 </div>
               </div>
-            </fieldset>
-            <fieldset>
-              <legend>Contents</legend>
-              <div class="columns">
-                <div class="columns-column-2">
-                  <div class="field row short-label">
-                    <div class="label">
-                      <input id="side-a-label" class="card-text" type="text" placeholder="Side A" />
-                    </div>
-                    <div class="input fluid">
-                      <textarea id="side-a-contents" class="card-text" rows="5"></textarea>
-                    </div>
-                  </div>
-                  <div class="field row short-label">
-                    <div class="label">
-                      <input id="side-b-label" class="field-label-editable card-text" type="text" placeholder="Side B" />
-                    </div>
-                    <div class="input fluid">
-                      <textarea id="side-b-contents" class="card-text" rows="5"></textarea>
-                    </div>
+            </div>
+            <div class="columns">
+              <div class="columns-column-2">
+                <h5>Alignment</h5>
+                <div class="field row short-label">
+                  <label for="front-contents-alignment">Front</label>
+                  <div class="input short">
+                    <select id="front-contents-alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
                   </div>
                 </div>
-                <div class="columns-column">
-                  <div class="field row small">
-                    <label for="front-size">Front Size</label>
-                    <div class="input short">
-                      <input id="front-size" type="number" min="0" step="0.1" />
-                    </div>
-                  </div>
-                  <div class="field row small">
-                    <label for="back-size">Back Size</label>
-                    <div class="input short">
-                      <input id="back-size" type="number" min="0" step="0.1" />
-                    </div>
-                  </div>
-                  <div class="field row small">
-                    <label for="contents-separator">Separator</label>
-                    <div class="input short">
-                      <input id="contents-separator" class="field-input card-text" type="text" placeholder="&amp;nbsp;• " />
-                    </div>
+                <div class="field row short-label">
+                  <label for="back-contents-alignment">Back</label>
+                  <div class="input short">
+                    <select id="back-contents-alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
                   </div>
                 </div>
               </div>
-              <div class="columns">
-                <div class="columns-column-2">
-                  <h5>Alignment</h5>
-                  <div class="field row short-label">
-                    <label for="front-contents-alignment">Front</label>
-                    <div class="input short">
-                      <select id="front-contents-alignment">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
+              <div class="columns-column">
+                <h5>Visibility</h5>
+                <div class="field switch">
+                  <div class="input">
+                    <input id="front-contents-visible" type="checkbox" />
                   </div>
-                  <div class="field row short-label">
-                    <label for="back-contents-alignment">Back</label>
-                    <div class="input short">
-                      <select id="back-contents-alignment">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="columns-column">
-                  <h5>Visibility</h5>
-                  <div class="field switch">
-                    <div class="input">
-                      <input id="front-contents-visible" type="checkbox" />
-                    </div>
-                    <label for="front-contents-visible">Front</label>
-                  </div>
+                  <label for="front-contents-visible">Front</label>
                 </div>
               </div>
-            </fieldset>
+            </div>
           </fieldset>
         </form>
       </section>
@@ -413,8 +414,9 @@
           <div class="hr"></div>
         </header>
         <p>Edit the [<a href="#options">form</a>] to update the [<a href="#preview">preview</a>], then print this page when finished. It is recommended to double-check the printout in a print preview.</p>
-        <p>More information can be found in the [<a class="out" target="_blank" href="/net/jcard-template/about">About page</a>].</p>
+        <p>For more information, see the [<a class="out" target="_blank" href="/net/jcard-template/about">About page</a>].</p>
         <p>Changes made to this application are logged to [<a class="out" rel="noopener" target="_blank" href="https://github.com/ed7n/jcard-template/raw/master/CHANGES">CHANGES</a>].
+        <p>This work was based on the [<a class="out" target="_blank" href="https://unixispower.gitlab.io/jcard-template">original version</a>] by Blaine Murphy.</p>
       </section>
     </article>
     <footer>
@@ -423,7 +425,7 @@
           <h1>J-Card Template</h1>
         </div>
         <div>
-          <span>Update 1 Revision 7, 04/08/2021.</span>
+          <span>Update 1 Revision 8, 06/10/2021.</span>
         </div>
       </section>
       <nav>

@@ -2,6 +2,10 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision 8, 06/10/2021.
+- UI: Moved fieldsets up one level, added header for option.
+- UI: Added a link to the original version under Help.
+
 ——Revision 7, 04/08/2021.
 - Brighten stock cover image.
 - UI: Card preview background no longer animates with the :target pseudo-class.

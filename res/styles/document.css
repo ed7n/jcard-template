@@ -8,7 +8,7 @@ body {
   margin-inline-start: auto;
   max-width: 720px;
   min-width: auto;
-  --lineHeight: calc(var(--spacer) * 6.68);
+  --lineHeight: calc(var(--spacer) * 6.6667);
 }
 
 a {

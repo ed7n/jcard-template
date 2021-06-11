@@ -55,11 +55,15 @@ footer > section.page-info > div {
 
 footer > section.page-info > .banner {
   align-self: center;
-  flex: 1 0 0;
+  flex-grow: 1;
 }
 
 footer > section.page-info > .banner > h1 {
   font-size: 20pt;
+}
+
+footer > section.page-info > .banner > h1:only-child {
+  height: var(--lineHeight);
 }
 
 .banner > :not(:last-child) {
