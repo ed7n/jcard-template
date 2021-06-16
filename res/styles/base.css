@@ -27,14 +27,14 @@ body {
   --colorAccentLowBump: #474747;
   --colorAccentLowDent: #575757;
   --colorAccentMax: #dfdfdf;
-  --colorAccentMaxDent: #e7e7e7;
   --colorAccentMaxBump: #d7d7d7;
+  --colorAccentMaxDent: #e7e7e7;
   --colorAccentMid: #7f7f7f;
-  --colorAccentMidDent: #878787;
   --colorAccentMidBump: #777777;
+  --colorAccentMidDent: #878787;
   --colorAccentMin: #1f1f1f;
-  --colorAccentMinDent: #272727;
   --colorAccentMinBump: #171717;
+  --colorAccentMinDent: #272727;
   --colorAccentOver: #fff;
   --colorAccentUnder: #000;
   --colorAnchor: #7f7fef;
@@ -53,8 +53,8 @@ body {
   --colorHighlightBackground: #ef7f0f7f;
   --colorHoverBackground: #efefef12;
   --colorHoverBackgroundSolid: #1f1f1f;
-  --colorInputBackground: var(--colorAccentUnder);
   --colorInputActiveBorder: #0fefbf;
+  --colorInputBackground: var(--colorAccentUnder);
   --colorInputFocusBorder: #0fbfef;
   --colorInputHoverBorder: #0f0fef;
   --colorInputInvalidBorder: #ef0fbf;
@@ -70,14 +70,16 @@ body {
   --fontSizeDent: 11.0004pt;
   --fontSizeFactorBump: 1.0833;
   --fontSizeFactorDent: 0.9167;
+  --fontSizeFactorH0: 2;
   --fontSizeFactorH1: 1.6667;
   --fontSizeFactorH2: 1.3333;
   --fontSizeFactorH3: 1.125;
-  --fontSizeFactorH4: 1.0;
+  --fontSizeFactorH4: 1;
   --fontSizeFactorH5: 0.875;
   --fontSizeFactorH6: 0.775;
   --fontSizeFactorNetMenu: var(--fontSizeFactorH5);
   --fontSizeFactorSmaller: var(--fontSizeFactorH5);
+  --fontSizeH0: 24pt;
   --fontSizeH1: 20.0004pt;
   --fontSizeH2: 15.9996pt;
   --fontSizeH3: 13.5pt;
@@ -97,7 +99,8 @@ body {
   --spacer16: 4em;
 }
 
-a {
+a,
+a:visited {
   color: var(--colorAnchor);
 }
 
@@ -111,8 +114,8 @@ a:focus {
   color: var(--colorAnchorFocus);
 }
 
-a:visited {
-  color: var(--colorAnchor);
+a::before {
+  color: var(--color);
 }
 
 a.out::before {
@@ -121,6 +124,67 @@ a.out::before {
 
 a.up::before {
   content: "^";
+}
+
+h1 {
+  font-size: var(--fontSizeH1);
+}
+
+h2 {
+  font-size: var(--fontSizeH2);
+}
+
+h3 {
+  font-size: var(--fontSizeH3);
+}
+
+h4 {
+  font-size: var(--fontSizeH4);
+}
+
+h5 {
+  font-size: var(--fontSizeH5);
+}
+
+h6 {
+  font-size: var(--fontSizeH6);
+}
+
+.banner {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.banner > :not(:last-child),
+.banner > :only-child {
+  margin-block-end: var(--spacer);
+}
+
+.banner > .subtitle {
+  text-align: start;
+}
+
+.banner > .subtitle::before {
+  content: "—";
+}
+
+.banner > .title {
+  font-size: var(--fontSizeH0);
+  font-weight: bold;
+}
+
+.banner > .title::after {
+  border: 1px solid var(--colorAccentMin);
+  border-block-end-color: var(--colorAccentLow);
+  border-block-end-style: solid;
+  border-block-end-width: 1px;
+  font-size: 7pt;
+  font-style: italic;
+  font-weight: initial;
+  line-height: initial;
+  margin-inline-end: var(--spacer4);
+  margin-inline-start: var(--spacer4);
+  padding-inline-end: var(--spacer);
 }
 
 .eden {
@@ -138,7 +202,7 @@ a.up::before {
   margin-block-start: 0;
 }
 
-.no-padding {
+.no-padding * {
   padding-block-end: 0;
   padding-block-start: 0;
 }
@@ -152,11 +216,16 @@ a.up::before {
     --fontSize: 11pt;
     --fontSizeBump: 11.9163pt;
     --fontSizeDent: 10.0837pt;
+    --fontSizeH0: 22pt;
     --fontSizeH1: 18.3337pt;
     --fontSizeH2: 14.6663pt;
     --fontSizeH3: 12.375pt;
     --fontSizeH5: 9.625pt;
     --fontSizeH6: 8.525pt;
+  }
+
+  .banner > .title::after {
+    content: "MOBILE-READY";
   }
 }
 
@@ -170,14 +239,14 @@ a.up::before {
     --colorAccentLowBump: #a7a7a7;
     --colorAccentLowDent: #b7b7b7;
     --colorAccentMax: #1f1f1f;
-    --colorAccentMaxDent: #272727;
     --colorAccentMaxBump: #171717;
+    --colorAccentMaxDent: #272727;
     --colorAccentMid: #7f7f7f;
-    --colorAccentMidDent: #878787;
     --colorAccentMidBump: #777777;
+    --colorAccentMidDent: #878787;
     --colorAccentMin: #dfdfdf;
-    --colorAccentMinDent: #e7e7e7;
     --colorAccentMinBump: #d7d7d7;
+    --colorAccentMinDent: #e7e7e7;
     --colorAccentOver: #000;
     --colorAccentUnder: #fff;
     --colorAnchor: #0f0fef;
@@ -196,13 +265,16 @@ a.up::before {
 }
 
 @media print {
-  body,
-  .highlight {
-    background-color: unset;
-  }
-
   body {
     background: unset;
+  }
+
+  .banner > .title::after {
+    content: "PRINT-READY";
+  }
+
+  .highlight {
+    background-color: unset;
   }
 }
 

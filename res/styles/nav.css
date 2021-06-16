@@ -4,14 +4,21 @@ article > nav {
 
 .menu.line,
 .menu.root,
-.menu.leaf,
-.menu.root:focus-within > .menu.stem {
+.menu.root:focus-within > .menu.foot,
+.menu.root:focus-within > .menu.stem,
+.menu.leaf {
   display: flex;
+}
+
+.menu.line,
+.menu.foot,
+.menu.leaf {
+  flex-direction: row;
 }
 
 .menu.line {
   color: var(--colorAccentMax);
-  flex-flow: row wrap;
+  flex-wrap: wrap;
 }
 
 .menu.line a {
@@ -20,18 +27,37 @@ article > nav {
 }
 
 .menu.line.page > span:not(:first-child):not(:last-child)::after,
-.menu.line.jump > span::after,
-.menu.line.jump > span:first-child::before {
+.menu.line.jump > span:first-child::before,
+.menu.line.jump > span::after {
   content: "—";
+}
+
+.menu.line.page > span:first-child,
+.menu.root {
+  font-weight: bold;
 }
 
 .menu.line.page > span:first-child {
   font-size: var(--fontSizeSmaller);
-  font-weight: bold;
   margin-inline-end: var(--spacer2);
 }
 
 .menu.root,
+.menu.foot,
+.menu.stem,
+.menu.leaf {
+  flex-wrap: nowrap;
+}
+
+.menu.root,
+.menu.root.doppelganger,
+.menu.foot,
+.menu.stem {
+  display: none;
+}
+
+.menu.root,
+.menu.foot,
 .menu.stem {
   background: var(--colorAccentMin);
   border-block-end-color: var(--colorAccentLow);
@@ -46,13 +72,15 @@ article > nav {
   border-inline-start-color: var(--colorAccentHigh);
   border-inline-start-style: solid;
   border-inline-start-width: 2px;
-  display: none;
-  flex-flow: column nowrap;
+}
+
+.menu.root,
+.menu.stem {
+  flex-direction: column;
 }
 
 .menu.root {
   font-size: var(--fontSize);
-  font-weight: bold;
   padding: var(--spacer2);
   user-select: none;
   position: fixed;
@@ -62,12 +90,38 @@ article > nav {
   -webkit-user-select: none;
 }
 
+.menu.root > .menu.foot {
+  bottom: -2px;
+}
+
+.menu.root > .menu.stem {
+  left: -2px;
+}
+
 .menu.root:hover {
   background-color: var(--colorButtonHoverBackgroundSolid);
 }
 
+.menu.root:focus-within > .menu.foot,
+.menu.root:focus-within > .menu.stem {
+  animation-duration: 0.04s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.menu.root:focus-within > .menu.foot {
+  animation-name: footSlideIn;
+}
+
+.menu.root:focus-within > .menu.stem {
+  animation-name: stemSlideIn;
+}
+
 .menu.root:focus-within + .menu.root.doppelganger {
   display: unset;
+}
+
+.menu.root.doppelganger {
   background-color: var(--colorButtonActiveBackgroundSolid);
   border-block-end-color: var(--colorAccentHigh);
   border-block-start-color: var(--colorAccentLow);
@@ -75,35 +129,41 @@ article > nav {
   border-inline-start-color: var(--colorAccentLow);
 }
 
-.menu.root > .menu.stem {
-  left: -2px;
-  bottom: 100%;
-}
-
-.menu.root.doppelganger {
-  display: none;
-}
-
+.menu.foot,
+.menu.stem,
 .menu.leaf {
+  min-width: max-content;
+}
+
+.menu.foot,
+.menu.stem {
+  position: absolute;
+}
+
+.menu.foot > .menu.leaf {
+  border-inline-end-color: var(--colorAccentLow);
+  border-inline-end-style: solid;
+  border-inline-end-width: 1px;
+}
+
+.menu.stem {
+  z-index: 1;
+}
+
+.menu.stem > .menu.leaf {
   border-block-end-color: var(--colorAccentLow);
   border-block-end-style: solid;
   border-block-end-width: 1px;
-  flex-flow: row nowrap;
 }
 
 .menu.leaf > a {
   flex-grow: 1;
+  margin: unset;
   padding-block-end: var(--spacer2);
   padding-block-start: var(--spacer2);
   padding-inline-end: var(--spacer4);
   padding-inline-start: var(--spacer4);
   word-break: keep-all;
-}
-
-.menu.stem {
-  min-width: max-content;
-  position: absolute;
-  z-index: 1;
 }
 
 @media (max-width: 720px) {
@@ -118,6 +178,7 @@ article > nav {
 
 @media (prefers-color-scheme: light), print {
   .menu.root,
+  .menu.foot,
   .menu.stem {
     border-block-end-color: var(--colorAccentHigh);
     border-block-start-color: var(--colorAccentLow);
@@ -140,5 +201,25 @@ article > nav {
 
   .menu.root {
     display: none;
+  }
+}
+
+@keyframes footSlideIn {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes stemSlideIn {
+  from {
+    bottom: 0;
+  }
+
+  to {
+    bottom: 100%;
   }
 }

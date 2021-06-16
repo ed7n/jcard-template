@@ -18,15 +18,6 @@ textarea {
   padding: var(--spacer);
 }
 
-input,
-meter,
-output,
-progress,
-select,
-textarea {
-  color: var(--colorAccentMax);
-}
-
 button,
 input[type="color"] {
   background-color: var(--colorAccentMin);
@@ -63,10 +54,13 @@ input[type="color"]:active {
   border-inline-start-color: var(--colorAccentLow);
 }
 
-input[type="color"],
+input,
 meter,
-progress {
-  min-height: calc(var(--lineHeight) + (var(--spacer) * 2) + 3px);
+output,
+progress,
+select,
+textarea {
+  color: var(--colorAccentMax);
 }
 
 input:not([type="color"]),
@@ -119,6 +113,12 @@ textarea:active {
 input:not([type="color"]):invalid {
   border-block-start-color: var(--colorInputInvalidBorder);
   border-inline-start-color: var(--colorInputInvalidBorder);
+}
+
+input[type="color"],
+meter,
+progress {
+  min-height: calc(var(--lineHeight) + (var(--spacer) * 2) + 3px);
 }
 
 legend {

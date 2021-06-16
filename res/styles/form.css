@@ -9,9 +9,9 @@ body {
   );
   --lengthInputRigid: calc(var(--spacer) * 52);
   --lengthInputShortRigid: calc(var(--spacer) * 26);
-  --lengthLabelMax: calc(var(--spacer) * 42);
-  --lengthLabelMin: calc(var(--spacer) * 26);
   --lengthInputSwitchDefault: 14px;
+  --lengthLabelMax: calc(var(--spacer) * 42);
+  --lengthLabelMin: var(--lengthInputShortRigid);
 }
 
 form fieldset,
@@ -89,6 +89,16 @@ form .field.column > label {
   padding-inline-start: var(--spacer);
 }
 
+form .field.column > label:not(:empty),
+form .field.column > .label:not(:empty) {
+  border-inline-end-color: var(--colorAccentMin);
+  border-inline-end-style: solid;
+  border-inline-end-width: 1px;
+  border-inline-start-color: var(--colorAccentLow);
+  border-inline-start-style: solid;
+  border-inline-start-width: 2px;
+}
+
 form .field.column > .label {
   align-content: flex-end;
   justify-content: flex-start;
@@ -100,16 +110,6 @@ form .field.column > .label > :first-child {
 
 form .field.column > .label > input {
   max-width: var(--lengthLabelMax);
-}
-
-form .field.column > label:not(:empty),
-form .field.column > .label:not(:empty) {
-  border-inline-end-color: var(--colorAccentMin);
-  border-inline-end-style: solid;
-  border-inline-end-width: 1px;
-  border-inline-start-color: var(--colorAccentLow);
-  border-inline-start-style: solid;
-  border-inline-start-width: 2px;
 }
 
 form .field.column:hover > label:not(:empty),
@@ -140,14 +140,36 @@ form .field.row {
 }
 
 form .field.row > label,
-form .field.switch > label {
-  padding-block-start: var(--spacer);
+form .field.row > .input,
+form .field.row > .label,
+form .field.row > .label > input,
+form .field.row > .label > select,
+form .field.switch > .label,
+form .field.switch > .label > input,
+form .field.switch > .label > select,
+form .group > .field,
+form .input.fluid > button,
+form .input.fluid > input,
+form .input.fluid > meter,
+form .input.fluid > output,
+form .input.fluid > progress,
+form .input.fluid > select,
+form .input.fluid > textarea,
+form .input.fluid > .field,
+form .input.shorter > button,
+form .input.shorter > input,
+form .input.shorter > meter,
+form .input.shorter > output,
+form .input.shorter > progress,
+form .input.shorter > select,
+form .input.shorter > textarea,
+form .input.shorter > .field {
+  flex-grow: 1;
 }
 
 form .field.row > label,
-form .field.row > .label {
-  flex-basis: var(--lengthLabelMin);
-  max-width: var(--lengthLabelMax);
+form .field.switch > label {
+  padding-block-start: var(--spacer);
 }
 
 form .field.row > label,
@@ -156,6 +178,12 @@ form .field.row > .label > *,
 form .field.row.space-between > .input,
 form .field.row.space-between > .input > :not(button) {
   text-align: end;
+}
+
+form .field.row > label,
+form .field.row > .label {
+  flex-basis: var(--lengthLabelMin);
+  max-width: var(--lengthLabelMax);
 }
 
 form .field.row > label,
@@ -196,44 +224,6 @@ form .field.switch:active > .label:not(:empty) {
   border-block-start-color: var(--colorInputActiveBorder);
 }
 
-form .field.row > label,
-form .field.row > .input,
-form .field.row > .label,
-form .field.row > .label > input,
-form .field.row > .label > select,
-form .field.switch > .label,
-form .field.switch > .label > input,
-form .field.switch > .label > select,
-form .group > .field,
-form .input.fluid > button,
-form .input.fluid > input,
-form .input.fluid > meter,
-form .input.fluid > output,
-form .input.fluid > progress,
-form .input.fluid > select,
-form .input.fluid > textarea,
-form .input.fluid > .field,
-form .input.shorter > button,
-form .input.shorter > input,
-form .input.shorter > meter,
-form .input.shorter > output,
-form .input.shorter > progress,
-form .input.shorter > select,
-form .input.shorter > textarea,
-form .input.shorter > .field {
-  flex-grow: 1;
-}
-
-form .field.row > .input > input[type="checkbox"],
-form .field.row > .input > input[type="radio"],
-form .field.switch > input,
-form .field.switch > .input {
-  margin-block-start: calc(
-    var(--spacer) + var(--lineHeight) / 2 - var(--lengthInputSwitchDefault) / 2 +
-      2px
-  );
-}
-
 form .field.row > .input,
 form .input.fluid > button,
 form .input.fluid > input,
@@ -252,6 +242,16 @@ form .input.rigid > select,
 form .input.rigid > textarea,
 form .input.rigid > .field {
   flex-basis: var(--lengthInputRigid);
+}
+
+form .field.row > .input > input[type="checkbox"],
+form .field.row > .input > input[type="radio"],
+form .field.switch > input,
+form .field.switch > .input {
+  margin-block-start: calc(
+    var(--spacer) + var(--lineHeight) / 2 - var(--lengthInputSwitchDefault) / 2 +
+      2px
+  );
 }
 
 form .field.row > .label,
@@ -283,6 +283,10 @@ form .field.row.no-label > .input {
   flex-basis: var(--lengthFieldRowMin);
 }
 
+form .field.row.short.no-label > .input {
+  flex-basis: var(--lengthFieldRowSmallMin);
+}
+
 form .field.row.short-label > label,
 form .field.row.short-label > .label,
 form .field.row.small > label,
@@ -312,10 +316,6 @@ form .input.shorter > select,
 form .input.shorter > textarea,
 form .input.shorter > .field {
   flex-basis: var(--lengthInputShortRigid);
-}
-
-form .field.row.short.no-label > .input {
-  flex-basis: var(--lengthFieldRowSmallMin);
 }
 
 form .field.row.space-between > label,
