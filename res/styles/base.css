@@ -16,25 +16,22 @@
 
 body {
   background-color: var(--colorBackground);
-  color: var(--color);
-  font-family: var(--fontFamily);
-  font-size: var(--fontSize);
   --color: #efefef;
   --colorAccentHigh: #afafaf;
-  --colorAccentHighBump: #a7a7a7;
-  --colorAccentHighDent: #b7b7b7;
+  --colorAccentHighBump: #b7b7b7;
+  --colorAccentHighDent: #a7a7a7;
   --colorAccentLow: #4f4f4f;
-  --colorAccentLowBump: #474747;
-  --colorAccentLowDent: #575757;
+  --colorAccentLowBump: #575757;
+  --colorAccentLowDent: #474747;
   --colorAccentMax: #dfdfdf;
-  --colorAccentMaxBump: #d7d7d7;
-  --colorAccentMaxDent: #e7e7e7;
+  --colorAccentMaxBump: #e7e7e7;
+  --colorAccentMaxDent: #d7d7d7;
   --colorAccentMid: #7f7f7f;
-  --colorAccentMidBump: #777777;
-  --colorAccentMidDent: #878787;
+  --colorAccentMidBump: #878787;
+  --colorAccentMidDent: #777777;
   --colorAccentMin: #1f1f1f;
-  --colorAccentMinBump: #171717;
-  --colorAccentMinDent: #272727;
+  --colorAccentMinBump: #272727;
+  --colorAccentMinDent: #171717;
   --colorAccentOver: #fff;
   --colorAccentUnder: #000;
   --colorAnchor: #7f7fef;
@@ -114,8 +111,11 @@ a:focus {
   color: var(--colorAnchorFocus);
 }
 
-a::before {
+a::before,
+body {
   color: var(--color);
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize);
 }
 
 a.out::before {
@@ -233,20 +233,20 @@ h6 {
   body {
     --color: #0f0f0f;
     --colorAccentHigh: #4f4f4f;
-    --colorAccentHighBump: #474747;
-    --colorAccentHighDent: #575757;
+    --colorAccentHighBump: #575757;
+    --colorAccentHighDent: #474747;
     --colorAccentLow: #afafaf;
-    --colorAccentLowBump: #a7a7a7;
-    --colorAccentLowDent: #b7b7b7;
+    --colorAccentLowBump: #b7b7b7;
+    --colorAccentLowDent: #a7a7a7;
     --colorAccentMax: #1f1f1f;
-    --colorAccentMaxBump: #171717;
-    --colorAccentMaxDent: #272727;
+    --colorAccentMaxBump: #272727;
+    --colorAccentMaxDent: #171717;
     --colorAccentMid: #7f7f7f;
-    --colorAccentMidBump: #777777;
-    --colorAccentMidDent: #878787;
+    --colorAccentMidBump: #878787;
+    --colorAccentMidDent: #777777;
     --colorAccentMin: #dfdfdf;
-    --colorAccentMinBump: #d7d7d7;
-    --colorAccentMinDent: #e7e7e7;
+    --colorAccentMinBump: #e7e7e7;
+    --colorAccentMinDent: #d7d7d7;
     --colorAccentOver: #000;
     --colorAccentUnder: #fff;
     --colorAnchor: #0f0fef;

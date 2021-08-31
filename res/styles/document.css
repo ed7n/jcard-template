@@ -8,22 +8,23 @@ body {
   margin-inline-start: auto;
   max-width: 720px;
   min-width: auto;
+  overflow-y: scroll;
   --lineHeight: calc(var(--spacer) * 6.6667);
 }
 
-article {
+main {
   margin-block-end: 4%;
   margin-block-start: var(--spacer4);
   padding-inline-end: 4%;
   padding-inline-start: 4%;
 }
 
-article a {
+main a {
   margin-inline-end: 1px;
   margin-inline-start: 1px;
 }
 
-article blockquote {
+main blockquote {
   border-inline-start-color: var(--colorAccentMin);
   border-inline-start-style: solid;
   border-inline-start-width: 2px;
@@ -31,45 +32,39 @@ article blockquote {
   padding-inline-start: var(--spacer4);
 }
 
-article code,
-article kbd > kbd,
-article kbd > samp,
-article li.technical > :not(ol):first-child,
-article li.technical > :not(ul):first-child,
-article pre,
-article ul.technical > li > :not(ol):first-child,
-article ul.technical > li > :not(ul):first-child,
-article > section p::before {
+main code,
+main kbd > kbd,
+main kbd > samp,
+main li.technical > :not(ol):not(ul):first-child,
+main pre,
+main ul.technical > li > :not(ol):not(ul):first-child,
+main > section p::before {
   font-size: var(--fontSizeSmaller);
 }
 
-article code,
-article kbd > kbd,
-article kbd > samp,
-article li.technical > :not(ol):first-child,
-article li.technical > :not(ul):first-child,
-article pre,
-article ul.technical > li > :not(ol):first-child,
-article ul.technical > li > :not(ul):first-child {
+main code,
+main kbd > kbd,
+main kbd > samp,
+main li.technical > :not(ol):not(ul):first-child,
+main pre,
+main ul.technical > li > :not(ol):not(ul):first-child {
   background-color: var(--colorAccentMin);
   font-family: var(--fontFamilyMonospace);
   padding: var(--spacer);
 }
 
-article code,
-article li.technical > :not(ol):first-child,
-article li.technical > :not(ul):first-child,
-article pre,
-article ul.technical > li > :not(ol):first-child,
-article ul.technical > li > :not(ul):first-child {
+main code,
+main li.technical > :not(ol):not(ul):first-child,
+main pre,
+main ul.technical > li > :not(ol):not(ul):first-child {
   color: var(--colorTechnical);
 }
 
-article del {
+main del {
   color: var(--colorAccentMid);
 }
 
-article div.hr {
+main div.hr {
   border: 0;
   border-block-end-color: var(--colorAccentLow);
   border-block-end-style: solid;
@@ -81,73 +76,67 @@ article div.hr {
   margin-block-start: var(--spacer);
 }
 
-article img {
+main img {
   margin: auto;
   max-width: 100%;
 }
 
-article kbd > kbd,
-article kbd > samp {
+main kbd > kbd,
+main kbd > samp {
   border-radius: 4px;
   color: var(--colorAccentMax);
 }
 
-article li {
+main li {
   margin-inline-start: var(--spacer4);
 }
 
-article li > :not(ul):first-child + :not(ul)::before {
+main li > :not(ol):not(ul):first-child + :not(ol):not(ul)::before {
   content: " — ";
 }
 
-article li.anchor,
-article li.headered,
-article li.technical,
-article ul.anchor,
-article ul.headered,
-article ul.technical {
+main li.anchor,
+main li.headered,
+main li.technical,
+main ul.anchor,
+main ul.headered,
+main ul.technical {
   list-style-type: none;
 }
 
-article li.anchor > :not(ol):first-child > a,
-article li.anchor > :not(ul):first-child > a,
-article li.headered > :not(ol):first-child,
-article li.headered > :not(ul):first-child,
-article ul.anchor > li > :not(ol):first-child > a,
-article ul.anchor > li > :not(ul):first-child > a,
-article ul.headered > li > :not(ol):first-child,
-article ul.headered > li > :not(ul):first-child {
+main li.anchor > :not(ol):not(ul):first-child > a,
+main li.headered > :not(ol):not(ul):first-child,
+main ul.anchor > li > :not(ol):not(ul):first-child > a,
+main ul.headered > li > :not(ol):not(ul):first-child {
   font-weight: bold;
 }
 
-article li.anchor > :not(ol):first-child > a::before,
-article li.anchor > :not(ul):first-child > a::before,
-article ul.anchor > li > :not(ol):first-child > a::before,
-article ul.anchor > li > :not(ul):first-child > a::before {
+main li.anchor > :not(ol):not(ul):first-child > a::before,
+main ul.anchor > li > :not(ol):not(ul):first-child > a::before {
   font-weight: initial;
 }
 
-article li.anchor::before,
-article ul.anchor > li::before {
+main li.anchor::before,
+main ul.anchor > li::before {
   display: none;
 }
 
-article pre {
+main pre {
   line-height: initial;
   overflow-x: auto;
 }
 
-article ul {
+main ul {
   list-style: "‒ " outside;
 }
 
-article ul ul.anchor,
-article ul ul.headered,
-article ul ul.technical {
+main ul ul.anchor,
+main ul ul.headered,
+main ul ul.technical {
   list-style-type: "⌎› ";
 }
 
-article .smaller {
+main .smaller {
   line-height: var(--lineHeight);
 }
 
@@ -188,6 +177,8 @@ article > section h3 {
 }
 
 article > section ol ol,
+article > section ol ul,
+article > section ul ol,
 article > section ul ul {
   margin-block-start: var(--spacer2);
   margin-inline-start: var(--spacer2);
@@ -220,9 +211,5 @@ article > section > header > .subtitle {
 @keyframes targetHighlightFadeOut {
   from {
     background-color: var(--colorHoverBackground);
-  }
-
-  to {
-    background-color: var(--colorBackground);
   }
 }

@@ -274,6 +274,7 @@ form .field.row > .label > select,
 form .field.row.space-between > label,
 form .field.row.space-between > .input,
 form .field.row.space-between > .label,
+form .field.row.space-between.small > .input,
 form .field.switch > .label > input,
 form .field.switch > .label > select {
   flex-basis: 0;
@@ -337,6 +338,11 @@ form .field.row.space-between > .input {
 
 form .field.row.space-between > .input > input {
   margin-block-start: 0;
+}
+
+form .field.row.space-between > .input.shorter,
+form .field.row.space-between.small > .input {
+  min-width: var(--lengthInputShortRigid);
 }
 
 form .field.switch,
