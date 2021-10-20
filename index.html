@@ -3,18 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <link rel="stylesheet" href="res/styles/base.css" />
-    <link rel="stylesheet" href="res/styles/document.css" />
-    <link rel="stylesheet" href="res/styles/form.css" />
-    <link rel="stylesheet" href="res/styles/input.css" />
-    <link rel="stylesheet" href="res/styles/header-footer.css" />
-    <link rel="stylesheet" href="res/styles/nav.css" />
+    <link rel="stylesheet" href="/res/styles/base.css" />
+    <link rel="stylesheet" href="/res/styles/document.css" />
+    <link rel="stylesheet" href="/res/styles/form.css" />
+    <link rel="stylesheet" href="/res/styles/input.css" />
+    <link rel="stylesheet" href="/res/styles/header-footer.css" />
+    <link rel="stylesheet" href="/res/styles/nav.css" />
     <link rel="stylesheet" href="res/jcard.css" />
     <script defer src="res/jcard.js"></script>
     <title>J-Card Template</title>
   </head>
   <body>
-    <div class="css-curtain" style="background-color: #0f0f0f; color: #efefef; display: flex; flex-flow: column; font-weight: bold; letter-spacing: 0.125em; justify-content: center; text-align: center; z-index: 9; position: fixed; top: 0; left: 0; right: 0; bottom: 0">
+    <div
+      class="css-curtain"
+      style="
+        background-color: #0f0f0f;
+        color: #efefef;
+        display: flex;
+        flex-flow: column;
+        font-weight: bold;
+        letter-spacing: 0.125em;
+        justify-content: center;
+        text-align: center;
+        z-index: 9;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      "
+    >
       <span>"J-CARD TEMPLATE"</span>
     </div>
     <main>
@@ -60,7 +78,11 @@
                 </div>
               </div>
               <div class="template-front">
-                <img class="template-cover-image" src="res/cover.png" alt="Cover Image" />
+                <img
+                  class="template-cover-image"
+                  src="res/cover.png"
+                  alt="Cover Image"
+                />
                 <div class="template-front-group">
                   <div class="template-front-title-group">
                     <div class="template-front-title-upper"></div>
@@ -107,7 +129,11 @@
                 <div class="field row short-label">
                   <label for="font-family">Font Family</label>
                   <div class="input fluid">
-                    <input id="font-family" type="text" placeholder="Alte Haas Grotesk" />
+                    <input
+                      id="font-family"
+                      type="text"
+                      placeholder="Alte Haas Grotesk"
+                    />
                   </div>
                 </div>
                 <div class="field row short-label">
@@ -175,13 +201,23 @@
                   <div class="field row short">
                     <label for="title-upper-size">Upper Size</label>
                     <div class="input short">
-                      <input id="title-upper-size" type="number" min="0" step="0.1" />
+                      <input
+                        id="title-upper-size"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                      />
                     </div>
                   </div>
                   <div class="field row short">
                     <label for="title-lower-size">Lower Size</label>
                     <div class="input short">
-                      <input id="title-lower-size" type="number" min="0" step="0.1" />
+                      <input
+                        id="title-lower-size"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                      />
                     </div>
                   </div>
                 </div>
@@ -242,7 +278,12 @@
                   <div class="field row small">
                     <label for="footer-size">Size</label>
                     <div class="input short">
-                      <input id="footer-size" type="number" min="0" step="0.1" />
+                      <input
+                        id="footer-size"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                      />
                     </div>
                   </div>
                   <div class="field row short-label">
@@ -301,18 +342,36 @@
                 <div class="columns-column-2">
                   <div class="field row short-label">
                     <div class="label">
-                      <input id="side-a-label" class="card-text" type="text" placeholder="Side A" />
+                      <input
+                        id="side-a-label"
+                        class="card-text"
+                        type="text"
+                        placeholder="Side A"
+                      />
                     </div>
                     <div class="input fluid">
-                      <textarea id="side-a-contents" class="card-text" rows="5"></textarea>
+                      <textarea
+                        id="side-a-contents"
+                        class="card-text"
+                        rows="5"
+                      ></textarea>
                     </div>
                   </div>
                   <div class="field row short-label">
                     <div class="label">
-                      <input id="side-b-label" class="field-label-editable card-text" type="text" placeholder="Side B" />
+                      <input
+                        id="side-b-label"
+                        class="field-label-editable card-text"
+                        type="text"
+                        placeholder="Side B"
+                      />
                     </div>
                     <div class="input fluid">
-                      <textarea id="side-b-contents" class="card-text" rows="5"></textarea>
+                      <textarea
+                        id="side-b-contents"
+                        class="card-text"
+                        rows="5"
+                      ></textarea>
                     </div>
                   </div>
                 </div>
@@ -332,7 +391,12 @@
                   <div class="field row small">
                     <label for="contents-separator">Separator</label>
                     <div class="input short">
-                      <input id="contents-separator" class="field-input card-text" type="text" placeholder="&amp;nbsp;• " />
+                      <input
+                        id="contents-separator"
+                        class="field-input card-text"
+                        type="text"
+                        placeholder="&amp;nbsp;• "
+                      />
                     </div>
                   </div>
                 </div>
@@ -380,7 +444,10 @@
             <div class="hr"></div>
           </header>
           <form>
-            <p>Provide the JSON file containing J-card data. A saved J-card usually has the <code>.jcard.json</code> filename extension.</p>
+            <p>
+              Provide the JSON file containing J-card data. A saved J-card
+              usually has the <code>.jcard.json</code> filename extension.
+            </p>
             <div class="field column">
               <label for="load-file">JSON File</label>
               <div class="input fluid">
@@ -400,8 +467,17 @@
             <div class="hr"></div>
           </header>
           <form>
-            <p>This saves the J-card data into JSON text as a file download, whose file name follows either the upper or lower title. No data will be sent to any server.</p>
-            <p><em>Due to platform limitations, cover images must be saved and loaded manually.</em></p>
+            <p>
+              This saves the J-card data into JSON text as a file download,
+              whose file name follows either the upper or lower title. No data
+              will be sent to any server.
+            </p>
+            <p>
+              <em
+                >Due to platform limitations, cover images must be saved and
+                loaded manually.</em
+              >
+            </p>
             <div class="field row no-label">
               <div class="input shorter">
                 <button id="button-save" type="button">Save</button>
@@ -414,10 +490,38 @@
             <h2>Help</h2>
             <div class="hr"></div>
           </header>
-          <p>Edit the [<a href="#options">form</a>] to update the [<a href="#preview">preview</a>], then print this page when finished. It is recommended to double-check the printout in a print preview.</p>
-          <p>For more information, see the [<a class="out" target="_blank" href="/net/jcard-template/about">About page</a>].</p>
-          <p>Changes made to this application are logged to [<a class="out" rel="noopener" target="_blank" href="https://github.com/ed7n/jcard-template/raw/master/CHANGES">CHANGES</a>].</p>
-          <p>This work was based on the [<a class="out" target="_blank" href="https://unixispower.gitlab.io/jcard-template">original version</a>] by Blaine Murphy.</p>
+          <p>
+            Edit the [<a href="#options">form</a>] to update the [<a
+              href="#preview"
+              >preview</a
+            >], then print this page when finished. It is recommended to
+            double-check the printout in a print preview.
+          </p>
+          <p>
+            For more information, see the [<a
+              class="out"
+              target="_blank"
+              href="/net/jcard-template/about"
+              >About page</a
+            >].
+          </p>
+          <p>
+            Changes made to this application are logged to [<a
+              class="out"
+              rel="noopener"
+              target="_blank"
+              href="https://github.com/ed7n/jcard-template/raw/master/CHANGES"
+              >CHANGES</a
+            >].
+          </p>
+          <p>
+            This work was based on the [<a
+              class="out"
+              target="_blank"
+              href="https://unixispower.gitlab.io/jcard-template"
+              >original version</a
+            >] by Blaine Murphy.
+          </p>
         </section>
       </article>
     </main>
@@ -465,7 +569,9 @@
             <a href="#top">Top</a>
           </div>
           <div class="menu leaf" role="menuitem">
-            <a tabindex="0" title="Forward" onclick="window.history.forward()">></a>
+            <a tabindex="0" title="Forward" onclick="window.history.forward()"
+              >></a
+            >
           </div>
         </div>
       </div>
