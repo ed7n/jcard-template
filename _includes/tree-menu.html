@@ -1,0 +1,30 @@
+{% unless definedCssNav
+%}<link rel="stylesheet" href="https://{{ siteUrl }}/res/styles/nav.css" />
+{% assign definedCssNav = true
+%}{% endunless
+%}<nav>
+  <div class="menu root" tabindex="0">
+    <label>≡ Menu</label>
+    <div class="menu stem" role="menu">
+{% for entry in page.menu
+%}      <div class="menu leaf" role="menuitem">
+        <a href="{{ entry.href }}">{{ entry.label }}</a>
+      </div>
+{% endfor
+%}    </div>
+    <div class="menu foot" role="menu">
+      <div class="menu leaf" role="menuitem">
+        <a tabindex="0" title="Back" onclick="window.history.back()">&lt;</a>
+      </div>
+      <div class="menu leaf" role="menuitem">
+        <a href="#top">Top</a>
+      </div>
+      <div class="menu leaf" role="menuitem">
+        <a tabindex="0" title="Forward" onclick="window.history.forward()">&gt;</a>
+      </div>
+    </div>
+  </div>
+  <div class="menu root doppelganger" tabindex="0">
+    <label>≡ Menu</label>
+  </div>
+</nav>

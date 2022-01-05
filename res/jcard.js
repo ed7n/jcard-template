@@ -1,16 +1,30 @@
-/*
- * Interactive J-Card Template Logic.
- */
+// Interactive J-Card Template Logic.
 const JCard = (() => {
-  // Data file version.
-  const VERSION = "0";
+  const NUL_STRING = "";
+  const SPACE = " ";
+
   // Event: "change".
-  const CHANGE = Object.freeze(new Event("change"));
+  const EVENT_CHANGE = Object.freeze(new Event("change"));
   // Event: "input".
-  const INPUT = Object.freeze(new Event("input"));
+  const EVENT_INPUT = Object.freeze(new Event("input"));
+  // Default filename extension.
+  const FILE_EXT = ".jcard.json";
+  // Default filename.
+  const FILE_NAME = "Unnamed J-Card";
+  // Data file version.
+  const FILE_VERSION = "0";
+  // JSON MIME type.
+  const MIME_JSON = "application/json";
   // Application root element.
-  const root = document.getElementById("jcard");
-  // Inputs.
+  const root = document.querySelector("article");
+  // Application actions.
+  const actions = Object.freeze({
+    load: new Action("button-load"),
+    save: new Action("button-save"),
+  });
+  // Output clones.
+  const clones = [];
+  // Application inputs.
   const inputs = Object.freeze({
     backContentsAlignment: new Input("back-contents-alignment", "left"),
     backSize: new Input("back-size", 8),
@@ -35,6 +49,7 @@ const JCard = (() => {
     noteLower: new Input("note-lower"),
     noteSize: new Input("note-size", 10),
     noteUpper: new Input("note-upper"),
+    outline: new Input("outline", false, false),
     print2: new Input("print-2", false),
     shortBack: new Input("short-back", false),
     sideAContents: new Input("side-a-contents"),
@@ -49,29 +64,32 @@ const JCard = (() => {
     titleUpper: new Input("title-upper"),
     titleUpperSize: new Input("title-upper-size", 12),
   });
-  // Actions.
-  const actions = Object.freeze({
-    load: new Action("button-load"),
-    save: new Action("button-save"),
+  // Application messages.
+  const messages = Object.freeze({
+    discard:
+      "This will discard any unsaved changes made to the current J-card.",
+    empty: "File is empty.",
+    mime: "Wrong file MIME type:",
+    nothing: "Nothing to load.",
   });
-  // JSON MIME type.
-  const mimeJson = new RegExp(/^(application\/json|text\/)/);
-  // Line ending.
-  const lineEnd = new RegExp(/\s*(\n|\r\n|\r)\s*/g);
+  // RegEx: End of line.
+  const regexEol = new RegExp(/\s*(\n|\r\n|\r)\s*/g);
+  // RegEx: JSON MIME type.
+  const regexJson = new RegExp(/^(application\/json|text\/)/);
   // Data file download anchor.
   const anchor = document.createElement("a");
   // Text file reader.
   const reader = new FileReader();
-  // Is data modified?
+  // Is the data modified?
   let modified;
 
   // Represents an input.
-  function Input(id, value = "", save = true) {
+  function Input(id, value = NUL_STRING, save = true) {
     // Element.
     this.element = root.querySelector("#" + id);
     // Default value.
     this.value = value;
-    // Include on save?
+    // Save?
     this.save = save;
     return Object.freeze(this);
   }
@@ -83,35 +101,23 @@ const JCard = (() => {
     return Object.freeze(this);
   }
 
-  /*
-   * Initializes elements.
-   */
+  // Initializes elements.
   function initialize(fields = {}) {
-    let previewTemplate = root.querySelector(".jcard-preview .template"),
-      previewOutputs = mapOutputs(previewTemplate),
-      dupeContainer = root.querySelector(".jcard-duplicate"),
-      dupeTemplate = previewTemplate.cloneNode(true),
-      dupeOutputs = mapOutputs(dupeTemplate);
-    dupeContainer.appendChild(dupeTemplate);
-    addToggleListeners();
-    addJCardListeners(previewOutputs);
-    addJCardListeners(dupeOutputs);
+    let outputs = mapOutputs(qs(root, ".jcard-output > .template"));
+    addOutputListeners(outputs);
     addSerializationListeners();
-    addControlListeners();
+    addFormListeners();
+    addWindowListeners();
     reader.onload = readData;
-    window.onbeforeunload = confirmExit;
     populateInputs(fields);
     update();
     modified = false;
   }
 
-  /*
-   * Returns a map of output elements from the given template element.
-   */
+  // Returns a map of output elements from the given template element.
   function mapOutputs(template) {
     let t = template;
     return {
-      root: t,
       back: qs(t, ".template-back"),
       boundaries: qs(t, ".template-boundaries"),
       contents: qs(t, ".template-contents"),
@@ -124,6 +130,7 @@ const JCard = (() => {
       noteGroup: qs(t, ".template-note-group"),
       noteLower: qs(t, ".template-note-lower"),
       noteUpper: qs(t, ".template-note-upper"),
+      root: t,
       sideAContents: qs(t, ".template-side-a-contents"),
       sideALabel: qs(t, ".template-side-a-label"),
       sideBContents: qs(t, ".template-side-b-contents"),
@@ -135,37 +142,28 @@ const JCard = (() => {
     };
   }
 
-  /*
-   * Shorthand for `document.querySelector(query)`.
-   */
+  // Shorthand for `document.querySelector(query)`.
   function qs(document, query) {
     return document.querySelector(query);
   }
 
-  /*
-   * Adds toggle listeners to inputs that toggle option classes.
-   */
-  function addToggleListeners() {
-    addToggleListener(inputs.print2.element, root, "print-2");
-  }
-
-  /*
-   * Adds style listeners to inputs that update controls, including themselves.
-   */
-  function addControlListeners() {
+  // Adds listeners to inputs that update form fields, including themselves.
+  function addFormListeners() {
     for (element of root.querySelectorAll(".card-text"))
-      addStyleListener(inputs.fontFamily.element, element, "fontFamily");
+      addStyleListener(inputs.fontFamily, element, "font-family");
   }
 
-  /*
-   * Adds listeners to inputs that update j-card outputs.
-   */
-  function addJCardListeners(outputs) {
-    let i = {},
+  // Adds listeners to the application window.
+  function addWindowListeners() {
+    addPrintListener();
+    window.onbeforeunload = confirmExit;
+  }
+
+  // Adds listeners to inputs that update the J-card.
+  function addOutputListeners(outputs) {
+    let i = inputs,
       o = outputs;
-    for (key in inputs) i[key] = inputs[key].element;
     addImageListener(i.coverImage, o.coverImage);
-    addMarginListener(i.frontContentsVisible, o.frontTitleGroup);
     addSideListener(
       i.sideALabel,
       i.sideAContents,
@@ -180,26 +178,26 @@ const JCard = (() => {
       i.shortBack,
       o.sideBContents
     );
-    addSizeListener(i.backSize, o.back);
-    addSizeListener(i.footerSize, o.footer);
-    addSizeListener(i.frontSize, o.contents);
-    addSizeListener(i.noteSize, o.noteGroup);
-    addSizeListener(i.titleLowerSize, o.frontTitleLower);
-    addSizeListener(i.titleLowerSize, o.spineTitleLower);
-    addSizeListener(i.titleUpperSize, o.frontTitleUpper);
-    addSizeListener(i.titleUpperSize, o.spineTitleUpper);
-    addStyleListener(i.backContentsAlignment, o.sideAContents, "textAlign");
-    addStyleListener(i.backContentsAlignment, o.sideALabel, "textAlign");
-    addStyleListener(i.backContentsAlignment, o.sideBContents, "textAlign");
-    addStyleListener(i.backContentsAlignment, o.sideBLabel, "textAlign");
-    addStyleListener(i.cardColor, o.boundaries, "backgroundColor");
-    addStyleListener(i.fontFamily, o.root, "fontFamily");
-    addStyleListener(i.footerAlignment, o.footer, "textAlign");
-    addStyleListener(i.frontContentsAlignment, o.contents, "textAlign");
-    addStyleListener(i.frontTitleAlignment, o.frontTitleGroup, "textAlign");
-    addStyleListener(i.noteAlignment, o.noteGroup, "textAlign");
-    addStyleListener(i.spineTitleAlignment, o.spineTitleGroup, "textAlign");
+    addStyleListener(i.backContentsAlignment, o.sideAContents, "text-align");
+    addStyleListener(i.backContentsAlignment, o.sideALabel, "text-align");
+    addStyleListener(i.backContentsAlignment, o.sideBContents, "text-align");
+    addStyleListener(i.backContentsAlignment, o.sideBLabel, "text-align");
+    addStyleListener(i.backSize, o.back, "font-size", "pt");
+    addStyleListener(i.cardColor, o.boundaries, "background-color");
+    addStyleListener(i.fontFamily, o.root, "font-family");
+    addStyleListener(i.footerAlignment, o.footer, "text-align");
+    addStyleListener(i.footerSize, o.footer, "font-size", "pt");
+    addStyleListener(i.frontContentsAlignment, o.contents, "text-align");
+    addStyleListener(i.frontSize, o.contents, "font-size", "pt");
+    addStyleListener(i.frontTitleAlignment, o.frontTitleGroup, "text-align");
+    addStyleListener(i.noteAlignment, o.noteGroup, "text-align");
+    addStyleListener(i.noteSize, o.noteGroup, "font-size", "pt");
+    addStyleListener(i.spineTitleAlignment, o.spineTitleGroup, "text-align");
     addStyleListener(i.textColor, o.root, "color");
+    addStyleListener(i.titleLowerSize, o.frontTitleLower, "font-size", "pt");
+    addStyleListener(i.titleLowerSize, o.spineTitleLower, "font-size", "pt");
+    addStyleListener(i.titleUpperSize, o.frontTitleUpper, "font-size", "pt");
+    addStyleListener(i.titleUpperSize, o.spineTitleUpper, "font-size", "pt");
     addTextListener(i.footer, o.footer);
     addTextListener(i.noteLower, o.noteLower);
     addTextListener(i.noteUpper, o.noteUpper);
@@ -213,8 +211,16 @@ const JCard = (() => {
     addToggleListener(i.fillCover, o.coverImage, "fill");
     addToggleListener(i.forceCaps, o.root, "force-caps");
     addToggleListener(i.frontContentsVisible, o.contents, "hidden", true);
+    addToggleListener(
+      i.frontContentsVisible,
+      o.frontTitleGroup,
+      "center",
+      true
+    );
     addToggleListener(i.frontTitleVisible, o.frontTitleGroup, "hidden", true);
     addToggleListener(i.italicize, o.root, "italicize");
+    addToggleListener(i.outline, o.boundaries, "outline");
+    addToggleListener(i.print2, o.root, "print-2");
     addToggleListener(i.shortBack, o.root, "short-back");
     addToggleListener(i.spineTitleVisible, o.spineTitleGroup, "hidden", true);
     addTracksListener(
@@ -225,9 +231,7 @@ const JCard = (() => {
     );
   }
 
-  /*
-   * Adds listeners to actions that invoke serialization tasks.
-   */
+  // Adds listeners to actions that invoke serialization tasks.
   function addSerializationListeners() {
     addSaveListener(actions.save.element);
     addLoadListener(actions.load.element);
@@ -238,22 +242,13 @@ const JCard = (() => {
    * change.
    */
   function addImageListener(input, output) {
-    input.addEventListener("change", () => {
-      let file = input.files[0];
+    input.element.addEventListener("change", () => {
+      let file = input.element.files[0];
       if (file) {
         URL.revokeObjectURL(output.getAttribute("src"));
         output.setAttribute("src", URL.createObjectURL(file));
+        if (input.save) modified = true;
       }
-    });
-  }
-
-  /*
-   * Unsets the given output's top margin when the given input is checked.
-   */
-  function addMarginListener(input, output) {
-    input.addEventListener("change", () => {
-      modified = true;
-      output.style["margin-top"] = input.checked ? "unset" : "0.4in";
     });
   }
 
@@ -263,47 +258,36 @@ const JCard = (() => {
    */
   function addSideListener(label, contents, separator, shortBack, output) {
     let callback = () => {
-      modified = true;
-      if (!contents.value) return (output.innerHTML = "");
+      if (!contents.element.value) return (output.innerHTML = NUL_STRING);
       output.innerHTML =
-        (shortBack.checked && label.value
-          ? "<b>" + label.value + ":&nbsp;&nbsp;</b>"
-          : "") + replaceLineEnds(contents.value, separator.value);
+        (shortBack.element.checked && label.element.value
+          ? "<b>" + label.element.value + ":&nbsp;&nbsp;</b>"
+          : NUL_STRING) +
+        replaceLineEnds(contents.element.value, separator.element.value);
     };
-    label.addEventListener("input", callback);
-    contents.addEventListener("input", callback);
-    separator.addEventListener("input", callback);
-    shortBack.addEventListener("input", callback);
+    for (let input of [label, contents, separator, shortBack])
+      input.element.addEventListener("input", () => {
+        callback();
+        if (input.save) modified = true;
+      });
   }
 
   /*
-   * Sets the given output's font size to the given input's value on change.
+   * Sets the given output's style property to the given input's value and
+   * suffix on change.
    */
-  function addSizeListener(input, output) {
-    input.addEventListener("input", () => {
-      modified = true;
-      output.style["font-size"] = input.value + "pt";
+  function addStyleListener(input, output, property, suffix = NUL_STRING) {
+    input.element.addEventListener("input", () => {
+      if (input.save) modified = true;
+      output.style[property] = input.element.value + suffix;
     });
   }
 
-  /*
-   * Sets the given output's style property to the given input's value on
-   * change.
-   */
-  function addStyleListener(input, output, property) {
-    input.addEventListener("input", () => {
-      modified = true;
-      output.style[property] = input.value;
-    });
-  }
-
-  /*
-   * Copies the given input's value to the given output's `innerHTML` on change.
-   */
+  // Copies the given input's value to the given output's `innerHTML` on change.
   function addTextListener(input, output) {
-    input.addEventListener("input", () => {
-      modified = true;
-      output.innerHTML = input.value.replace(lineEnd, "<br />");
+    input.element.addEventListener("input", () => {
+      if (input.save) modified = true;
+      output.innerHTML = input.element.value.replace(regexEol, "<br />");
     });
   }
 
@@ -312,9 +296,9 @@ const JCard = (() => {
    * (un)checked.
    */
   function addToggleListener(input, output, toggleClass, invert = false) {
-    input.addEventListener("change", () => {
-      modified = true;
-      if (input.checked ^ invert) output.classList.add(toggleClass);
+    input.element.addEventListener("change", () => {
+      if (input.save) modified = true;
+      if (input.element.checked ^ invert) output.classList.add(toggleClass);
       else output.classList.remove(toggleClass);
     });
   }
@@ -325,102 +309,97 @@ const JCard = (() => {
    */
   function addTracksListener(aContents, bContents, separator, output) {
     let callback = () => {
-      modified = true;
       output.innerHTML = replaceLineEnds(
         joinStrings(
           [aContents, bContents].map((input) => {
-            return input.value;
+            return input.element.value;
           })
         ),
-        separator.value
+        separator.element.value
       );
     };
-    aContents.addEventListener("input", callback);
-    bContents.addEventListener("input", callback);
-    separator.addEventListener("input", callback);
+    for (let input of [aContents, bContents, separator])
+      input.element.addEventListener("input", () => {
+        callback();
+        if (input.save) modified = true;
+      });
   }
 
-  /*
-   * Loads the load file when the given element is clicked.
-   */
+  // Loads the load file when the given element is clicked.
   function addLoadListener(element) {
     element.addEventListener("click", () => {
       let files = inputs.loadFile.element.files;
-      if (!files.length) return alert("Nothing to load.");
+      if (!files.length) return alert(messages.nothing);
       let file = files[0];
-      if (!file.size) return alert("File is empty.");
-      if (!mimeJson.test(file.type))
-        return alert("Wrong file MIME type:\n\n" + file.type);
-      if (
-        modified &&
-        !confirm(
-          "This will discard any unsaved changes made to the current J-card."
-        )
-      )
-        return;
-      reader.readAsText(files[0]);
+      if (!file.size) return alert(messages.empty);
+      if (!regexJson.test(file.type))
+        return alert(messages.mime + "\n\n" + file.type);
+      if (!modified || confirm(messages.discard)) reader.readAsText(files[0]);
     });
   }
 
-  /*
-   * Saves the inputs when the given element is clicked.
-   */
+  // Clones the given root before printing and undoes after.
+  function addPrintListener() {
+    let output = qs(root, ".jcard-output");
+    window.onbeforeprint = () => {
+      if (inputs.print2.element.checked)
+        clones.push(output.cloneNode((deep = true)));
+      for (let clone of clones) output.parentElement.append(clone);
+    };
+    window.onafterprint = () => {
+      for (let clone of clones) {
+        clone.remove();
+        clones.shift();
+      }
+    };
+  }
+
+  // Saves the inputs when the given element is clicked.
   function addSaveListener(element) {
     element.addEventListener("click", () => {
-      let data = { version: VERSION };
-      for (key in inputs) {
-        let input = inputs[key];
+      let data = { version: FILE_VERSION };
+      for (let [key, input] of Object.entries(inputs)) {
         if (!input.save) continue;
         let element = input.element;
         data[key] = element[element.type === "checkbox" ? "checked" : "value"];
       }
       let file = new File(
         [JSON.stringify(data)],
-        data.titleUpper || data.titleLower || "Unnamed J-Card",
-        { type: "application/json" }
+        data.titleUpper || data.titleLower || FILE_NAME,
+        { type: MIME_JSON }
       );
       if (anchor.href) URL.revokeObjectURL(anchor.href);
       anchor.href = URL.createObjectURL(file);
-      anchor.download = file.name + ".jcard.json";
+      anchor.download = file.name + FILE_EXT;
       anchor.click();
     });
   }
 
-  /*
-   * Parses the read data into the inputs then updates them.
-   */
+  // Parses the read data into the inputs then updates them.
   function readData() {
     populateInputs(JSON.parse(reader.result));
     update();
     modified = false;
   }
 
-  /*
-   * Prompts to exit when there may be unsaved changes.
-   */
+  // Prompts to exit when there may be unsaved changes.
   function confirmExit(event) {
     if (!modified) return;
     event.preventDefault();
     event.returnValue = "Blink";
   }
 
-  /*
-   * Joins the given string array with a line feed (\n).
-   */
+  // Joins the given string array with a line feed (\n).
   function joinStrings(array) {
     return array.join("\n");
   }
 
-  /*
-   * Replaces line endings in the given string to the given separator.
-   */
+  // Replaces line endings in the given string to the given separator.
   function replaceLineEnds(string, separator) {
-    return string.replace(lineEnd, separator);
+    return string.replace(regexEol, separator);
   }
 
-  /*
-   * Populates the given input elements with the given field values.
-   */
+  // Populates the given input elements with the given field values.
   function populateInputs(fields) {
     for (key in inputs) {
       let input = inputs[key];
@@ -431,14 +410,14 @@ const JCard = (() => {
     }
   }
 
-  /*
-   * Triggers listener calls on all inputs.
-   */
+  // Triggers listener calls on all inputs.
   function update() {
     for (key in inputs) {
       let element = inputs[key].element;
       element.dispatchEvent(
-        element.type === "checkbox" || element.type === "file" ? CHANGE : INPUT
+        element.type === "checkbox" || element.type === "file"
+          ? EVENT_CHANGE
+          : EVENT_INPUT
       );
     }
   }

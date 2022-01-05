@@ -12,42 +12,30 @@
   src: url("fonts/alte-haas-grotesk-bold.ttf") format("truetype");
 }
 
-.jcard .card-text,
-.jcard-duplicate,
-.jcard-preview {
-  font-family: "Alte Haas Grotesk";
-}
-
-.jcard .columns {
+#template,
+form .columns {
   display: flex;
   flex-flow: row wrap;
 }
 
-.jcard .columns > :not(:last-child) {
-  margin-inline-end: var(--spacer4);
+#template {
+  overflow-x: auto;
 }
 
-.jcard .columns-column,
-.jcard .columns-column-2 {
-  flex-shrink: 0;
+#template:target {
+  animation: none;
 }
 
-.jcard .columns-column {
-  flex-basis: var(--lengthFieldRowSmallMin);
-  flex-grow: 0;
+#template > :not(:last-child) {
+  margin-block-end: var(--spacer);
+  margin-inline-end: var(--spacer);
 }
 
-.jcard .columns-column-2 {
-  flex-basis: var(--lengthFieldRowMin);
-  flex-grow: 1;
+.jcard-output * {
+  box-sizing: content-box;
 }
 
-.jcard .columns-column > .field,
-.jcard .columns-column-2 > .field {
-  margin-block-end: var(--spacer2);
-}
-
-.jcard .printable {
+.jcard-output .printable {
   background-color: #fff;
   color-adjust: exact;
   margin: 0.25in;
@@ -57,7 +45,7 @@
   -webkit-print-color-adjust: exact;
 }
 
-.jcard .printable-bleed {
+.jcard-output .printable-bleed {
   background-color: inherit;
   position: absolute;
   z-index: -2;
@@ -67,7 +55,7 @@
   bottom: -0.1in;
 }
 
-.jcard .printable-crop {
+.jcard-output .printable-crop {
   background-color: inherit;
   position: absolute;
   top: 0;
@@ -76,15 +64,15 @@
   bottom: 0;
 }
 
-.jcard .printable-crop::after,
-.jcard .printable-crop::before {
+.jcard-output .printable-crop::after,
+.jcard-output .printable-crop::before {
   border: solid;
   content: "";
   position: absolute;
   z-index: -1;
 }
 
-.jcard .printable-crop::after {
+.jcard-output .printable-crop::after {
   border-width: 1pt 0;
   top: 0;
   left: -0.25in;
@@ -92,7 +80,7 @@
   bottom: 0;
 }
 
-.jcard .printable-crop::before {
+.jcard-output .printable-crop::before {
   border-width: 0 1pt;
   top: -0.25in;
   left: 0;
@@ -100,14 +88,14 @@
   bottom: -0.25in;
 }
 
-.jcard .printable-fold {
+.jcard-output .printable-fold {
   position: absolute;
   width: 1pt;
   top: 0;
   bottom: 0;
 }
 
-.jcard .printable-fold::before {
+.jcard-output .printable-fold::before {
   border: solid;
   border-width: 0 0 0 1pt;
   content: "";
@@ -119,13 +107,51 @@
   bottom: -0.25in;
 }
 
-.jcard .template {
+.jcard-output .template {
   height: 4in;
   line-height: 1.1;
   width: 4.056in;
 }
 
-.jcard .template-back {
+.jcard-output .template.bold {
+  font-weight: bold;
+}
+
+.jcard-output .template.force-caps {
+  text-transform: uppercase;
+}
+
+.jcard-output .template.italicize {
+  font-style: italic;
+}
+
+.jcard-output .template.short-back .template-back {
+  align-items: center;
+  flex-flow: row nowrap;
+  height: 0.6in;
+  justify-content: space-between;
+  padding: 0 0.075in;
+  text-align: left;
+  transform: translateY(-0.6in) rotate(90deg) translateY(-0.4in);
+  width: 3.85in;
+}
+
+.jcard-output .template.short-back .template-boundaries {
+  left: 0.4in;
+}
+
+.jcard-output .template.short-back .template-side-a-contents,
+.jcard-output .template.short-back .template-side-b-contents {
+  flex: 1;
+  margin: 0 0.075in;
+}
+
+.jcard-output .template.short-back .template-side-a-label,
+.jcard-output .template.short-back .template-side-b-label {
+  display: none;
+}
+
+.jcard-output .template-back {
   display: flex;
   flex-flow: column nowrap;
   height: 1in;
@@ -136,7 +162,7 @@
   width: 4in;
 }
 
-.jcard .template-boundaries {
+.jcard-output .template-boundaries {
   background-color: inherit;
   position: absolute;
   top: 0;
@@ -145,17 +171,22 @@
   bottom: 0;
 }
 
-.jcard .template-contents {
+.jcard-output .template-boundaries.outline > .printable-bleed,
+.jcard-output .template-boundaries.outline > .printable-crop {
+  outline: var(--spacerPx) dotted var(--colorAccentMid);
+}
+
+.jcard-output .template-contents {
   line-height: 1.2;
 }
 
-.jcard .template-contents.hidden,
-.jcard .template-front-title-group.hidden,
-.jcard .template-spine-title-group.hidden {
+.jcard-output .template-contents.hidden,
+.jcard-output .template-front-title-group.hidden,
+.jcard-output .template-spine-title-group.hidden {
   display: none;
 }
 
-.jcard .template-cover-image {
+.jcard-output .template-cover-image {
   display: block;
   height: 2.556in;
   object-fit: cover;
@@ -163,28 +194,28 @@
   width: 2.556in;
 }
 
-.jcard .template-cover-image.fill {
+.jcard-output .template-cover-image.fill {
   height: inherit;
   width: inherit;
   z-index: 2;
 }
 
-.jcard .template-fold-1 {
+.jcard-output .template-fold-1 {
   left: 1in;
 }
 
-.jcard .template-fold-2 {
+.jcard-output .template-fold-2 {
   left: 1.5in;
 }
 
-.jcard .template-front {
+.jcard-output .template-front {
   height: 4in;
   left: 1.5in;
   position: absolute;
   width: 2.556in;
 }
 
-.jcard .template-front-group {
+.jcard-output .template-front-group {
   align-items: stretch;
   display: flex;
   flex-flow: column nowrap;
@@ -195,46 +226,50 @@
   top: 2.556in;
 }
 
-.jcard .template-front-title-group,
-.jcard .template-spine-title-group {
+.jcard-output .template-front-title-group,
+.jcard-output .template-spine-title-group {
   font-weight: bold;
   white-space: nowrap;
 }
 
-.jcard .template-front-title-group {
+.jcard-output .template-front-title-group {
   position: relative;
 }
 
-.jcard .template-note-group,
-.jcard .template-spine-title-group {
+.jcard-output .template-front-title-group.center {
+  margin-top: 0.4in;
+}
+
+.jcard-output .template-note-group,
+.jcard-output .template-spine-title-group {
   padding: 0 0.15in 0 0.15in;
   position: inherit;
   width: 3.7in;
 }
 
-.jcard .template-side-a-contents {
+.jcard-output .template-side-a-contents {
   margin: 0 0.15in 0.5em;
 }
 
-.jcard .template-side-b-contents {
+.jcard-output .template-side-a-contents:empty,
+.jcard-output .template-side-b-contents:empty,
+.jcard-output .template-side-a-label:empty,
+.jcard-output .template-side-b-label:empty {
+  display: none;
+}
+
+.jcard-output .template-side-b-contents {
   margin: 0 0.15in;
 }
 
-.jcard .template-side-a-label,
-.jcard .template-side-b-label {
+.jcard-output .template-side-a-label,
+.jcard-output .template-side-b-label {
   display: block;
   font-weight: bold;
   margin: 0 0.15in;
 }
 
-.jcard .template-side-a-label:empty,
-.jcard .template-side-b-label:empty,
-.jcard .template-side-a-contents:empty,
-.jcard .template-side-b-contents:empty {
-  display: none;
-}
-
-.jcard .template-spine {
+.jcard-output .template-spine {
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
@@ -246,85 +281,41 @@
   width: 4in;
 }
 
-.jcard .template.short-back .template-back {
-  align-items: center;
-  flex-flow: row nowrap;
-  height: 0.6in;
-  justify-content: space-between;
-  padding: 0 0.075in;
-  text-align: left;
-  transform: translateY(-0.6in) rotate(90deg) translateY(-0.4in);
-  width: 3.85in;
+form .columns > :not(:last-child) {
+  margin-inline-end: var(--spacer2);
 }
 
-.jcard .template.short-back .template-boundaries {
-  left: 0.4in;
+form .columns > .column,
+form .columns > .column-2 {
+  flex-shrink: 1;
 }
 
-.jcard .template.short-back .template-side-a-contents,
-.jcard .template.short-back .template-side-b-contents {
-  flex: 1;
-  margin: 0 0.075in;
+form .columns > .column {
+  flex-basis: var(--lengthFieldRowSmallMin);
+  flex-grow: 0;
 }
 
-.jcard .template.short-back .template-side-a-label,
-.jcard .template.short-back .template-side-b-label {
-  display: none;
-}
-
-.jcard .template.bold {
-  font-weight: bold;
-}
-
-.jcard .template.force-caps {
-  text-transform: uppercase;
-}
-
-.jcard .template.italicize {
-  font-style: italic;
-}
-
-.jcard > #preview:target {
-  animation: none;
-}
-
-.jcard-duplicate *,
-.jcard-preview * {
-  box-sizing: content-box;
-  color: unset;
-}
-
-.jcard-duplicate {
-  display: none;
-}
-
-.jcard-preview {
-  display: inline-block;
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.menu.root {
-  display: unset;
+form .columns > .column-2 {
+  flex-basis: var(--lengthFieldRowMin);
+  flex-grow: 1;
 }
 
 @media print {
-  footer,
-  .jcard > :not(#preview),
-  .menu.root {
+  #template {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  article > :not(#template),
+  body > :not(main),
+  main > :not(article) {
     display: none;
   }
 
-  .jcard > #preview {
-    margin-block-end: 0;
-    margin-block-start: 0;
-  }
-
-  .jcard-preview {
-    margin-block-end: var(--spacer);
-  }
-
-  .jcard.print-2 .jcard-duplicate {
-    display: inline;
+  article > section {
+    margin-block-end: unset;
+    margin-block-start: unset;
+    padding-block-start: unset;
   }
 }

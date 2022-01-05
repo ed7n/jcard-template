@@ -1,0 +1,22 @@
+{% assign data = site.data
+%}{% assign dateForm = "%m/%d/%Y"
+%}{% assign gitHost = "https://github.com"
+%}{% assign gitUser = "ed7n"
+%}{% capture gitHome %}{{ gitHost }}/{{ gitUser }}{% endcapture
+%}{% capture gitOrgHome %}{{ gitHost }}/orgs/{{ gitUser }}{% endcapture
+%}{% capture htmlAOut %}a class="out" rel="noopener" target="_blank" href={% endcapture
+%}{% capture siteName %}J-Card Template{% endcapture
+%}{% capture siteTitle %}J-Card Template{% endcapture
+%}{% capture siteSubtitle %}{% endcapture
+%}{% capture siteUrl %}{{ gitUser }}.github.io{% endcapture
+%}{% if page.key
+  %}{% assign slice = page.key | slice: 0, 5
+  %}{% case slice
+    %}{% when "chlg_"
+      %}{% assign page = site.data.chlg[page.key]
+    %}{% when "news_"
+      %}{% assign page = site.data.news[page.key]
+    %}{% else
+      %}{% assign page = data[page.key]
+  %}{% endcase
+%}{% endif %}

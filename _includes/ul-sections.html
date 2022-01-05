@@ -1,0 +1,8 @@
+{% for entry in data[include.key].menu
+%}{% assign slice = entry.label | slice: 0
+%}{% if slice == "^"
+  %}{% continue
+%}{% endif
+%}<li><span>[<a href="/{{ data[include.key].path }}{{ entry.href }}">{{ entry.label }}</a>]</span>{% if entry.subtitle != ""
+%}<span>{{ entry.subtitle }}</span>{% endif
+%}</li>{% endfor %}

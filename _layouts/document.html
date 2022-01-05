@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+{% include variables.html
+%}    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <link rel="stylesheet" href="https://{{ siteUrl }}/res/styles/base.css" />
+    <link rel="stylesheet" href="https://{{ siteUrl }}/res/styles/document.css" />
+    <link rel="stylesheet" href="/res/background.css" />
+    <title>{% if page.head.title
+%}{{ page.head.title }} | {{ siteTitle }}{% else
+%}{{ siteTitle }}{% endif %}</title>
+{% assign definedCssHeaderFooter = false
+%}{% assign definedCssNav = false
+%}  </head>
+  <body>
+{% include css-curtain.html %}
+    <main>
+      <article>
+{% include header.html %}
+{% include page-menu.html %}{{
+content
+}}      </article>
+    </main>
+    <footer>
+{% include page-info.html %}
+{% include jump-menu.html %}
+    </footer>
+{% include tree-menu.html %}
+  </body>
+</html>
