@@ -1,1 +1,20 @@
-<span>[{% include a-page.html key=include.key %}]</span>{% if data[include.key].body.subtitle != "" %}<span>{{ data[include.key].body.subtitle }}</span>{% endif %}
+{%-assign slice = include.key | slice: 0, 5-%}
+{%-case slice-%}
+  {%-when "chlg_"-%}
+    {%-assign liPageData = data.chlg[include.key]-%}
+  {%-when "news_"-%}
+    {%-assign liPageData = data.news[include.key]-%}
+  {%-else-%}
+    {%-assign liPageData = data[include.key]-%}
+{%-endcase-%}
+{%-assign slice = nil-%}
+<span>[{%include a-page.html key=include.key href=include.href htmp=include.htmp html=include.html htms=include.htms%}]
+{%-if include.cap-%}
+  </span><span>{{include.cap-}}
+{%-elsif liPageData.body.subtitle-%}
+  </span><span>{{liPageData.body.subtitle-}}
+{%-endif-%}
+{%-unless include.open-%}
+  </span>
+{%-endunless-%}
+{%-assign liPageData = nil-%}

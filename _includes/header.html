@@ -1,21 +1,26 @@
-{% unless definedCssHeaderFooter
-%}<link rel="stylesheet" href="https://{{ siteUrl }}/res/styles/header-footer.css" />
-{% assign definedCssHeaderFooter = true
-%}{% endunless
-%}{% if page.body.banner
-%}<header>
-  {{ page.body.banner }}
+{%-unless pageHasStyleHeaderFooter-%}
+<link rel="stylesheet" href="{{sitePathRes}}/styles/header-footer.css" />
+  {%-assign pageHasStyleHeaderFooter = true%}
+{%endunless-%}
+{%-if pageData.body.banner-%}
+<header>
+  {{pageData.body.banner}}
+  {%-assign pageHasHeader = true-%}
+{%-elsif pageIsHome-%}
+<header class="banner">
+  {%include banner.html%}
+  {%-assign pageHasHeader = true-%}
+{%-elsif pageTitle or pageSubtitle-%}
+<header>
+  {%-if pageTitle%}
+  <h1>{{pageTitle}}</h1>
+  {%-endif-%}
+  {%-if pageSubtitle%}
+  <p class="subtitle">{{pageSubtitle}}</p>
+  {%-endif-%}
+  {%-assign pageHasHeader = true-%}
+{%-endif-%}
+{%-if pageHasHeader%}
 </header>
-{% elsif page.head.title
-%}<header>
-  <h1>{{ page.body.title }}</h1>
-  {% if page.body.subtitle
-  %}<p class="subtitle">{{ page.body.subtitle }}</p>
-{% endif
-%}</header>
-{% else
-%}<header class="banner">
-{% include banner.html %}
-</header>
-{% endif
-%}<div class="hr"></div>
+<div class="hr"></div>
+{%-endif-%}

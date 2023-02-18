@@ -1,0 +1,23 @@
+root: "/jcard-template"
+author: "Brendon"
+class: "NET Application"
+title: "J-Card Template"
+host: "ed7n.github.io"
+formDate: "%m/%d/%Y"
+gitHome: "https://github.com/ed7n"
+gitUser: "ed7n"
+navLabelPage: "Menu:"
+navLabelSite: "Jump:"
+navLabelTree: "≡ Menu"
+noBackground: true
+noCurtain: false
+noFooter: false
+noHeader: false
+noNavPage: false
+noNavSite: false
+pathHome: ""
+pathRes: "https://ed7n.github.io/res"
+splitSubtitle: ": "
+splitTitle: " - "
+eon: "https://ed7n.github.io"
+key1: "_home-1"

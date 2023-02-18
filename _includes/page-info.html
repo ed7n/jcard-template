@@ -1,8 +1,24 @@
 <section class="page-info">
   <div class="banner" role="banner">
-{% include banner.html %}
+    {%include banner.html%}
   </div>
   <div>
-    <span>{{ page.version }}, {{ page.date | date: dateForm }}.</span>
+  {%-if pageDate%}
+    <span>
+    {%-if pageVersion-%}
+      {{-pageVersion-}},
+    {%-else-%}
+      This page is dated on
+    {%-endif%} {{pageDate | date: formDate-}}
+    .</span>
+  {%-elsif pageVersion%}
+    <span>{{pageVersion}}</span>
+  {%-endif-%}
+  {%-if foot-%}
+    {%-if pageDate or pageVersion%}
+    <br />
+    {%-endif%}
+    <span>{{foot}}</span>
+  {%-endif%}
   </div>
 </section>

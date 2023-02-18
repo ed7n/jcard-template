@@ -1,0 +1,58 @@
+---
+key: "_pwa"
+layout: "document"
+---
+{%-include variables.html-%}
+<link rel="stylesheet" href="{{sitePathRes}}/styles/input.css" />
+<link rel="stylesheet" href="{{sitePathRes}}/styles/form.css" />
+<script defer src="pwa.js"></script>
+<section>
+  <figure class="no-border no-padding">
+    <{{htmlImgMono}}"{{sitePathRes}}/media/pwa.png" alt="PWA" />
+  </figure>
+  <p>Our service worker is a cache server. On registration, it downloads all
+resources into a persistent storage and serves them locally, downloading lost
+ones as needed. You can bypass the service worker with a forced reload.</p>
+  <p>At least ~660 kB of disk space is required.</p>
+  <form>
+    <fieldset>
+      <div class="field row">
+        <label>Installation</label>
+        <div class="input rigid">
+          <button type="button" disabled></button>
+        </div>
+      </div>
+      <div class="field row">
+        <label>Status</label>
+        <div class="input fluid">
+          <output>Awaiting script…</output>
+        </div>
+      </div>
+      <div class="field row space-between">
+        <div class="input short">
+          <button type="button" onclick="location.reload()">Reload</button>
+          <button type="button" onclick="history.back()">Return</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <p>Registering effectively installs {{siteTitle}}. You can add it to your home
+screen for a more seamless experience.</p>
+  <p>Updates are usually automatic. Once no pages use the current service
+worker, it is unregistered to let the new one take its place.</p>
+  <p>To uninstall, you can unregister the service worker here which also deletes
+its storage.</p>
+  <p>If registration is unavailable, then service workers are either disabled or
+unsupported. Also check your storage persistence settings.</p>
+  <p>If <samp>Return</samp> does not work, then you can go to the [<a class="up"
+href=".">index page</a>].</p>
+</section>
+<section>
+  <div class="hr"></div>
+  <ul class="no-margin smaller">
+    <li>PWA is an abbreviation for Progressive Web Application. The logo above
+was made by Diego González-Zúñiga (diekus).</li>
+    <li><span>Despite the interchangeability of the words <i>unregister</i> and
+<i>deregister</i>, the former is used in the Service Worker API.</span></li>
+  </ul>
+</section>

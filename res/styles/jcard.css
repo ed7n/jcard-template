@@ -1,0 +1,346 @@
+#jcard .template {
+  --colorJCardOutline: #000;
+  --colorJCardOutlineBox: #0000007f;
+  --lengthJCardBack: var(--lengthJCardBackStandard);
+  --lengthJCardBackDelta: calc(
+    var(--lengthJCardBackTemplate) - var(--lengthJCardBack)
+  );
+  --lengthJCardBackShort: 0.6in;
+  --lengthJCardBackStandard: 1in;
+  --lengthJCardBackTemplate: var(--lengthJCardBackStandard);
+  --lengthJCardBleed: 0.1in;
+  --lengthJCardBleedMirror: -0.1in;
+  --lengthJCardBleed2: 0.25in;
+  --lengthJCardBleed2Mirror: -0.25in;
+  --lengthJCardCover: min(var(--lengthJCardHeight), var(--lengthJCardFront));
+  --lengthJCardFront: 2.556in;
+  --lengthJCardHeight: 4in;
+  --lengthJCardSpine: var(--lengthJCardSpineStandard);
+  --lengthJCardSpineDelta: calc(
+    var(--lengthJCardSpineTemplate) - var(--lengthJCardSpine)
+  );
+  --lengthJCardSpineShort: 0.4in;
+  --lengthJCardSpineStandard: 0.5in;
+  --lengthJCardSpineTemplate: var(--lengthJCardSpineStandard);
+  --spacerJCard: 0.15in;
+  --spacerJCardShortBack: 0.075in;
+  --widthJCardOutline: 1pt;
+}
+
+#jcard {
+  margin: auto;
+}
+
+#jcard .printable {
+  margin: var(--lengthJCardBleed2);
+  position: relative;
+  z-index: 0;
+}
+
+#jcard .printable-bleed,
+#jcard .printable-crop,
+#jcard .template-boundaries {
+  background-color: inherit;
+}
+
+#jcard .printable-bleed {
+  z-index: -2;
+  position: absolute;
+  top: var(--lengthJCardBleedMirror);
+  left: var(--lengthJCardBleedMirror);
+  right: var(--lengthJCardBleedMirror);
+  bottom: var(--lengthJCardBleedMirror);
+}
+
+#jcard .printable-crop {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#jcard .printable-crop::before,
+#jcard .printable-crop::after {
+  border: var(--widthJCardOutline) none var(--colorJCardOutline);
+  content: "";
+}
+
+#jcard .printable-crop::before {
+  border-left-style: solid;
+  border-right-style: solid;
+  position: absolute;
+  top: var(--lengthJCardBleed2Mirror);
+  left: 0;
+  right: 0;
+  bottom: var(--lengthJCardBleed2Mirror);
+}
+
+#jcard .printable-crop::after {
+  border-bottom-style: solid;
+  border-top-style: solid;
+  position: absolute;
+  top: 0;
+  left: var(--lengthJCardBleed2Mirror);
+  right: var(--lengthJCardBleed2Mirror);
+  bottom: 0;
+}
+
+#jcard .printable-fold {
+  width: var(--widthJCardOutline);
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+#jcard .printable-fold::before {
+  border-left-color: var(--colorJCardOutline);
+  border-left-style: solid;
+  border-left-width: var(--widthJCardOutline);
+  content: "";
+  position: absolute;
+  top: var(--lengthJCardBleed2Mirror);
+  left: calc(-1 * (var(--widthJCardOutline) / 2));
+  right: 0;
+  bottom: var(--lengthJCardBleed2Mirror);
+}
+
+#jcard .template {
+  height: var(--lengthJCardHeight);
+  line-height: 1.1;
+  width: calc(
+    var(--lengthJCardBackTemplate) + var(--lengthJCardSpineTemplate) +
+      var(--lengthJCardFront)
+  );
+}
+
+#jcard .template .hidden {
+  display: none;
+}
+
+#jcard .template.bold {
+  font-weight: bold;
+}
+
+#jcard .template.force-caps {
+  text-transform: uppercase;
+}
+
+#jcard .template.italicize {
+  font-style: italic;
+}
+
+#jcard .template.short-back {
+  --lengthJCardBack: var(--lengthJCardBackShort);
+}
+
+#jcard .template.short-back .template-back {
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 var(--spacerJCardShortBack);
+}
+
+#jcard .template.short-back .template-side-a-contents,
+#jcard .template.short-back .template-side-b-contents {
+  flex-grow: 1;
+  margin: 0 var(--spacerJCardShortBack);
+}
+
+#jcard .template.short-back .template-side-a-label,
+#jcard .template.short-back .template-side-b-label {
+  display: none;
+}
+
+#jcard .template.short-spine {
+  --lengthJCardSpine: var(--lengthJCardSpineShort);
+}
+
+#jcard .template.reverse,
+#jcard .template.reverse .template-foreground {
+  transform: rotateY(180deg);
+}
+
+#jcard .template-back {
+  display: flex;
+  flex-flow: column nowrap;
+  height: var(--lengthJCardBack);
+  justify-content: center;
+  padding: 0 var(--spacerJCard);
+  position: absolute;
+  transform: translate(
+      calc(var(--lengthJCardBackDelta) + var(--lengthJCardSpineDelta)),
+      calc(-1 * var(--lengthJCardBack))
+    )
+    rotate(90deg);
+  transform-origin: bottom left;
+  width: var(--lengthJCardHeight);
+}
+
+#jcard .template-boundaries {
+  position: absolute;
+  top: 0;
+  left: calc(var(--lengthJCardBackDelta) + var(--lengthJCardSpineDelta));
+  right: 0;
+  bottom: 0;
+}
+
+#jcard .template-contents {
+  line-height: 1.2;
+}
+
+#jcard .template-cover {
+  height: var(--lengthJCardCover);
+  object-fit: cover;
+  position: absolute;
+  width: var(--lengthJCardCover);
+}
+
+#jcard .template-cover.fill {
+  height: inherit;
+  width: inherit;
+  z-index: 1;
+}
+
+#jcard .template-fold-1 {
+  left: calc(var(--lengthJCardBackTemplate) + var(--lengthJCardSpineDelta));
+}
+
+#jcard .template-fold-2 {
+  left: calc(var(--lengthJCardBackTemplate) + var(--lengthJCardSpineTemplate));
+}
+
+#jcard .template-front {
+  height: var(--lengthJCardHeight);
+  width: var(--lengthJCardFront);
+  position: absolute;
+  left: calc(var(--lengthJCardBackTemplate) + var(--lengthJCardSpineTemplate));
+}
+
+#jcard .template-front-group {
+  align-items: stretch;
+  display: flex;
+  flex-flow: column nowrap;
+  height: calc(var(--lengthJCardHeight) - var(--lengthJCardCover));
+  justify-content: space-between;
+  padding: calc(var(--spacerJCard) / 3) var(--spacerJCard);
+  position: relative;
+  top: var(--lengthJCardCover);
+}
+
+#jcard .template-front-title-group,
+#jcard .template-spine-title-group {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#jcard .template-front-title-group {
+  position: relative;
+}
+
+#jcard .template-front-title-group.center {
+  margin: auto;
+}
+
+#jcard .template-note-group,
+#jcard .template-spine-title-group {
+  padding: 0 var(--spacerJCard);
+  position: inherit;
+  width: var(--lengthJCardHeight);
+}
+
+#jcard .template-side-a-contents {
+  margin-bottom: 0.5em;
+}
+
+#jcard .template-side-a-contents:empty,
+#jcard .template-side-a-label:empty,
+#jcard .template-side-b-contents:empty,
+#jcard .template-side-b-label:empty {
+  display: none;
+}
+
+#jcard .template-side-a-label,
+#jcard .template-side-b-label {
+  font-weight: bold;
+}
+
+#jcard .template-spine {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  height: var(--lengthJCardSpine);
+  justify-content: space-between;
+  position: absolute;
+  transform: translate(
+      calc(var(--lengthJCardBackTemplate) + var(--lengthJCardSpineDelta)),
+      calc(-1 * var(--lengthJCardSpine))
+    )
+    rotate(90deg);
+  transform-origin: bottom left;
+  width: var(--lengthJCardHeight);
+}
+
+#template > output {
+  background-color: var(--colorAccentLowDent);
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+}
+
+form label > sub,
+form label > sup {
+  color: var(--colorAccentHigh);
+}
+
+@media print {
+  #jcard {
+    display: flex;
+    flex-flow: row wrap;
+    margin: unset;
+  }
+
+  #jcard .printable.half-margin {
+    margin: calc(var(--lengthJCardBleed2) / 2);
+  }
+
+  #jcard .printable.outline .printable-bleed,
+  #jcard .printable.outline .printable-crop {
+    outline: var(--widthJCardOutline) dotted var(--colorJCardOutlineBox);
+  }
+
+  #jcard .template.variable-width {
+    --lengthJCardBackTemplate: var(--lengthJCardBack);
+    --lengthJCardSpineTemplate: var(--lengthJCardSpine);
+  }
+
+  #template > output {
+    background-color: unset;
+    border: unset;
+    overflow: hidden;
+    padding: unset;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/alte-haas-grotesk.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  font-style: normal;
+  font-weight: bold;
+  src: url("../fonts/alte-haas-grotesk-bold.ttf") format("truetype");
+}

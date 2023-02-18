@@ -1,0 +1,10 @@
+{%-unless pageHasStyleHeaderFooter-%}
+<link rel="stylesheet" href="{{sitePathRes}}/styles/header-footer.css" />
+  {%-assign pageHasStyleHeaderFooter = true%}
+{%endunless-%}
+<footer>
+{%include page-info.html-%}
+{%-unless noNavSite%}
+{%include nav-site.html-%}
+{%-endunless%}
+</footer>

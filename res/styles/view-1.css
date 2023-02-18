@@ -1,0 +1,36 @@
+article > section#template:target {
+  animation: none;
+}
+
+form .columns {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+form .columns > :not(:last-child) {
+  margin-inline-end: var(--spacer2);
+}
+
+form .columns > .column,
+form .columns > .column-2 {
+  flex-shrink: 1;
+}
+
+form .columns > .column {
+  flex-basis: var(--lengthFieldRowSmallMin);
+  flex-grow: 0;
+}
+
+form .columns > .column-2 {
+  flex-basis: var(--lengthFieldRowMin);
+  flex-grow: 1;
+}
+
+@media print {
+  article > :not(section#template),
+  article > section#template > :not(output),
+  body > :not(main),
+  main > :not(article) {
+    display: none;
+  }
+}

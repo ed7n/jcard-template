@@ -1,1 +1,38 @@
-<a href="/{{ data[include.key].path }}">{{ data[include.key].body.title }}</a>
+{%-assign slice = include.key | slice: 0, 5-%}
+{%-case slice-%}
+  {%-when "chlg_"-%}
+    {%-assign aPageData = data.chlg[include.key]-%}
+    {%-capture aPageRoot-%}{{data["_changes"].path}}{%-endcapture-%}
+  {%-when "news_"-%}
+    {%-assign aPageData = data.news[include.key]-%}
+    {%-capture aPageRoot-%}{{data["_news"].path}}{%-endcapture-%}
+  {%-else-%}
+    {%-assign aPageData = data[include.key]-%}
+    {%-capture aPageRoot-%}{%-endcapture-%}
+{%-endcase-%}
+{%-assign slice = nil-%}
+<a
+{%-if include.class%} class="{{include.class}}"
+{%-endif-%}
+{%-if include.class == "out"%} rel="noopener" target="_blank"
+{%-endif%} href="{{siteRoot}}/{{aPageRoot}}{{aPageData.path}}
+{%-if include.href-%}
+  {{-include.href-}}
+{%-endif-%}
+">
+{%-if include.htmp-%}
+  {{-include.htmp-}}
+{%-endif-%}
+{%-if include.html-%}
+  {{-include.html-}}
+{%-elsif aPageData.body.title-%}
+  {{-aPageData.body.title-}}
+{%-else-%}
+  (nil)
+{%-endif-%}
+{%-if include.htms-%}
+  {{-include.htms-}}
+{%-endif-%}
+</a>
+{%-assign aPageData = nil-%}
+{%-assign aPageRoot = nil-%}

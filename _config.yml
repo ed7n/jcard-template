@@ -3,4 +3,4 @@ defaults:
     scope:
       path: ""
     values:
-      layout: "document"
+      layout: "application"

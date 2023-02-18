@@ -1,0 +1,38 @@
+{%-if pageData.menu-%}
+  {%-unless pageHasStyleNav-%}
+<link rel="stylesheet" href="{{sitePathRes}}/styles/nav.css" />
+    {%-assign pageHasStyleNav = true%}
+{%endunless-%}
+<nav>
+  <div class="menu root" tabindex="0">
+    <label>{{navLabelTree}}</label>
+    <div class="menu stem" role="menu">
+  {%-for entry in pageData.menu%}
+      <div class="menu leaf" role="menuitem">
+    {%-if data[entry.key].path and data[entry.key].body.title and entry.key%}
+        <a class="up" href="{{siteRoot}}/{{data[entry.key].path}}">{{data[entry.key].body.title}}</a>
+    {%-elsif entry.href and entry.label%}
+        <a href="{{entry.href}}">{{entry.label}}</a>
+    {%-else%}
+        <a>(nil)</a>
+    {%-endif%}
+      </div>
+  {%-endfor%}
+    </div>
+    <div class="menu foot" role="menu">
+      <div class="menu leaf" role="menuitem">
+        <a tabindex="0" title="Back" onclick="history.back()">&lt;</a>
+      </div>
+      <div class="menu leaf" role="menuitem">
+        <a href="#top">Top</a>
+      </div>
+      <div class="menu leaf" role="menuitem">
+        <a tabindex="0" title="Forward" onclick="history.forward()">&gt;</a>
+      </div>
+    </div>
+  </div>
+  <div class="menu root doppelganger" tabindex="0">
+    <label>{{navLabelTree}}</label>
+  </div>
+</nav>
+{%-endif-%}

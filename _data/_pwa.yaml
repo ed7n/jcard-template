@@ -1,0 +1,10 @@
+path: "pwa"
+date: 2023-02-17
+head:
+  title: "NET-Installer"
+  manifest: "pwa.webmanifest"
+body:
+  title: "NET-Installer"
+  subtitle: "Manage offline access to J-Card Template."
+menu:
+  - key: "_home"

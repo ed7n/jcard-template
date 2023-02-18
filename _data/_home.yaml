@@ -1,0 +1,28 @@
+path: "2"
+version: "Update 1 Revision A"
+date: 2023-02-17
+noFooter: true
+noHeader: true
+head:
+  description: "Printable in-browser template for cassette tape J-cards."
+body:
+  title: "J-Card Template"
+menu:
+  - label: "Form"
+    href: "#form"
+    title: "Form"
+  - label: "Print"
+    href: "#print"
+    title: "Print"
+  - label: "Load"
+    href: "#load"
+    title: "Load"
+  - label: "Save"
+    href: "#save"
+    title: "Save"
+  - label: "View"
+    href: "#view"
+    title: "View"
+  - label: "Help"
+    href: "#help"
+    title: "Help"

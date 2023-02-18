@@ -1,8 +1,8 @@
-<div class="css-curtain" style="
+    <div class="curtain" style="
 background-color: #0f0f0f;
 color: #efefef;
 display: flex;
-flex-flow: column;
+flex-flow: column wrap;
 font-weight: bold;
 letter-spacing: 0.125em;
 justify-content: center;
@@ -13,9 +13,9 @@ top: 0;
 left: 0;
 right: 0;
 bottom: 0;">
-{% if page.body.title
-%}  <span>"{{ page.body.title | upcase }}"</span>
-{% else
-%}  <span>"WELCOME"</span>
-{% endif
-%}</div>
+    {%-if pageIsHome%}
+      <span>"WELCOME"</span>
+    {%-elsif pageTitle%}
+      <span>"{{pageTitle | upcase}}"</span>
+    {%-endif%}
+    </div>

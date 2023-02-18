@@ -1,22 +1,85 @@
-{% assign data = site.data
-%}{% assign dateForm = "%m/%d/%Y"
-%}{% assign gitHost = "https://github.com"
-%}{% assign gitUser = "ed7n"
-%}{% capture gitHome %}{{ gitHost }}/{{ gitUser }}{% endcapture
-%}{% capture gitOrgHome %}{{ gitHost }}/orgs/{{ gitUser }}{% endcapture
-%}{% capture htmlAOut %}a class="out" rel="noopener" target="_blank" href={% endcapture
-%}{% capture siteName %}J-Card Template{% endcapture
-%}{% capture siteTitle %}J-Card Template{% endcapture
-%}{% capture siteSubtitle %}{% endcapture
-%}{% capture siteUrl %}{{ gitUser }}.github.io{% endcapture
-%}{% if page.key
-  %}{% assign slice = page.key | slice: 0, 5
-  %}{% case slice
-    %}{% when "chlg_"
-      %}{% assign page = site.data.chlg[page.key]
-    %}{% when "news_"
-      %}{% assign page = site.data.news[page.key]
-    %}{% else
-      %}{% assign page = data[page.key]
-  %}{% endcase
-%}{% endif %}
+{%-assign data = site.data-%}
+{%-if page.key-%}
+  {%-assign slice = page.key | slice: 0, 5-%}
+  {%-case slice-%}
+    {%-when "chlg_"-%}
+      {%-assign pageData = data.chlg[page.key]-%}
+    {%-when "news_"-%}
+      {%-assign pageData = data.news[page.key]-%}
+    {%-else-%}
+      {%-assign pageData = data[page.key]-%}
+  {%-endcase-%}
+  {%-assign slice = nil-%}
+{%-endif-%}
+{%-assign siteData = data["_"]-%}
+{%-assign author        = pageData.author         -%}
+{%-if     author        == nil                    -%}
+{%-assign author        = siteData.author         -%}{%-endif-%}
+{%-assign foot          = pageData.foot           -%}
+{%-if     foot          == nil                    -%}
+{%-assign foot          = siteData.foot           -%}{%-endif-%}
+{%-assign formDate      = pageData.formDate       -%}
+{%-if     formDate      == nil                    -%}
+{%-assign formDate      = siteData.formDate       -%}{%-endif-%}
+{%-assign gitHome       = pageData.gitHome        -%}
+{%-if     gitHome       == nil                    -%}
+{%-assign gitHome       = siteData.gitHome        -%}{%-endif-%}
+{%-assign gitUser       = pageData.gitUser        -%}
+{%-if     gitUser       == nil                    -%}
+{%-assign gitUser       = siteData.gitUser        -%}{%-endif-%}
+{%-assign navLabelPage  = pageData.navLabelPage   -%}
+{%-if     navLabelPage  == nil                    -%}
+{%-assign navLabelPage  = siteData.navLabelPage   -%}{%-endif-%}
+{%-assign navLabelSite  = pageData.navLabelSite   -%}
+{%-if     navLabelSite  == nil                    -%}
+{%-assign navLabelSite  = siteData.navLabelSite   -%}{%-endif-%}
+{%-assign navLabelTree  = pageData.navLabelTree   -%}
+{%-if     navLabelTree  == nil                    -%}
+{%-assign navLabelTree  = siteData.navLabelTree   -%}{%-endif-%}
+{%-assign noBackground  = pageData.noBackground   -%}
+{%-if     noBackground  == nil                    -%}
+{%-assign noBackground  = siteData.noBackground   -%}{%-endif-%}
+{%-assign noCurtain     = pageData.noCurtain      -%}
+{%-if     noCurtain     == nil                    -%}
+{%-assign noCurtain     = siteData.noCurtain      -%}{%-endif-%}
+{%-assign noFooter      = pageData.noFooter       -%}
+{%-if     noFooter      == nil                    -%}
+{%-assign noFooter      = siteData.noFooter       -%}{%-endif-%}
+{%-assign noHeader      = pageData.noHeader       -%}
+{%-if     noHeader      == nil                    -%}
+{%-assign noHeader      = siteData.noHeader       -%}{%-endif-%}
+{%-assign noNavPage     = pageData.noNavPage      -%}
+{%-if     noNavPage     == nil                    -%}
+{%-assign noNavPage     = siteData.noNavPage      -%}{%-endif-%}
+{%-assign noNavSite     = pageData.noNavSite      -%}
+{%-if     noNavSite     == nil                    -%}
+{%-assign noNavSite     = siteData.noNavSite      -%}{%-endif-%}
+{%-assign splitSubtitle = pageData.splitSubtitle  -%}
+{%-if     splitSubtitle == nil                    -%}
+{%-assign splitSubtitle = siteData.splitSubtitle  -%}{%-endif-%}
+{%-assign splitTitle    = pageData.splitTitle     -%}
+{%-if     splitTitle    == nil                    -%}
+{%-assign splitTitle    = siteData.splitTitle     -%}{%-endif-%}
+{%-assign pageVersion   = pageData.version        -%}
+{%-assign pageDate      = pageData.date           -%}
+{%-assign pageAuthor    = pageData.author         -%}
+{%-assign pageClass     = pageData.class          -%}
+{%-assign pageTitle     = pageData.body.title     -%}
+{%-assign pageSubtitle  = pageData.body.subtitle  -%}
+{%-assign pagePath      = pageData.path           -%}
+{%-assign pagePathRes   = pageData.pathRes        -%}
+{%-assign siteVersion   = siteData.version        -%}
+{%-assign siteDate      = siteData.date           -%}
+{%-assign siteAuthor    = siteData.author         -%}
+{%-assign siteClass     = siteData.class          -%}
+{%-assign siteTitle     = siteData.title          -%}
+{%-assign siteSubtitle  = siteData.subtitle       -%}
+{%-assign siteHost      = siteData.host           -%}
+{%-assign siteRoot      = siteData.root           -%}
+{%-assign sitePathRes   = siteData.pathRes        -%}
+{%-capture htmlAOut   -%} a class="out" rel="noopener" target="_blank" href= {%-endcapture-%}
+{%-capture htmlImg    -%} img loading="lazy" src=                            {%-endcapture-%}
+{%-capture htmlImgMono-%} img class="mono" loading="lazy" src=               {%-endcapture-%}
+{%-if pageData.path == siteData.pathHome-%}
+  {%-assign pageIsHome = true-%}
+{%-endif-%}

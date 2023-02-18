@@ -1,11 +1,32 @@
-<p>Edit the [<a href="#form">form</a>] to update the [<a href="#template"
->template</a>], then print this page when finished. It is recommended to
-double-check the printout in a print preview.</p>
-<p>Font sizes are measured in points (pt).</p>
-<p>More usage information can be found in the [<{{ htmlAOut }}
-"/net/jcard-template/about">About page</a>]. Changes made to this application
-are logged to [<{{ htmlAOut }}
-"https://github.com/ed7n/jcard-template/raw/master/CHANGES">CHANGES</a>].</p>
-<p>This work was based on the [<{{ htmlAOut }}
-"https://unixispower.gitlab.io/jcard-template">original version</a>] by Blaine
-Murphy.</p>
+<p>Edit the [<a href="#form">form</a>] to update the <span>
+{%-if this.key == siteData.key1-%}
+  [<a href="#template">template</a>],
+{%-else-%}
+  template,
+{%-endif-%}
+</span> then [<a href="#print">print</a>] this page when finished.</p>
+<p>Font sizes are measured in points (pt). Features in preview are marked with
+beta (β).</p>
+<p>More usage information can be found in [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/usage"
+>Using {{siteTitle}}</a>].</p>
+<p>Need help with the print shop? You can either [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/print-shop"
+>read our guide</a>], or feel free to play around with each setting.</p>
+<details>
+  <summary>Offline Access</summary>
+  <figure class="no-border no-padding">
+    <{{htmlImgMono}}"{{sitePathRes}}/media/pwa.png" alt="PWA" />
+  </figure>
+  <p>You can manage offline access to {{siteTitle}} with the [{%include
+a-page.html key="_pwa"%}].</p>
+</details>
+<details>
+  <summary>About {{siteClass}}</summary>
+  <pre>{{siteTitle}} u{{pageData.version | slice: 7}}r{{pageData.version |
+slice: 18}} by Brendon, {{pageData.date | date: formDate}}.
+—{{pageData.head.description}}</pre>
+  <p>Changes made to this application are logged to [<{{htmlAOut}}"{{gitHome}}/jcard-template/raw/master/CHANGES"
+>CHANGES</a>].</p>
+  <p>This work was based on the [<{{htmlAOut}}"https://unixispower.gitlab.io/jcard-template"
+>original version</a>] by Blaine Murphy.</p>
+  <p>Finally, <i>thanks to all who wrote to me--you know who you are.</i></p>
+</details>

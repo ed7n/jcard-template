@@ -1,19 +1,20 @@
-{% for entry in page.menu
-%}{% assign slice = entry.label | slice: 0
-%}{% if slice == "^"
-  %}{% continue
-%}{% endif
-%}{% assign id = entry.href | remove_first: "#"
-%}<section id="{{ id }}">
-{% if entry.title != "" or entry.subtitle != ""
-%}  <header>
-    <h2>{{ entry.title }}</h2>
-    <div class="hr"></div>
-{% if entry.subtitle != ""
-%}    <p class="subtitle">{{ entry.subtitle }}</p>
-{% endif
-%}  </header>
-{% endif
-%}{% include_relative _sections/{{ id }}.html
-%}</section>
-{% endfor %}
+{%-for entry in pageData.menu-%}
+  {%-unless entry.key-%}
+    {%-assign id = entry.href | remove_first: "#"-%}
+<section id="{{id}}">
+    {%-if entry.title or entry.subtitle%}
+<header>
+      {%-if entry.title%}
+  <h2>{{entry.title}}</h2>
+      {%-endif%}
+  <div class="hr"></div>
+      {%-if entry.subtitle%}
+  <p class="subtitle">{{entry.subtitle}}</p>
+      {%-endif%}
+</header>
+    {%-endif%}
+{%include_relative _sections/{{id}}.html-%}
+</section>
+{%endunless-%}
+{%-endfor-%}
+{%-assign id = nil-%}

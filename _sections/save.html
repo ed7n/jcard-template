@@ -1,12 +1,35 @@
 <form>
-  <p>This saves the J-card data into JSON text as a file download, whose
-filename follows either the upper or lower title. No data will be sent to any
-server.</p>
-  <p><em>Fields whose label is marked with an asterisk (*) are excluded from the
-process.</em></p>
-  <div class="field row no-label">
-    <div class="input shorter">
-      <button id="button-save" type="button">Save</button>
+  <section>
+    <p>This saves the J-card data into JSON text as a file download. Form fields
+whose label is marked with a plus (+) are excluded from the process.</p>
+    <div class="field column" id="field-save-name">
+      <label for="input-save-name">File name</label>
+      <div class="input fluid">
+        <input id="input-save-name" type="text" maxlength="244" />
+        <div class="field switch" id="field-save-follow">
+          <div class="input">
+            <input id="input-save-follow" type="checkbox" />
+          </div>
+          <label for="input-save-follow">Follow titles</label>
+        </div>
+      </div>
     </div>
-  </div>
+    <p><i>No data will be sent to any server.</i></p>
+    <div class="field row no-label" id="field-save">
+      <div class="input shorter">
+        <button id="button-save" type="button">Save</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <details>
+      <summary>Cover Image</summary>
+      <p>You can also save it here.</p>
+      <div class="field row no-label" id="field-save-cover">
+        <div class="input shorter">
+          <button id="button-save-cover" type="button">Download Cover</button>
+        </div>
+      </div>
+    </details>
+  </section>
 </form>

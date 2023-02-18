@@ -1,7 +1,10 @@
 {%-include variables.html-%}
 <!DOCTYPE html>
 {%include head.html%}
-    <link rel="stylesheet" href="{{sitePathRes}}/styles/document.css" />
+    <link rel="stylesheet" href="{{sitePathRes}}/styles/application.css" />
+  {%-if pageTitle%}
+    <meta name="application-name" content="{{pageTitle}}" />
+  {%-endif%}
   </head>
   <body>
 {%-unless noCurtain%}

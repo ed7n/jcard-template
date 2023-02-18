@@ -1,0 +1,145 @@
+/**
+ * NET Self-service Worker by Brendon, 02/17/2023.
+ *
+ * Self-registering service worker for progressive web applications.
+ *
+ * Get your list of assets with:
+ *
+ * $ find . -type f -printf '  PATH_PAGE + "%P",'$'\n' | sort
+ *
+ * then modify it as needed.
+ */
+
+"use strict";
+
+/** Page index path. */
+const PATH_PAGE = "/jcard-template/";
+/** Site resource path. */
+const PATH_SITE = "https://ed7n.github.io/res/";
+/** Name of the cache to operate on. */
+const CACHE_NAME = "jcard-template-u1rA";
+/** Request URLs whose response is to be cached for offline access. */
+const CACHE_URLS = Object.freeze([
+  PATH_PAGE + "",
+  PATH_PAGE + "2",
+  PATH_PAGE + "favicon.ico",
+  PATH_PAGE + "pwa",
+  PATH_PAGE + "pwa.js",
+  PATH_PAGE + "pwa.webmanifest",
+  PATH_PAGE + "res/fonts/alte-haas-grotesk-bold.ttf",
+  PATH_PAGE + "res/fonts/alte-haas-grotesk.ttf",
+  PATH_PAGE + "res/media/cover-240.png",
+  PATH_PAGE + "res/media/cover.png",
+  PATH_PAGE + "res/scripts/application-functions.mjs",
+  PATH_PAGE + "res/scripts/application-model.mjs",
+  PATH_PAGE + "res/scripts/constants.mjs",
+  PATH_PAGE + "res/scripts/edits.mjs",
+  PATH_PAGE + "res/scripts/events.mjs",
+  PATH_PAGE + "res/scripts/functions.mjs",
+  PATH_PAGE + "res/scripts/main.js",
+  PATH_PAGE + "res/scripts/models.mjs",
+  PATH_PAGE + "res/scripts/roots.mjs",
+  PATH_PAGE + "res/scripts/start.mjs",
+  PATH_PAGE + "res/scripts/view.mjs",
+  PATH_PAGE + "res/styles/jcard.css",
+  PATH_PAGE + "res/styles/view-1.css",
+  PATH_PAGE + "res/styles/view.css",
+  PATH_SITE + "media/pwa.png",
+  PATH_SITE + "styles/application.css",
+  PATH_SITE + "styles/base.css",
+  PATH_SITE + "styles/document.css",
+  PATH_SITE + "styles/form.css",
+  PATH_SITE + "styles/header-footer.css",
+  PATH_SITE + "styles/input.css",
+  PATH_SITE + "styles/layout.css",
+  PATH_SITE + "styles/nav.css",
+]);
+
+if (self.toString().includes("Window")) {
+  const button = document.querySelector("form > fieldset button");
+  const output = document.querySelector("form > fieldset output");
+  const container = navigator.serviceWorker;
+
+  async function register() {
+    try {
+      button.disabled = true;
+      button.removeEventListener("click", register);
+      output.innerHTML = "Registering…";
+      await container.register("pwa.js");
+      output.innerHTML = "Done.";
+    } catch (error) {
+      output.innerHTML = error;
+    }
+  }
+
+  async function unregister() {
+    try {
+      button.disabled = true;
+      button.removeEventListener("click", unregister);
+      output.innerHTML = "Unregistering…";
+      await container
+        .getRegistration()
+        .then((registration) => registration.unregister());
+      output.innerHTML = "Deleting cache…";
+      await caches.delete(CACHE_NAME);
+      output.innerHTML = "Done.";
+    } catch (error) {
+      output.innerHTML = error;
+    }
+  }
+
+  if (container) {
+    if (container.controller) {
+      button.addEventListener("click", unregister);
+      button.innerHTML = "Unregister";
+      output.innerHTML = container.controller.state;
+    } else {
+      button.addEventListener("click", register);
+      button.innerHTML = "Register";
+      output.innerHTML = "Normal.";
+    }
+    button.innerHTML += " Service Worker";
+    button.disabled = false;
+  } else {
+    button.innerHTML = "Unavailable";
+    button.disabled = true;
+    output.innerHTML = "(" + String(container) + ")";
+  }
+} else if (self.toString().includes("ServiceWorkerGlobalScope")) {
+  self.addEventListener("install", (event) => {
+    event.waitUntil(
+      (async () => {
+        await caches.open(CACHE_NAME).then((cache) => cache.addAll(CACHE_URLS));
+      })()
+    );
+  });
+
+  self.addEventListener("fetch", (event) => {
+    const request = event.request;
+    event.respondWith(
+      (async () => {
+        return (
+          (await caches.match(request)) ||
+          (await fetch(request).then(async (response) => {
+            if (response.ok) {
+              await caches
+                .open(CACHE_NAME)
+                .then((cache) => cache.put(request, response.clone()));
+            }
+            return response;
+          }))
+        );
+      })()
+    );
+  });
+
+  self.addEventListener("activate", (event) => {
+    event.waitUntil(
+      caches.keys().then((keys) => {
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .forEach((key) => caches.delete(key));
+      })
+    );
+  });
+}

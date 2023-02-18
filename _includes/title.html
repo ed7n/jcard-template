@@ -1,0 +1,15 @@
+<title>
+{%-unless pageIsHome-%}
+  {%-if pageData.head.title-%}
+    {{-pageData.head.title | strip_html-}}
+    {%-if siteTitle-%}
+      {{-splitTitle-}}
+    {%-endif-%}
+  {%-endif-%}
+{%-endunless-%}
+{{-siteTitle | strip_html-}}
+{%-if pageIsHome and siteSubtitle-%}
+  {{-splitSubtitle-}}
+  {{-siteSubtitle | strip_html-}}
+{%-endif-%}
+</title>

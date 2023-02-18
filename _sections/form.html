@@ -1,147 +1,163 @@
+{%-if page.key == siteData.key1-%}
+  {%-include_relative _sections/form-1.html-%}
+{%-else-%}
 <form>
-  <div class="columns">
-    <div class="column-2">
-      <div class="group">
-        <div class="field switch">
-          <div class="input">
-            <input id="short-back" type="checkbox" />
-          </div>
-          <label for="short-back">Short Back</label>
-        </div>
-        <div class="field switch">
-          <div class="input">
-            <input id="force-caps" type="checkbox" />
-          </div>
-          <label for="force-caps">Force CAPS</label>
-        </div>
-        <div class="field switch">
-          <div class="input">
-            <input id="print-2" type="checkbox" />
-          </div>
-          <label for="print-2">Print 2</label>
-        </div>
-      </div>
-      <div class="group">
-        <div class="field switch">
-          <div class="input">
-            <input id="bold" type="checkbox" />
-          </div>
-          <label for="bold"><b>Bold</b></label>
-        </div>
-        <div class="field switch">
-          <div class="input">
-            <input id="italicize" type="checkbox" />
-          </div>
-          <label for="italicize"><i>Italicize</i></label>
-        </div>
-        <div class="field switch">
-          <div class="input">
-            <input id="outline" type="checkbox" />
-          </div>
-          <label for="outline">Outline*</label>
-        </div>
-      </div>
-      <div class="field row">
-        <label for="cover-image">Cover Image*</label>
-        <div class="input fluid">
-          <input id="cover-image" type="file" accept="image/*" />
-        </div>
-      </div>
-      <div class="field row">
-        <label for="font-family">Font Family</label>
-        <div class="input fluid">
-          <input id="font-family" type="text" list="font-family-list" />
-          <datalist id="font-family-list">
-            <option>Alte Haas Grotesk</option>
-            <option>cursive</option>
-            <option>emoji</option>
-            <option>fangsong</option>
-            <option>fantasy</option>
-            <option>math</option>
-            <option>monospace</option>
-            <option>sans-serif</option>
-            <option>serif</option>
-            <option>system-ui</option>
-            <option>ui-monospace</option>
-            <option>ui-rounded</option>
-            <option>ui-sans-serif</option>
-            <option>ui-serif</option>
-          </datalist>
-        </div>
-      </div>
-    </div>
-    <div class="column">
-      <div class="field row small">
-        <label for="card-color">Card Color</label>
-        <div class="input short">
-          <input id="card-color" type="color" />
-        </div>
-      </div>
-      <div class="field row small">
-        <label for="text-color">Text Color</label>
-        <div class="input short">
-          <input id="text-color" type="color" />
-        </div>
-      </div>
-      <div class="field switch">
+  <section>
+    <div class="group">
+      <div class="field switch" id="field-short-back" title="0.6 in">
         <div class="input">
-          <input id="fill-cover" type="checkbox" />
+          <input id="input-short-back" type="checkbox" />
         </div>
-        <label for="fill-cover">Fill Cover</label>
+        <label for="input-short-back">Short back</label>
+      </div>
+      <div class="field switch" id="field-force-caps">
+        <div class="input">
+          <input id="input-force-caps" type="checkbox" />
+        </div>
+        <label for="input-force-caps">Force CAPS</label>
+      </div>
+      <div class="field switch" id="field-print-2">
+        <div class="input">
+          <input id="input-print-2" type="checkbox" />
+        </div>
+        <label for="input-print-2"><del>Print 2</del></label>
       </div>
     </div>
-  </div>
-  <fieldset>
-    <legend>Titles</legend>
-    <div class="columns">
-      <div class="column-2">
-        <h5>Content</h5>
-        <div class="field row">
-          <label for="title-upper">Upper</label>
-          <div class="input fluid">
-            <input id="title-upper" class="card-text" type="text" />
-          </div>
+    <div class="group">
+      <div class="field switch" id="field-bold">
+        <div class="input">
+          <input id="input-bold" type="checkbox" />
         </div>
-        <div class="field row">
-          <label for="title-lower">Lower</label>
-          <div class="input fluid">
-            <input id="title-lower" class="card-text" type="text" />
-          </div>
-        </div>
+        <label class="bolder" for="input-bold">Bold</label>
       </div>
-      <div class="column">
-        <h5>Size</h5>
-        <div class="field row small">
-          <label for="title-upper-size">Upper</label>
-          <div class="input short">
-            <input id="title-upper-size" type="number" min="0" step="0.1" />
-          </div>
+      <div class="field switch" id="field-italicize">
+        <div class="input">
+          <input id="input-italicize" type="checkbox" />
         </div>
-        <div class="field row small">
-          <label for="title-lower-size">Lower</label>
-          <div class="input short">
-            <input id="title-lower-size" type="number" min="0" step="0.1" />
-          </div>
+        <label class="oblique" for="input-italicize">Italicize</label>
+      </div>
+      <div class="field switch" id="field-short-spine" title="0.4 in">
+        <div class="input">
+          <input id="input-short-spine" type="checkbox" />
+        </div>
+        <label for="input-short-spine">Short spine<sub>β</sub></label>
+      </div>
+    </div>
+    <div class="group">
+      <div class="field switch" id="field-reverse">
+        <div class="input">
+          <input id="input-reverse" type="checkbox" />
+        </div>
+        <label for="input-reverse">Reverse</label>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="field column" id="field-cover-image">
+      <label for="input-cover-image">Cover image</label>
+      <div class="input fluid">
+        <input id="input-cover-image" type="file" accept="image/*" />
+      </div>
+    </div>
+    <div class="group">
+      <div class="field switch" id="field-fill-cover">
+        <div class="input">
+          <input id="input-fill-cover" type="checkbox" />
+        </div>
+        <label for="input-fill-cover">Fill cover</label>
+      </div>
+      <div class="field switch" id="field-reset-cover">
+        <div class="input short">
+          <button id="button-reset-cover" type="button">Reset Cover</button>
         </div>
       </div>
     </div>
-    <div class="columns">
-      <div class="column-2">
-        <h5>Alignment</h5>
-        <div class="field row">
-          <label for="front-title-alignment">Front</label>
+  </section>
+  <section>
+    <div class="field row" id="field-font-family">
+      <label for="input-font-family">Font family</label>
+      <div class="input fluid">
+        <input id="input-font-family" type="text" list="list-font-family" maxlength="1023" />
+        <datalist id="list-font-family">
+          <option>Alte Haas Grotesk</option>
+          <option>cursive</option>
+          <option>emoji</option>
+          <option>fangsong</option>
+          <option>fantasy</option>
+          <option>math</option>
+          <option>monospace</option>
+          <option>sans-serif</option>
+          <option>serif</option>
+          <option>system-ui</option>
+          <option>ui-monospace</option>
+          <option>ui-rounded</option>
+          <option>ui-sans-serif</option>
+          <option>ui-serif</option>
+        </datalist>
+      </div>
+    </div>
+    <div class="field row" id="field-card-color">
+      <label for="input-card-color">Card color</label>
+      <div class="input short">
+        <input id="input-card-color" type="color" />
+      </div>
+    </div>
+    <div class="field row" id="field-text-color">
+      <label for="input-text-color">Text color</label>
+      <div class="input short">
+        <input id="input-text-color" type="color" />
+      </div>
+    </div>
+  </section>
+  <details open>
+    <summary>Titles</summary>
+    <section>
+      <h5>Contents</h5>
+      <div class="field row" id="field-title-upper">
+        <label for="input-title-upper">Upper</label>
+        <div class="input fluid">
+          <input id="input-title-upper" class="follow-font-family" type="text" maxlength="1023" />
+        </div>
+      </div>
+      <div class="field row" id="field-title-lower">
+        <label for="input-title-lower">Lower</label>
+        <div class="input fluid">
+          <input id="input-title-lower" class="follow-font-family" type="text" maxlength="1023" />
+        </div>
+      </div>
+    </section>
+    <section>
+      <h5>Size</h5>
+      <div class="field row" id="field-title-upper-size">
+        <label for="input-title-upper-size">Upper</label>
+        <div class="input short">
+          <input id="input-title-upper-size" type="number" min="0" max="1023" step="0.1" />
+        </div>
+      </div>
+      <div class="field row" id="field-title-lower-size">
+        <label for="input-title-lower-size">Lower</label>
+        <div class="input short">
+          <input id="input-title-lower-size" type="number" min="0" max="1023" step="0.1" />
+        </div>
+      </div>
+    </section>
+    <section>
+      <h5>Alignment</h5>
+      <div class="group">
+        <div class="field column" id="field-front-title-alignment">
+          <label for="input-front-title-alignment">Front</label>
           <div class="input short">
-            <select id="front-title-alignment">
+            <select id="input-front-title-alignment">
               <option value="left">Left</option>
               <option value="center">Center</option>
               <option value="right">Right</option>
             </select>
           </div>
         </div>
-        <div class="field row">
-          <label for="spine-title-alignment">Spine</label>
+        <div class="field column" id="field-spine-title-alignment">
+          <label for="input-spine-title-alignment">Spine</label>
           <div class="input short">
-            <select id="spine-title-alignment">
+            <select id="input-spine-title-alignment">
               <option value="left">Left</option>
               <option value="center">Center</option>
               <option value="right">Right</option>
@@ -149,45 +165,147 @@
           </div>
         </div>
       </div>
-      <div class="column">
-        <h5>Visibility</h5>
-        <div class="field switch">
+    </section>
+    <section>
+      <h5>Visibility</h5>
+      <div class="group">
+        <div class="field switch" id="field-front-title-visible">
           <div class="input">
-            <input id="front-title-visible" type="checkbox" />
+            <input id="input-front-title-visible" type="checkbox" />
           </div>
-          <label for="front-title-visible">Front</label>
+          <label for="input-front-title-visible">Front</label>
         </div>
-        <div class="field switch">
+        <div class="field switch" id="field-spine-title-visible">
           <div class="input">
-            <input id="spine-title-visible" type="checkbox" />
+            <input id="input-spine-title-visible" type="checkbox" />
           </div>
-          <label for="spine-title-visible">Spine</label>
+          <label for="input-spine-title-visible">Spine</label>
         </div>
+      </div>
+    </section>
+  </details>
+  <details>
+    <summary>Footer</summary>
+    <div class="field row" id="field-footer">
+      <label for="input-footer">Content</label>
+      <div class="input fluid">
+        <textarea id="input-footer" class="follow-font-family" maxlength="8191"></textarea>
       </div>
     </div>
-  </fieldset>
-  <fieldset>
-    <legend>Footer</legend>
-    <div class="columns">
-      <div class="column-2">
-        <div class="field row">
-          <label for="footer">Content</label>
-          <div class="input fluid">
-            <textarea id="footer" class="card-text"></textarea>
+    <div class="field row" id="field-footer-size">
+      <label for="input-footer-size">Size</label>
+      <div class="input short">
+        <input id="input-footer-size" type="number" min="0" max="1023" step="0.1" />
+      </div>
+    </div>
+    <div class="field row" id="field-footer-alignment">
+      <label for="input-footer-alignment">Alignment</label>
+      <div class="input short">
+        <select id="input-footer-alignment">
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+          <option value="right">Right</option>
+        </select>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>Notes</summary>
+    <section>
+      <h5>Contents</h5>
+      <div class="field row" id="field-note-upper">
+        <label for="input-note-upper">Upper</label>
+        <div class="input fluid">
+          <input id="input-note-upper" class="follow-font-family" type="text" maxlength="1023" />
+        </div>
+      </div>
+      <div class="field row" id="field-note-lower">
+        <label for="input-note-lower">Lower</label>
+        <div class="input fluid">
+          <input id="input-note-lower" class="follow-font-family" type="text" maxlength="1023" />
+        </div>
+      </div>
+    </section>
+    <section>
+      <h5>Style</h5>
+      <div class="field row" id="field-note-size">
+        <label for="input-note-size">Size</label>
+        <div class="input short">
+          <input id="input-note-size" type="number" min="0" max="1023" step="0.1" />
+        </div>
+      </div>
+      <div class="field row" id="field-note-alignment">
+        <label for="input-note-alignment">Alignment</label>
+        <div class="input short">
+          <select id="input-note-alignment">
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </details>
+  <details>
+    <summary>Contents</summary>
+    <section>
+      <div class="field row" id="field-side-a">
+        <div class="label">
+          <input id="input-side-a-label" class="follow-font-family" type="text" title="Side A label" maxlength="1023" />
+        </div>
+        <div class="input fluid">
+          <textarea id="input-side-a-contents" class="follow-font-family" rows="5" title="Side A contents" maxlength="8191"></textarea>
+        </div>
+      </div>
+      <div class="field row" id="field-side-b">
+        <div class="label">
+          <input id="input-side-b-label" class="follow-font-family" type="text" title="Side B label" maxlength="1023" />
+        </div>
+        <div class="input fluid">
+          <textarea id="input-side-b-contents" class="follow-font-family" rows="5" title="Side B contents" maxlength="8191"></textarea>
+        </div>
+      </div>
+      <div class="field row" id="field-contents-separator">
+        <label for="input-contents-separator">Separator</label>
+        <div class="input short">
+          <input id="input-contents-separator" class="field-input follow-font-family" type="text" maxlength="1023" />
+        </div>
+      </div>
+    </section>
+    <section>
+      <h5>Size</h5>
+      <div class="group">
+        <div class="field column" id="field-front-size">
+          <label for="input-front-size">Front</label>
+          <div class="input short">
+            <input id="input-front-size" type="number" min="0" max="1023" step="0.1" />
+          </div>
+        </div>
+        <div class="field column" id="field-back-size">
+          <label for="input-back-size">Back</label>
+          <div class="input short">
+            <input id="input-back-size" type="number" min="0" max="1023" step="0.1" />
           </div>
         </div>
       </div>
-      <div class="column">
-        <div class="field row small">
-          <label for="footer-size">Size</label>
+    </section>
+    <section>
+      <h5>Alignment</h5>
+      <div class="group">
+        <div class="field column" id="field-front-contents-alignment">
+          <label for="input-front-contents-alignment">Front</label>
           <div class="input short">
-            <input id="footer-size" type="number" min="0" step="0.1" />
+            <select id="input-front-contents-alignment">
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
           </div>
         </div>
-        <div class="field row small">
-          <label for="footer-alignment">Alignment</label>
+        <div class="field column" id="field-back-contents-alignment">
+          <label for="input-back-contents-alignment">Back</label>
           <div class="input short">
-            <select id="footer-alignment">
+            <select id="input-back-contents-alignment">
               <option value="left">Left</option>
               <option value="center">Center</option>
               <option value="right">Right</option>
@@ -195,120 +313,24 @@
           </div>
         </div>
       </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>Notes</legend>
-    <div class="columns">
-      <div class="column-2">
-        <div class="field row">
-          <label for="note-upper">Upper Content</label>
-          <div class="input fluid">
-            <input id="note-upper" class="card-text" type="text" />
-          </div>
-        </div>
-        <div class="field row">
-          <label for="note-lower">Lower Content</label>
-          <div class="input fluid">
-            <input id="note-lower" class="card-text" type="text" />
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="field row small">
-          <label for="note-size">Size</label>
-          <div class="input short">
-            <input id="note-size" type="number" min="0" step="0.1" />
-          </div>
-        </div>
-        <div class="field row small">
-          <label for="note-alignment">Alignment</label>
-          <div class="input short">
-            <select id="note-alignment">
-              <option value="left">Left</option>
-              <option value="center">Center</option>
-              <option value="right">Right</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>Contents</legend>
-    <div class="columns">
-      <div class="column-2">
-        <div class="field row">
-          <div class="label">
-            <input id="side-a-label" class="card-text" type="text" placeholder="Side A" />
-          </div>
-          <div class="input fluid">
-            <textarea id="side-a-contents" class="card-text" rows="5"></textarea>
-          </div>
-        </div>
-        <div class="field row">
-          <div class="label">
-            <input id="side-b-label" class="field-label-editable card-text" type="text" placeholder="Side B" />
-          </div>
-          <div class="input fluid">
-            <textarea id="side-b-contents" class="card-text" rows="5"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="field row small">
-          <label for="front-size">Front Size</label>
-          <div class="input short">
-            <input id="front-size" type="number" min="0" step="0.1" />
-          </div>
-        </div>
-        <div class="field row small">
-          <label for="back-size">Back Size</label>
-          <div class="input short">
-            <input id="back-size" type="number" min="0" step="0.1" />
-          </div>
-        </div>
-        <div class="field row small">
-          <label for="contents-separator">Separator</label>
-          <div class="input short">
-            <input id="contents-separator" class="field-input card-text" type="text" placeholder="&amp;nbsp;• " />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column-2">
-        <h5>Alignment</h5>
-        <div class="field row">
-          <label for="front-contents-alignment">Front</label>
-          <div class="input short">
-            <select id="front-contents-alignment">
-              <option value="left">Left</option>
-              <option value="center">Center</option>
-              <option value="right">Right</option>
-            </select>
-          </div>
-        </div>
-        <div class="field row">
-          <label for="back-contents-alignment">Back</label>
-          <div class="input short">
-            <select id="back-contents-alignment">
-              <option value="left">Left</option>
-              <option value="center">Center</option>
-              <option value="right">Right</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <h5>Visibility</h5>
-        <div class="field switch">
+    </section>
+    <section>
+      <h5>Visibility</h5>
+      <div class="group">
+        <div class="field switch" id="field-front-contents-visible">
           <div class="input">
-            <input id="front-contents-visible" type="checkbox" />
+            <input id="input-front-contents-visible" type="checkbox" />
           </div>
-          <label for="front-contents-visible">Front</label>
+          <label for="input-front-contents-visible">Front</label>
+        </div>
+        <div class="field switch" id="field-back-contents-visible">
+          <div class="input">
+            <input id="input-back-contents-visible" type="checkbox" />
+          </div>
+          <label for="input-back-contents-visible">Back</label>
         </div>
       </div>
-    </div>
-  </fieldset>
+    </section>
+  </details>
 </form>
+{%-endif%}

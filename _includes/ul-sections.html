@@ -1,8 +1,22 @@
-{% for entry in data[include.key].menu
-%}{% assign slice = entry.label | slice: 0
-%}{% if slice == "^"
-  %}{% continue
-%}{% endif
-%}<li><span>[<a href="/{{ data[include.key].path }}{{ entry.href }}">{{ entry.label }}</a>]</span>{% if entry.subtitle != ""
-%}<span>{{ entry.subtitle }}</span>{% endif
-%}</li>{% endfor %}
+{%-assign lead = true%}
+{%-for entry in data[include.key].menu-%}
+  {%-unless entry.key-%}
+    {%-if lead-%}
+      <li>
+      {%-assign lead = nil-%}
+    {%-else%}
+<li>
+    {%-endif-%}
+      <span>[
+    {%-if entry.href and entry.label-%}
+      <a href="{{siteRoot}}/{{data[include.key].path}}{{entry.href}}">{{entry.label}}</a>
+    {%-else-%}
+      <a>(nil)</a>
+    {%-endif-%}
+      ]</span>
+    {%-if entry.subtitle-%}
+      <span>{{entry.subtitle}}</span>
+    {%-endif-%}
+    </li>
+  {%-endunless-%}
+{%-endfor-%}

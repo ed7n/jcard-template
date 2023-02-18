@@ -1,0 +1,22 @@
+{%-if pageData.menu-%}
+  {%-unless pageHasStyleNav-%}
+<link rel="stylesheet" href="{{sitePathRes}}/styles/nav.css" />
+    {%-assign pageHasStyleNav = true%}
+{%endunless-%}
+<nav>
+  <span>{{navLabelPage}}</span><ul class="line">
+  {%-for entry in pageData.menu%}
+    <li>[
+    {%-if data[entry.key].path and data[entry.key].body.title and entry.key-%}
+      <a class="up" href="{{siteRoot}}/{{data[entry.key].path}}">{{data[entry.key].body.title}}</a>
+    {%-elsif entry.href and entry.label-%}
+      <a href="{{entry.href}}">{{entry.label}}</a>
+    {%-else-%}
+      <a>(nil)</a>
+    {%-endif-%}
+    ]</li>
+  {%-endfor%}
+  </ul>
+</nav>
+<div class="hr"></div>
+{%-endif-%}

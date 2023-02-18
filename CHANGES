@@ -2,72 +2,154 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision A, 02/17/2023.
+- Overhauled most of everything.
+- Deprecated `Print 2`.
+- New user interface (UI2).
+- Progressive web app (PWA).
+- Form:
+  - `Back contents visibility`.
+  - `Reset Cover`.
+  - `Reverse`.
+  - `Short spine` (0.4 in).
+  - Changed no-save marker to '+'.
+  - Heading for upper and lower note contents.
+  - Moved `Outline` to print shop.
+  - Replaced "Content" with "Contents".
+  - `Short back` tooltip (0.6 in).
+- Help:
+  - About.
+  - Preview marker (β).
+- Load:
+  - Load cover (separately).
+  - Print empty MIME types.
+- Preview:
+  - Center template.
+  - Wrap template with <output>.
+- Print:
+  - Established print shop.
+  - `Count`.
+  - `Margin`.
+  - `Opacity`.
+  - `Start`.
+- Save:
+  - Custom file name.
+  - Download cover (separately).
+- Script:
+  - Conditional listening of the `beforeunload` event.
+  - Modularized everything where sensible.
+  - Safe values.
+- Template:
+  - `Outline` no longer previewed.
+  - Redone preset cover.
+  - Variablized metrics.
+- UI:
+  - Capitalize only the first character of field labels.
+  - Collapsible fieldsets (accordion).
+  - Length limits on string fields.
+- UI1:
+  - Jump menu entries open on a new tab or window.
+  - Link to UI2.
+- Window:
+  - Replaced favicon with cover.
+
 ——Revision 9, 01/05/2022.
-- Flexible and scalable print backend.
-- Modifying an unsaved field does not raise the modified flag.
-- Outline.
 - Refactored to use Jekyll.
-- UI: Added the font size unit under Help.
-- UI: Polished the forms.
-- UI: Removed floating menu.
-- UI: Use EDEN Online's stylesheets.
+- Print:
+  - Flexible and scalable backend.
+- Form:
+  - `Outline`.
+  - Modifying an unsaved field does not raise the modified flag.
+- Help:
+  - Font size unit (pt).
+- UI:
+  - Polished forms.
+  - Removed floating menu.
+  - Use EDEN Online's stylesheets.
 
 ——Revision 8, 06/10/2021.
-- UI: Moved fieldsets up one level, added header for option.
-- UI: Added a link to the original version under Help.
+- Help:
+  - Link to the original version.
+- UI:
+  - Moved fieldsets up a level, added header for option.
 
 ——Revision 7, 04/08/2021.
-- Brighten stock cover image.
-- UI: Card preview background no longer animates with the :target pseudo-class.
-- UI: Card preview scrolls on overflow.
-- UI: Load and save buttons' width span that of the document.
-- UI: Added a link to this document under Help.
+- Help:
+  - Link to this document.
+- Load:
+  - Button width spans that of the document.
+- Preview:
+  - Do not animate background with the `:target` pseudo-class.
+  - Scroll on overflow.
+- Save:
+  - Button width spans that of the document.
+- Template:
+  - Brighten preset cover.
 
 ——Revision 6, 03/14/2021.
-- Fixed floating menu in printouts.
+- Print:
+  - Fixed floating menu in printouts.
 
 ——Revision 5, 03/11/2021.
-- UI: Remade with Unagi.
-- UI: Card text fields' font family follows that of the card.
-- UI: Load, save, and help are document sections.
-- UI: Removed sticky menu, use floating menu.
-- UI: Separated load and save.
+- Form:
+  - Template text fields' font family follows that of the template.
+- UI:
+  - Document sections.
+  - Remade with Unagi.
+  - Removed sticky menu.
+  - Split `Load` and `Save` into two sections.
 
 ——Revision 4, 07/01/2020.
-- UI: Exiting prompts on unsaved changes.
-- UI: Menu is sticky.
-- UI: Moved improved instructions as Help to page bottom.
+- UI:
+  - Menu is sticky.
+  - Moved improved instructions as `Help` to page bottom.
+- Window:
+  - Exiting prompts on unsaved changes.
 
 ——Revision 3, 06/30/2020.
 - Re-refactored again.
-- Restored template metrics to those of Blaine Murphy's.
-- UI: Integrated EDEN Online stylesheets.
-- UI: Loading prompts on unsaved changes.
-- UI: Mobile menu.
-- UI: Preview menu shortcut.
+- Load:
+  - Prompt on unsaved changes.
+- Template:
+  - Restored metrics to those in Blaine Murphy's.
+- UI:
+  - Floating menu.
+  - Integrated EDEN Online stylesheets.
+  - `Preview` menu shortcut.
 
 ——Revision 2, 05/31/2020.
-- Background color follows on print with non-Gecko user agents.
-- Fixed lower title size.
-- Removed residual colon ':' on empty side labels in short back mode.
-- UI: Injected stopgap designs from EDEN Online and NET-Slides Concept UI.
+- Form:
+  - Fixed `lower title size`.
+- Print:
+  - Card color applies to printout with non-Gecko user agents.
+- Template:
+  - Removed residual colon ':' in empty short back side labels.
+- UI:
+  - Injected stopgap designs from EDEN Online and NET-Slides Concept UI.
 
 ——Revision 1, 12/13/2019.
-- Changed default content separator to "&nbsp;• ".
-- Removed residual colon ':' on empty side contents in short back mode.
-- Serialization filename considers both upper and lower titles.
-- UI: Menu.
-- UI: Moved instructions to page bottom.
-- UI: Swapped save and load.
+- Form:
+  - Changed `contents separator` preset to "&nbsp;• ".
+- Save:
+  - File name considers upper and lower titles.
+- Template:
+  - Removed residual colon ':' in empty short back side contents.
+- UI:
+  - Menu.
+  - Moved instructions to page bottom.
+  - Swapped `Load` and `Save`.
 
 ——Revision 0, 12/04/2019.
 - Reforked and re-refactored.
-- Custom content separator.
-- Fill cover.
-- Global bold font.
-- Serialization.
-- Text alignment.
-- Text visibility.
+- Load.
+- Save.
+- Form:
+  - Bold.
+  - Contents separator.
+  - Fill cover.
+  - Italicize.
+  - Text alignment.
+  - Text visibility.
 
 —Update 0
 

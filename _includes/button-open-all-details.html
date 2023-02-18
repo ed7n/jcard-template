@@ -1,0 +1,7 @@
+<button onclick="document.querySelectorAll(&quot;details&quot;).forEach((element) => element.open = &quot;open&quot;);">
+{%-if include.html-%}
+  {{-include.html-}}
+{%-else-%}
+  Open All Details
+{%-endif-%}
+</button>
