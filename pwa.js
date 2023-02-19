@@ -1,5 +1,5 @@
 /**
- * NET Self-service Worker by Brendon, 02/17/2023.
+ * NET Self-service Worker by Brendon, 02/19/2023.
  *
  * Self-registering service worker for progressive web applications.
  *
@@ -17,7 +17,7 @@ const PATH_PAGE = "/jcard-template/";
 /** Site resource path. */
 const PATH_SITE = "https://ed7n.github.io/res/";
 /** Name of the cache to operate on. */
-const CACHE_NAME = "jcard-template-u1rA";
+const CACHE_NAME = "jcard-template-u1rB-1";
 /** Request URLs whose response is to be cached for offline access. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",
@@ -56,54 +56,56 @@ const CACHE_URLS = Object.freeze([
 ]);
 
 if (self.toString().includes("Window")) {
-  const button = document.querySelector("form > fieldset button");
-  const output = document.querySelector("form > fieldset output");
+  const action = document.querySelector("#action");
+  const status = document.querySelector("#status");
+  const string = document.querySelector("#string");
   const container = navigator.serviceWorker;
 
   async function register() {
     try {
-      button.disabled = true;
-      button.removeEventListener("click", register);
-      output.innerHTML = "Registering…";
+      action.disabled = true;
+      action.removeEventListener("click", register);
+      status.innerHTML = "Registering…";
       await container.register("pwa.js");
-      output.innerHTML = "Done.";
+      status.innerHTML = "Done.";
     } catch (error) {
-      output.innerHTML = error;
+      status.innerHTML = error;
     }
   }
 
   async function unregister() {
     try {
-      button.disabled = true;
-      button.removeEventListener("click", unregister);
-      output.innerHTML = "Unregistering…";
+      action.disabled = true;
+      action.removeEventListener("click", unregister);
+      status.innerHTML = "Unregistering…";
       await container
         .getRegistration()
         .then((registration) => registration.unregister());
-      output.innerHTML = "Deleting cache…";
+      status.innerHTML = "Deleting cache…";
       await caches.delete(CACHE_NAME);
-      output.innerHTML = "Done.";
+      status.innerHTML = "Done.";
     } catch (error) {
-      output.innerHTML = error;
+      status.innerHTML = error;
     }
   }
 
+  string.innerHTML = CACHE_NAME;
   if (container) {
     if (container.controller) {
-      button.addEventListener("click", unregister);
-      button.innerHTML = "Unregister";
-      output.innerHTML = container.controller.state;
+      action.addEventListener("click", unregister);
+      action.innerHTML = "Unregister";
+      status.innerHTML = container.controller.state;
     } else {
-      button.addEventListener("click", register);
-      button.innerHTML = "Register";
-      output.innerHTML = "Normal.";
+      action.addEventListener("click", register);
+      action.innerHTML = "Register";
+      status.innerHTML = "Normal.";
     }
-    button.innerHTML += " Service Worker";
-    button.disabled = false;
+    action.innerHTML += " Service Worker";
+    action.disabled = false;
   } else {
-    button.innerHTML = "Unavailable";
-    button.disabled = true;
-    output.innerHTML = "(" + String(container) + ")";
+    action.innerHTML = "Unavailable";
+    action.disabled = true;
+    status.innerHTML = "(" + String(container) + ")";
   }
 } else if (self.toString().includes("ServiceWorkerGlobalScope")) {
   self.addEventListener("install", (event) => {

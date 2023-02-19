@@ -35,7 +35,7 @@ import {
   setFrontContents,
   setInnerHtml,
   setSrc,
-  setStyle,
+  setStyleVariable,
   resetCover,
 } from "./edits.mjs";
 import { collapseAll, expandAll } from "./view.mjs";
@@ -80,6 +80,7 @@ function setupEntryEvents() {
     o.sideBContents
   );
   addClassListener(i.backContentsVisible, o.back, "hidden", true);
+  addClassListener(i.blackAndWhite, o.root, "black-and-white");
   addClassListener(i.bold, o.root, "bold");
   addClassListener(i.fillCover, o.cover, "fill");
   addClassListener(i.forceCaps, o.root, "force-caps");
@@ -109,23 +110,21 @@ function setupEntryEvents() {
   addHtmlListener(i.titleUpper, o.spineTitleUpper);
   addSrcListener(i.coverImage, o.cover);
   addSrcListener(getLoadEntry("cover"), o.cover);
-  addStyleListener(i.backContentsAlignment, o.back, "text-align");
-  addStyleListener(i.backSize, o.back, "font-size", "pt");
-  addStyleListener(i.cardColor, o.boundaries, "background-color");
-  addStyleListener(i.fontFamily, o.root, "font-family");
-  addStyleListener(i.footerAlignment, o.footer, "text-align");
-  addStyleListener(i.footerSize, o.footer, "font-size", "pt");
-  addStyleListener(i.frontContentsAlignment, o.contents, "text-align");
-  addStyleListener(i.frontSize, o.contents, "font-size", "pt");
-  addStyleListener(i.frontTitleAlignment, o.frontTitleGroup, "text-align");
-  addStyleListener(i.noteAlignment, o.noteGroup, "text-align");
-  addStyleListener(i.noteSize, o.noteGroup, "font-size", "pt");
-  addStyleListener(i.spineTitleAlignment, o.spineTitleGroup, "text-align");
-  addStyleListener(i.textColor, o.root, "color");
-  addStyleListener(i.titleLowerSize, o.frontTitleLower, "font-size", "pt");
-  addStyleListener(i.titleLowerSize, o.spineTitleLower, "font-size", "pt");
-  addStyleListener(i.titleUpperSize, o.frontTitleUpper, "font-size", "pt");
-  addStyleListener(i.titleUpperSize, o.spineTitleUpper, "font-size", "pt");
+  addStyleVariableListener(i, "backContentsAlignment");
+  addStyleVariableListener(i, "backSize", "pt");
+  addStyleVariableListener(i, "cardColor");
+  addStyleVariableListener(i, "fontFamily");
+  addStyleVariableListener(i, "footerAlignment");
+  addStyleVariableListener(i, "footerSize", "pt");
+  addStyleVariableListener(i, "frontContentsAlignment");
+  addStyleVariableListener(i, "frontSize", "pt");
+  addStyleVariableListener(i, "frontTitleAlignment");
+  addStyleVariableListener(i, "noteAlignment");
+  addStyleVariableListener(i, "noteSize", "pt");
+  addStyleVariableListener(i, "spineTitleAlignment");
+  addStyleVariableListener(i, "textColor");
+  addStyleVariableListener(i, "titleLowerSize", "pt");
+  addStyleVariableListener(i, "titleUpperSize", "pt");
 }
 
 /** Adds listeners to file operators. */
@@ -139,15 +138,6 @@ function setupFileEvents() {
 
 /** Adds listeners to entries that update entries. */
 function setupFormEvents() {
-  getRoot()
-    .querySelectorAll(".follow-font-family")
-    .forEach((element) => {
-      addStyleListener(
-        getDataEntry("fontFamily"),
-        { element: element },
-        "font-family"
-      );
-    });
   getSaveEntry("follow").element.addEventListener("change", (event) => {
     getSaveEntry("name").element.disabled = getInputSafeValue(event.target);
   });
@@ -169,21 +159,21 @@ function setupViewEvents() {
   getSaveEntry("name").element.addEventListener("input", (event) => {
     setWindowSubtitle(getInputSafeValue(event.target));
   });
-  addClassListener(getViewEntry("reverse"), { element: getRoot() }, "reverse");
+  addClassListener(getViewEntry("reverse"), getRoot(), "reverse");
 }
 
 /** Adds listeners to the window. */
 function setupWindowEvents() {
   window.addEventListener("beforeprint", () => {
-    if (getDataEntry("print2").safeValue) {
+    if (getDataEntry("print2").valueOrPreset) {
       doPrint(1, 2);
     } else {
       doPrint(
-        getPrintEntry("start").safeValue,
-        getPrintEntry("count").safeValue,
-        getPrintEntry("margin").safeValue,
-        getPrintEntry("opacity").safeValue,
-        getPrintEntry("outline").safeValue
+        getPrintEntry("start").valueOrPreset,
+        getPrintEntry("count").valueOrPreset,
+        getPrintEntry("margin").valueOrPreset,
+        getPrintEntry("opacity").valueOrPreset,
+        getPrintEntry("outline").valueOrPreset
       );
     }
   });
@@ -272,6 +262,22 @@ function addStyleListener(
   entry.element.addEventListener("input", () => {
     addBeforeUnloadListenerBy(entry);
     setStyle(output, style, entry, suffix);
+  });
+}
+
+/**
+ * Adds an input event listener to the given entry by its key that sets the
+ * given style variable of the application root element by the same key.
+ */
+function addStyleVariableListener(
+  entries,
+  key = NUL_STRING,
+  suffix = NUL_STRING
+) {
+  const entry = entries[key];
+  entry.element.addEventListener("input", () => {
+    addBeforeUnloadListenerBy(entry);
+    setStyleVariable(key, entry, suffix);
   });
 }
 

@@ -93,7 +93,7 @@ export function setInputValue(element = NUL_ELEMENT, value = NUL_STRING) {
         case "file":
           if (value instanceof FileList) {
             return (element.files = value);
-          } else {
+          } else if (value !== NUL_STRING) {
             return;
           }
       }

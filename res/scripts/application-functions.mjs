@@ -36,15 +36,14 @@ export function download(name = NUL_STRING, url = NUL_STRING) {
 
 /** Loads the reader contents into the current instance. */
 export function loadReader() {
-  // TODO: A flag in the FormEntry model for selective data loading.
   populate(JSON.parse(getReader().result));
-  Object.entries(getDataEntries())
-    .filter(([key, value]) => key !== "coverImage" && !value.save)
-    .forEach(([, entry]) => {
+  Object.values(getDataEntries())
+    .filter((entry) => !entry.persistent && !entry.save)
+    .forEach((entry) => {
       entry.value = entry.preset;
     });
   const name = getSaveEntry("name");
-  name.value = getLoadEntry("file").safeValue[0].name.replace(
+  name.value = getLoadEntry("file").valueOrPreset[0].name.replace(
     regexps.fileExtension,
     NUL_STRING
   );
@@ -79,7 +78,9 @@ export function preserve(all = false) {
   if (!all) {
     entries = entries.filter(([, entry]) => entry.save);
   }
-  entries.forEach(([key, entry]) => (out[key] = entry.value));
+  entries.forEach(([key, entry]) => {
+    out[key] = entry.value;
+  });
   return Object.freeze(out);
 }
 
@@ -95,7 +96,7 @@ export function print() {
  */
 export function readLoadFile() {
   getLoadEntry("file").element.disabled = true;
-  const files = getLoadEntry("file").safeValue;
+  const files = getLoadEntry("file").valueOrPreset;
   if (files.length) {
     const file = files[0];
     if (testDataFile(file) && (!isModified() || confirm(MESSAGES.discard))) {
@@ -216,10 +217,10 @@ export function getButtons() {
 /** Returns the current card name. */
 export function getCardName() {
   return (
-    (getSaveEntry("follow").safeValue
-      ? getDataEntry("titleUpper").safeValue ||
-        getDataEntry("titleLower").safeValue
-      : getSaveEntry("name").safeValue) || FILE_NAME
+    (getSaveEntry("follow").valueOrPreset
+      ? getDataEntry("titleUpper").valueOrPreset ||
+        getDataEntry("titleLower").valueOrPreset
+      : getSaveEntry("name").valueOrPreset) || FILE_NAME
   );
 }
 

@@ -23,7 +23,9 @@ setupEvents();
 Object.values(getDataEntries())
   .filter((entry) => !entry.save)
   .forEach((entry) => {
-    entry.labels[0].innerHTML += "<sup>+</sup>";
+    entry.element.labels.forEach((label) => {
+      label.innerHTML += "<sup>+</sup>";
+    });
   });
 [
   getDataEntries,

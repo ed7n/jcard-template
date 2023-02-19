@@ -1,15 +1,5 @@
 article {
-  --spacerPanel: calc(var(--spacerPx) * 720);
-}
-
-article > nav {
-  margin-inline-end: var(--spacer2);
-  margin-inline-start: auto;
-}
-
-article > nav + div.hr {
-  margin-block-end: unset;
-  margin-block-start: unset;
+  --spacerJCardPanel: calc(var(--spacerPx) * 720);
 }
 
 article > section:not(:last-of-type) {
@@ -18,24 +8,41 @@ article > section:not(:last-of-type) {
   border-block-end-width: var(--spacerPx);
 }
 
-article > section:not(:first-of-type):not(:last-of-type) {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
+article > section:not(:first-of-type):not(:last-of-type),
 article
   > section:not(:first-of-type):not(:last-of-type)
-  > section:not(:last-of-type) {
-  border-inline-end-color: var(--color);
-  border-inline-end-style: solid;
-  border-inline-end-width: var(--spacerPx);
+  > section:last-of-type {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+article > section:not(:first-of-type):not(:last-of-type) {
+  flex-direction: row;
+}
+
+article > section:not(:first-of-type):not(:last-of-type) > section,
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > section {
+  flex-grow: 1;
 }
 
 article
   > section:not(:first-of-type):not(:last-of-type)
   > section:not(:first-of-type):not(:last-of-type) {
-  flex-grow: 1;
   flex-shrink: 1;
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:first-of-type,
+article > section:not(:first-of-type):not(:last-of-type) > section:last-of-type,
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > nav:first-of-type {
+  flex-shrink: 0;
 }
 
 article
@@ -50,19 +57,64 @@ article
     var(--lengthFieldRowMin) + var(--paddingFieldset) * 2 + 8% -
       var(--spacerPx2)
   );
-  flex-grow: 1;
-  flex-shrink: 0;
   max-width: calc(
-    var(--spacerPanel) - var(--spacer2) - var(--lengthFieldRowSmallMin)
+    var(--spacerJCardPanel) - var(--spacer2) - var(--lengthFieldRowSmallMin)
   );
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:first-of-type,
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > section {
   overflow-y: scroll;
 }
 
 article
   > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type {
+  flex-direction: column;
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
   > section:last-of-type
+  > :not(section) {
+  flex-grow: 0;
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > nav:first-of-type {
+  background-color: var(--colorAccentMin);
+  border-block-end-color: var(--colorAccentLow);
+  border-block-end-style: solid;
+  border-block-end-width: var(--widthBorderBumpEnd);
+  border-inline-end-color: var(--colorAccentLow);
+  border-inline-end-width: var(--widthBorderBumpStart);
+  border-inline-start-color: var(--colorAccentHigh);
+  border-inline-start-style: solid;
+  border-inline-start-width: var(--widthBorderBumpStart);
+  padding: var(--spacer);
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > nav:first-of-type
+  + div.hr,
+article > section:not(:first-of-type):not(:last-of-type) > section:empty {
+  display: none;
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > section
   > section {
-  margin-block-end: var(--spacer8);
   margin-inline-end: 4%;
   margin-inline-start: 4%;
   padding-block-start: var(--spacer2);
@@ -71,58 +123,27 @@ article
 article
   > section:not(:first-of-type):not(:last-of-type)
   > section:last-of-type
+  > section
   > section:not(:first-child) {
   margin-block-start: var(--spacer6);
-}
-
-article
-  > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type
-  > section:first-child {
-  margin-block-start: var(--spacer2);
-}
-
-article > section:not(:first-of-type):not(:last-of-type) > section:empty {
-  display: none;
-}
-
-article > section:first-of-type,
-article > section:last-of-type {
-  padding-inline-end: var(--paddingFieldset);
-  padding-inline-start: var(--paddingFieldset);
-}
-
-article.reverse > nav {
-  margin-inline-end: auto;
-  margin-inline-start: var(--spacer2);
 }
 
 article.reverse > section:not(:first-of-type):not(:last-of-type) {
   flex-direction: row-reverse;
 }
 
-@media (max-width: 720px) and (min-width: 320px) {
-  article
-    > section:not(:first-of-type):not(:last-of-type)
-    > section:last-of-type
-    > section:last-child {
-    margin-block-end: var(--spacer16);
-  }
+article.reverse
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > nav:first-of-type {
+  border-inline-end-style: solid;
+  border-inline-start-style: unset;
 }
 
-@media (max-width: 639px), (max-aspect-ratio: 2/3) {
+@media (max-width: 639px), (max-aspect-ratio: 1.9999/3) {
   article > section:not(:first-of-type):not(:last-of-type),
   article.reverse > section:not(:first-of-type):not(:last-of-type) {
     flex-direction: column;
-  }
-
-  article
-    > section:not(:first-of-type):not(:last-of-type)
-    > section:not(:last-of-type) {
-    border-inline-end: unset;
-    border-block-end-color: var(--color);
-    border-block-end-style: solid;
-    border-block-end-width: var(--spacerPx);
   }
 
   article
@@ -134,18 +155,75 @@ article.reverse > section:not(:first-of-type):not(:last-of-type) {
     flex-basis: 50%;
     max-width: unset;
   }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > nav:first-of-type {
+    border-inline-start-style: unset;
+    display: none;
+  }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > nav:last-of-type {
+    display: unset;
+  }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > section
+    > section:last-child {
+    margin-block-end: var(--spacer16);
+  }
+
+  article.reverse
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > nav:first-of-type {
+    border-inline-end-style: unset;
+  }
 }
 
-@media (max-width: 319px) {
-  article > nav {
-    margin-inline-end: unset;
-    margin-inline-start: unset;
+@media (min-width: 640px) and (min-aspect-ratio: 2/3), (max-width: 319px) {
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > nav:first-of-type {
+    display: unset;
+  }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > nav:last-of-type {
+    display: none;
+  }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > section
+    > section:last-child {
+    margin-block-end: var(--spacer8);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > nav:first-child {
+    border-block-end-color: var(--colorAccentHigh);
+    border-inline-end-color: var(--colorAccentHigh);
+    border-inline-start-color: var(--colorAccentLow);
   }
 }
 
 @media print {
   article > :not(section:not(:first-of-type):not(:last-of-type)),
-  article > nav,
   article
     > section:not(:first-of-type):not(:last-of-type)
     > :not(section#template),
@@ -156,9 +234,7 @@ article.reverse > section:not(:first-of-type):not(:last-of-type) {
     display: none;
   }
 
-  article
-    > section:not(:first-of-type):not(:last-of-type)
-    > section:not(:last-of-type) {
-    border-inline-end: unset;
+  article > section:not(:last-of-type) {
+    border-block-end-style: unset;
   }
 }

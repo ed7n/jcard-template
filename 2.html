@@ -14,12 +14,16 @@ key: "_home"
 {%include_relative _sections/template.html-%}
   </section>
   <section>
-{%include sections.html-%}
+{%include nav-page.html%}
     <section>
-      <div class="hr"></div>
-      <p><i>Built on <span class="bolder">NET</span> technology.</i></p>
+{%include sections.html-%}
+      <section>
+        <div class="hr"></div>
+        <p><i>Built on <span class="bolder">NET</span> technology.</i></p>
 {%include nav-site.html%}
+      </section>
     </section>
+{%include nav-tree.html%}
   </section>
 </section>
 <section></section>

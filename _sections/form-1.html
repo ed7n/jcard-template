@@ -21,45 +21,56 @@
           <label for="input-print-2"><del>Print 2</del></label>
         </div>
       </div>
-      <div class="group">
-        <div class="field switch" id="field-bold">
-          <div class="input">
-            <input id="input-bold" type="checkbox" />
+      <details>
+        <summary>Push Open</summary>
+        <div class="group">
+          <div class="field switch" id="field-reverse">
+            <div class="input">
+              <input id="input-reverse" type="checkbox" />
+            </div>
+            <label for="input-reverse">Reverse</label>
           </div>
-          <label class="bolder" for="input-bold">Bold</label>
-        </div>
-        <div class="field switch" id="field-italicize">
-          <div class="input">
-            <input id="input-italicize" type="checkbox" />
+          <div class="field switch" id="field-short-spine" title="0.4 in">
+            <div class="input">
+              <input id="input-short-spine" type="checkbox" />
+            </div>
+            <label for="input-short-spine">Short spine<sub>β</sub></label>
           </div>
-          <label class="oblique" for="input-italicize">Italicize</label>
-        </div>
-        <div class="field switch" id="field-short-spine" title="0.4 in">
-          <div class="input">
-            <input id="input-short-spine" type="checkbox" />
-          </div>
-          <label for="input-short-spine">Short spine<sub>β</sub></label>
-        </div>
-      </div>
-      <div class="group">
-        <div class="field switch" id="field-reverse">
-          <div class="input">
-            <input id="input-reverse" type="checkbox" />
-          </div>
-          <label for="input-reverse">Reverse</label>
-        </div>
-        <div class="field switch" id="field-fill-cover">
-          <div class="input">
-            <input id="input-fill-cover" type="checkbox" />
-          </div>
-          <label for="input-fill-cover">Fill cover</label>
-        </div>
-        <div class="field row switch" id="field-reset-cover">
-          <div class="input short">
-            <button id="button-reset-cover" type="button">Reset Cover</button>
+          <div class="field switch" id="field-fill-cover">
+            <div class="input">
+              <input id="input-fill-cover" type="checkbox" />
+            </div>
+            <label for="input-fill-cover">Fill cover</label>
           </div>
         </div>
-      </div>
+        <div class="group">
+          <div class="field switch" id="field-bold">
+            <div class="input">
+              <input id="input-bold" type="checkbox" />
+            </div>
+            <label class="bolder" for="input-bold">Bold</label>
+          </div>
+          <div class="field switch" id="field-italicize">
+            <div class="input">
+              <input id="input-italicize" type="checkbox" />
+            </div>
+            <label class="oblique" for="input-italicize">Italicize</label>
+          </div>
+          <div class="field switch" id="field-black-and-white">
+            <div class="input">
+              <input id="input-black-and-white" type="checkbox" />
+            </div>
+            <label for="input-black-and-white"><abbr title="Black and white">B&amp;W</abbr></label>
+          </div>
+        </div>
+        <div class="group">
+          <div class="field row switch" id="field-reset-cover">
+            <div class="input short">
+              <button id="button-reset-cover" type="button">Reset Cover</button>
+            </div>
+          </div>
+        </div>
+      </details>
       <div class="field row" id="field-cover-image">
         <label for="input-cover-image">Cover image</label>
         <div class="input fluid">

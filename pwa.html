@@ -13,19 +13,25 @@ layout: "document"
   <p>Our service worker is a cache server. On registration, it downloads all
 resources into a persistent storage and serves them locally, downloading lost
 ones as needed. You can bypass the service worker with a forced reload.</p>
-  <p>At least ~660 kB of disk space is required.</p>
+  <p>At least ~680 kB of disk space is required.</p>
   <form>
     <fieldset>
       <div class="field row">
-        <label>Installation</label>
-        <div class="input rigid">
-          <button type="button" disabled></button>
+        <label for="version">Cache Name</label>
+        <div class="input fluid">
+          <output id="string"></output>
         </div>
       </div>
       <div class="field row">
-        <label>Status</label>
+        <label for="action">Installation</label>
+        <div class="input rigid">
+          <button id="action" type="button" disabled></button>
+        </div>
+      </div>
+      <div class="field row">
+        <label for="status">Status</label>
         <div class="input fluid">
-          <output>Awaiting script…</output>
+          <output id="status">Awaiting script…</output>
         </div>
       </div>
       <div class="field row space-between">

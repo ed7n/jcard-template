@@ -9,6 +9,7 @@ import { qsAll } from "./functions.mjs";
 import { application as root } from "./roots.mjs";
 import {
   DataFormEntry,
+  ElementModel,
   FormButton,
   FormEntry,
   JCardOutput,
@@ -17,9 +18,15 @@ import {
 /** Application model. */
 export const application = Object.freeze({
   /** Root element. */
-  root: root,
+  root: new ElementModel(root),
   /** Collapsible fieldsets. */
-  accordions: qsAll(root, "details"),
+  accordions: (() => {
+    const out = [];
+    qsAll(root, "details").forEach((element) =>
+      out.push(new ElementModel(element))
+    );
+    return out;
+  })(),
   /** Form buttons. */
   buttons: Object.freeze({
     load: new FormButton({ id: "load" }),
@@ -41,11 +48,15 @@ export const application = Object.freeze({
       backContentsVisible: new DataFormEntry({
         id: "back-contents-visible",
         preset: true,
-        save: true,
       }),
       backSize: new DataFormEntry({
         id: "back-size",
         preset: 8,
+      }),
+      blackAndWhite: new DataFormEntry({
+        id: "black-and-white",
+        preset: false,
+        save: false,
       }),
       bold: new DataFormEntry({
         id: "bold",
@@ -61,6 +72,7 @@ export const application = Object.freeze({
       }),
       coverImage: new DataFormEntry({
         id: "cover-image",
+        persistent: true,
         preset: NUL_STRING,
         save: false,
       }),
@@ -135,7 +147,6 @@ export const application = Object.freeze({
       reverse: new DataFormEntry({
         id: "reverse",
         preset: false,
-        save: true,
       }),
       shortBack: new DataFormEntry({
         id: "short-back",
@@ -144,7 +155,6 @@ export const application = Object.freeze({
       shortSpine: new DataFormEntry({
         id: "short-spine",
         preset: false,
-        save: true,
       }),
       sideAContents: new DataFormEntry({
         id: "side-a-contents",

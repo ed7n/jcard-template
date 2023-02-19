@@ -1,6 +1,4 @@
 #jcard .template {
-  --colorJCardOutline: #000;
-  --colorJCardOutlineBox: #0000007f;
   --lengthJCardBack: var(--lengthJCardBackStandard);
   --lengthJCardBackDelta: calc(
     var(--lengthJCardBackTemplate) - var(--lengthJCardBack)
@@ -29,6 +27,28 @@
 
 #jcard {
   margin: auto;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+#jcard .black-and-white {
+  filter: grayscale() contrast(255);
+}
+
+#jcard .bold {
+  font-weight: bold;
+}
+
+#jcard .force-caps {
+  text-transform: uppercase;
+}
+
+#jcard .hidden {
+  display: none;
+}
+
+#jcard .italicize {
+  font-style: italic;
 }
 
 #jcard .printable {
@@ -62,9 +82,12 @@
 }
 
 #jcard .printable-crop::before,
-#jcard .printable-crop::after {
-  border: var(--widthJCardOutline) none var(--colorJCardOutline);
+#jcard .printable-crop::after,
+#jcard .printable-fold::before {
+  border-color: var(--jCardTextColor);
+  border-width: var(--widthJCardOutline);
   content: "";
+  filter: grayscale();
 }
 
 #jcard .printable-crop::before {
@@ -96,10 +119,7 @@
 }
 
 #jcard .printable-fold::before {
-  border-left-color: var(--colorJCardOutline);
   border-left-style: solid;
-  border-left-width: var(--widthJCardOutline);
-  content: "";
   position: absolute;
   top: var(--lengthJCardBleed2Mirror);
   left: calc(-1 * (var(--widthJCardOutline) / 2));
@@ -108,28 +128,14 @@
 }
 
 #jcard .template {
+  color: var(--jCardTextColor);
+  font-family: var(--jCardFontFamily);
   height: var(--lengthJCardHeight);
   line-height: 1.1;
   width: calc(
     var(--lengthJCardBackTemplate) + var(--lengthJCardSpineTemplate) +
       var(--lengthJCardFront)
   );
-}
-
-#jcard .template .hidden {
-  display: none;
-}
-
-#jcard .template.bold {
-  font-weight: bold;
-}
-
-#jcard .template.force-caps {
-  text-transform: uppercase;
-}
-
-#jcard .template.italicize {
-  font-style: italic;
 }
 
 #jcard .template.short-back {
@@ -166,10 +172,12 @@
 #jcard .template-back {
   display: flex;
   flex-flow: column nowrap;
+  font-size: var(--jCardBackSize);
   height: var(--lengthJCardBack);
   justify-content: center;
   padding: 0 var(--spacerJCard);
   position: absolute;
+  text-align: var(--jCardBackContentsAlignment);
   transform: translate(
       calc(var(--lengthJCardBackDelta) + var(--lengthJCardSpineDelta)),
       calc(-1 * var(--lengthJCardBack))
@@ -180,6 +188,7 @@
 }
 
 #jcard .template-boundaries {
+  background-color: var(--jCardCardColor);
   position: absolute;
   top: 0;
   left: calc(var(--lengthJCardBackDelta) + var(--lengthJCardSpineDelta));
@@ -188,7 +197,9 @@
 }
 
 #jcard .template-contents {
+  font-size: var(--jCardFrontSize);
   line-height: 1.2;
+  text-align: var(--jCardFrontContentsAlignment);
 }
 
 #jcard .template-cover {
@@ -210,6 +221,11 @@
 
 #jcard .template-fold-2 {
   left: calc(var(--lengthJCardBackTemplate) + var(--lengthJCardSpineTemplate));
+}
+
+#jcard .template-footer {
+  font-size: var(--jCardFooterSize);
+  text-align: var(--jCardFooterAlignment);
 }
 
 #jcard .template-front {
@@ -238,10 +254,21 @@
 
 #jcard .template-front-title-group {
   position: relative;
+  text-align: var(--jCardFrontTitleAlignment);
 }
 
 #jcard .template-front-title-group.center {
   margin: auto;
+}
+
+#jcard .template-front-title-lower,
+#jcard .template-spine-title-lower {
+  font-size: var(--jCardTitleLowerSize);
+}
+
+#jcard .template-front-title-upper,
+#jcard .template-spine-title-upper {
+  font-size: var(--jCardTitleUpperSize);
 }
 
 #jcard .template-note-group,
@@ -249,6 +276,11 @@
   padding: 0 var(--spacerJCard);
   position: inherit;
   width: var(--lengthJCardHeight);
+}
+
+#jcard .template-note-group {
+  font-size: var(--jCardNoteSize);
+  text-align: var(--jCardNoteAlignment);
 }
 
 #jcard .template-side-a-contents {
@@ -283,6 +315,10 @@
   width: var(--lengthJCardHeight);
 }
 
+#jcard .template-spine-title-group {
+  text-align: var(--jCardSpineTitleAlignment);
+}
+
 #template > output {
   background-color: var(--colorAccentLowDent);
   display: flex;
@@ -290,6 +326,10 @@
   height: 100%;
   overflow: auto;
   width: 100%;
+}
+
+form .follow-font-family {
+  font-family: var(--jCardFontFamily);
 }
 
 form label > sub,
@@ -310,7 +350,7 @@ form label > sup {
 
   #jcard .printable.outline .printable-bleed,
   #jcard .printable.outline .printable-crop {
-    outline: var(--widthJCardOutline) dotted var(--colorJCardOutlineBox);
+    outline: var(--widthJCardOutline) dotted var(--jCardTextColor);
   }
 
   #jcard .template.variable-width {

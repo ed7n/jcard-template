@@ -20,6 +20,8 @@ export const MESSAGES = Object.freeze({
 });
 /** Default cover image source. */
 export const COVER_IMAGE = "res/media/cover.png";
+/** CSS custom property namespace. */
+export const CSS_NAMESPACE = "jCard";
 /** Data version. */
 export const DATA_VERSION = "1A";
 /** Event: "change". */

@@ -2,6 +2,28 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision B, 02/19/2023.
+- Form:
+  - `Black and white`
+  - Fixed `Reset Cover` not affecting `Cover image`.
+  - Grouped some template flag options into an accordion.
+- Print:
+  - Outline color follows that of the template text.
+- Script:
+  - Extended element models to all others.
+  - Form entry persistence flag.
+  - Replaced deprecated HTML styling tags with inline CSS.
+- Template:
+  - Disabled user agent text size adjustments.
+  - Guide color follows that of the text.
+  - Use CSS custom properties for form-explicit style values.
+- UI2:
+  - Fixed menu type not following layout change.
+  - Fixed residual borders on print.
+  - Moved line menu to control panel.
+  - Raised line menu.
+  - Removed panel borders.
+
 ——Revision A, 02/17/2023.
 - Overhauled most of everything.
 - Deprecated `Print 2`.
@@ -16,6 +38,7 @@ J-Card Template: Changes
   - Heading for upper and lower note contents.
   - Moved `Outline` to print shop.
   - Replaced "Content" with "Contents".
+  - Replaced deprecated HTML styling tags with CSS equivalents.
   - `Short back` tooltip (0.6 in).
 - Help:
   - About.

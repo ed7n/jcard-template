@@ -5,17 +5,21 @@
 {%endunless-%}
 <nav>
   <span>{{navLabelPage}}</span><ul class="line">
-  {%-for entry in pageData.menu%}
-    <li>[
+  {%-for entry in pageData.menu-%}
+    <li
+>[
     {%-if data[entry.key].path and data[entry.key].body.title and entry.key-%}
-      <a class="up" href="{{siteRoot}}/{{data[entry.key].path}}">{{data[entry.key].body.title}}</a>
+      <a class="up" href="{{siteRoot}}/{{data[entry.key].path}}"
+>{{data[entry.key].body.title}}</a>
     {%-elsif entry.href and entry.label-%}
-      <a href="{{entry.href}}">{{entry.label}}</a>
+      <a href="{{entry.href}}"
+>{{entry.label}}</a>
     {%-else-%}
-      <a>(nil)</a>
+      <a
+>(nil)</a>
     {%-endif-%}
     ]</li>
-  {%-endfor%}
+  {%-endfor-%}
   </ul>
 </nav>
 <div class="hr"></div>

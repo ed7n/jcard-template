@@ -4,12 +4,13 @@
  * Functions that the user invokes to edit the current instance.
  */
 
-import { NUL_STRING, COVER_IMAGE } from "./constants.mjs";
+import { NUL_STRING, COVER_IMAGE, CSS_NAMESPACE } from "./constants.mjs";
 import { replaceLineEnds } from "./functions.mjs";
 import {
   getDataEntry,
   getOutput,
   setModifiedBy,
+  getRoot,
 } from "./application-functions.mjs";
 
 /**
@@ -17,7 +18,7 @@ import {
  * of the given entry.
  */
 export function setClassWord(output, classs, entry, invert = false) {
-  if (entry.safeValue ^ invert) {
+  if (entry.valueOrPreset ^ invert) {
     output.element.classList.add(classs);
   } else {
     output.element.classList.remove(classs);
@@ -27,7 +28,7 @@ export function setClassWord(output, classs, entry, invert = false) {
 
 /** Sets the inner HTML of the given output to the value of the given entry. */
 export function setInnerHtml(output, entry) {
-  output.element.innerHTML = replaceLineEnds(entry.safeValue, "<br />");
+  output.element.innerHTML = replaceLineEnds(entry.valueOrPreset, "<br />");
   setModifiedBy(entry);
 }
 
@@ -42,10 +43,11 @@ export function setBackContents(
   shortBack,
   source
 ) {
-  output.element.innerHTML = contents.safeValue
-    ? (shortBack.safeValue && label.safeValue
-        ? "<b>" + label.safeValue + ":&nbsp;&nbsp;</b>"
-        : NUL_STRING) + replaceLineEnds(contents.safeValue, separator.safeValue)
+  output.element.innerHTML = contents.valueOrPreset
+    ? (shortBack.valueOrPreset && label.valueOrPreset
+        ? '<span class="bold">' + label.valueOrPreset + ":&nbsp;&nbsp;</span>"
+        : NUL_STRING) +
+      replaceLineEnds(contents.valueOrPreset, separator.valueOrPreset)
     : NUL_STRING;
   setModifiedBy(source);
 }
@@ -61,17 +63,17 @@ export function setFrontContents(
   output.element.innerHTML = replaceLineEnds(
     [aContents, bContents]
       .map((entry) => {
-        return entry.safeValue;
+        return entry.valueOrPreset;
       })
       .join("\n"),
-    separator.safeValue
+    separator.valueOrPreset
   );
   setModifiedBy(source);
 }
 
 /** Sets the `src` of the given output to the file of the given entry. */
 export function setSrc(output, entry) {
-  const files = entry.safeValue;
+  const files = entry.valueOrPreset;
   if (files.length) {
     const file = files[0];
     if (file) {
@@ -90,8 +92,22 @@ export function setSrc(output, entry) {
  * the given suffix.
  */
 export function setStyle(output, style, entry, suffix) {
-  output.element.style[style] = entry.safeValue + suffix;
+  output.element.style.setProperty(style, entry.valueOrPreset + suffix);
   setModifiedBy(entry);
+}
+
+/**
+ * Sets the given style custom property of the application root element to the
+ * value of the given entry and the given suffix. Notation and namespace
+ * prefixes, and capitalizations are handled here.
+ */
+export function setStyleVariable(style, entry, suffix) {
+  setStyle(
+    getRoot(),
+    "--" + CSS_NAMESPACE + style.charAt(0).toUpperCase() + style.substring(1),
+    entry,
+    suffix
+  );
 }
 
 /** Resets the cover image. */
