@@ -17,7 +17,7 @@ const PATH_PAGE = "/jcard-template/";
 /** Site resource path. */
 const PATH_SITE = "https://ed7n.github.io/res/";
 /** Name of the cache to operate on. */
-const CACHE_NAME = "jcard-template-u1rB-1";
+const CACHE_NAME = "jcard-template-u1rC";
 /** Request URLs whose response is to be cached for offline access. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",

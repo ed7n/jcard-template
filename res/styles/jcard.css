@@ -43,7 +43,10 @@
   text-transform: uppercase;
 }
 
-#jcard .hidden {
+#jcard .hidden,
+#jcard .template-back.hidden,
+#jcard .template-front-group.hidden,
+#jcard .template-spine.hidden {
   display: none;
 }
 

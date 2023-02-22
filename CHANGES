@@ -2,6 +2,10 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision C, 02/22/2023.
+- Template:
+  - Fixed back visibility not changing.
+
 ——Revision B, 02/19/2023.
 - Form:
   - `Black and white`
@@ -9,6 +13,8 @@ J-Card Template: Changes
   - Grouped some template flag options into an accordion.
 - Print:
   - Outline color follows that of the template text.
+- PWA:
+  - Updated NET-Installer.
 - Script:
   - Extended element models to all others.
   - Form entry persistence flag.
