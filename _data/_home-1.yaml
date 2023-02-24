@@ -1,13 +1,11 @@
 path: ""
-version: "Update 1 Revision C"
-date: 2023-02-22
+version: "Update 1 Revision D"
+date: 2023-02-24
 head:
   description: "Printable in-browser template for cassette tape J-cards."
 body:
   title: "J-Card Template"
 menu:
-  - label: "Template"
-    href: "#template"
   - label: "Form"
     href: "#form"
     title: "Form"

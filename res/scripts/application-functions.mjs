@@ -79,7 +79,7 @@ export function preserve(all = false) {
     entries = entries.filter(([, entry]) => entry.save);
   }
   entries.forEach(([key, entry]) => {
-    out[key] = entry.value;
+    out[key] = entry.safeValue;
   });
   return Object.freeze(out);
 }

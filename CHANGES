@@ -2,6 +2,14 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision D, 02/24/2023.
+- Save:
+  - Fixed blank data file since Revision B.
+- Help:
+  - Fixed UI template link.
+- UI:
+  - Removed template page menu item.
+
 ——Revision C, 02/22/2023.
 - Template:
   - Fixed back visibility not changing.

@@ -20,13 +20,13 @@ export const application = Object.freeze({
   /** Root element. */
   root: new ElementModel(root),
   /** Collapsible fieldsets. */
-  accordions: (() => {
+  accordions: Object.freeze((() => {
     const out = [];
     qsAll(root, "details").forEach((element) =>
       out.push(new ElementModel(element))
     );
     return out;
-  })(),
+  })()),
   /** Form buttons. */
   buttons: Object.freeze({
     load: new FormButton({ id: "load" }),
