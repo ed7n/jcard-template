@@ -27,6 +27,9 @@
 {%-assign gitUser       = pageData.gitUser        -%}
 {%-if     gitUser       == nil                    -%}
 {%-assign gitUser       = siteData.gitUser        -%}{%-endif-%}
+{%-assign pathIcon      = pageData.pathIcon       -%}
+{%-if     pathIcon      == nil                    -%}
+{%-assign pathIcon      = siteData.pathIcon       -%}{%-endif-%}
 {%-assign navLabelPage  = pageData.navLabelPage   -%}
 {%-if     navLabelPage  == nil                    -%}
 {%-assign navLabelPage  = siteData.navLabelPage   -%}{%-endif-%}

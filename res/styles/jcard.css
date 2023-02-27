@@ -199,6 +199,12 @@
   bottom: 0;
 }
 
+#jcard .template-contents,
+#jcard .template-front-title-group.center {
+  margin-block-end: auto;
+  margin-block-start: auto;
+}
+
 #jcard .template-contents {
   font-size: var(--jCardFrontSize);
   line-height: 1.2;
@@ -258,10 +264,6 @@
 #jcard .template-front-title-group {
   position: relative;
   text-align: var(--jCardFrontTitleAlignment);
-}
-
-#jcard .template-front-title-group.center {
-  margin: auto;
 }
 
 #jcard .template-front-title-lower,

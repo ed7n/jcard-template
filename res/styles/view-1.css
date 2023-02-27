@@ -2,6 +2,11 @@ article > section#template:target {
   animation: none;
 }
 
+form .columns,
+form .columns:last-child {
+  margin-block-end: calc(-1 * var(--spacer2));
+}
+
 form .columns {
   display: flex;
   flex-flow: row wrap;
@@ -11,19 +16,28 @@ form .columns > :not(:last-child) {
   margin-inline-end: var(--spacer2);
 }
 
-form .columns > .column,
-form .columns > .column-2 {
+form .columns > .column {
   flex-shrink: 1;
 }
 
-form .columns > .column {
-  flex-basis: var(--lengthFieldRowSmallMin);
+form .columns > .column.fluid,
+form .columns > .column.rigid {
+  flex-basis: var(--lengthFieldRowMin);
+}
+
+form .columns > .column.fluid,
+form .columns > .column.shorter {
+  flex-grow: 1;
+}
+
+form .columns > .column.short,
+form .columns > .column.rigid {
   flex-grow: 0;
 }
 
-form .columns > .column-2 {
-  flex-basis: var(--lengthFieldRowMin);
-  flex-grow: 1;
+form .columns > .column.short,
+form .columns > .column.shorter {
+  flex-basis: var(--lengthFieldRowSmallMin);
 }
 
 @media print {

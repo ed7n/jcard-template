@@ -17,19 +17,19 @@ const PATH_PAGE = "/jcard-template/";
 /** Site resource path. */
 const PATH_SITE = "https://ed7n.github.io/res/";
 /** Name of the cache to operate on. */
-const CACHE_NAME = "jcard-template-u1rD-1";
-/** Request URLs whose response is to be cached for offline access. */
+const CACHE_NAME = "jcard-template-u1rE";
+/** Request URLs whose response is to be cached. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",
   PATH_PAGE + "2",
-  PATH_PAGE + "favicon.ico",
   PATH_PAGE + "pwa",
   PATH_PAGE + "pwa.js",
   PATH_PAGE + "pwa.webmanifest",
   PATH_PAGE + "res/fonts/alte-haas-grotesk-bold.ttf",
   PATH_PAGE + "res/fonts/alte-haas-grotesk.ttf",
-  PATH_PAGE + "res/media/cover-240.png",
   PATH_PAGE + "res/media/cover.png",
+  PATH_PAGE + "res/media/favicon.png",
+  PATH_PAGE + "res/media/favicon-240.png",
   PATH_PAGE + "res/scripts/application-functions.mjs",
   PATH_PAGE + "res/scripts/application-model.mjs",
   PATH_PAGE + "res/scripts/constants.mjs",

@@ -1,11 +1,11 @@
 article {
-  --spacerJCardPanel: calc(var(--spacerPx) * 720);
+  --spacerJCardPanel: 720px;
 }
 
 article > section:not(:last-of-type) {
   border-block-end-color: var(--color);
   border-block-end-style: solid;
-  border-block-end-width: var(--spacerPx);
+  border-block-end-width: var(--widthBorder);
 }
 
 article > section:not(:first-of-type):not(:last-of-type),
@@ -55,7 +55,7 @@ article
   box-sizing: content-box;
   flex-basis: calc(
     var(--lengthFieldRowMin) + var(--paddingFieldset) * 2 + 8% -
-      var(--spacerPx2)
+      var(--widthBorder2)
   );
   max-width: calc(
     var(--spacerJCardPanel) - var(--spacer2) - var(--lengthFieldRowSmallMin)

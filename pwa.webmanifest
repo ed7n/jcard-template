@@ -4,12 +4,12 @@
   "display": "minimal-ui",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "res/media/favicon.png",
       "sizes": "100x100",
-      "type": "image/vnd.microsoft.icon"
+      "type": "image/png"
     },
     {
-      "src": "res/media/cover-240.png",
+      "src": "res/media/favicon-240.png",
       "sizes": "240x240",
       "type": "image/png"
     },

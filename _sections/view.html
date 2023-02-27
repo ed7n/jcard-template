@@ -8,26 +8,29 @@
 <form>
   <p><i>These controls do not affect the template.</i></p>
   <fieldset>
-    <div class="field row" id="field-view-accordions">
-      <label>Accordions</label>
-      <div class="input short">
-        <button id="button-view-collapse" type="button">Collapse</button>
-        <button id="button-view-expand" type="button">Expand</button>
+    <legend>Interface</legend>
+    <section>
+      <div class="field row" id="field-view-accordions">
+        <label>Accordions:</label>
+        <div class="input short">
+          <button id="button-view-collapse" type="button">Collapse</button>
+          <button id="button-view-expand" type="button">Expand</button>
+        </div>
       </div>
-    </div>
-    <p>Controls all collapsible fieldsets.</p>
-  </fieldset>
-{%-unless page.key == siteData.key1%}
-  <fieldset>
-    <div class="field switch" id="field-view-reverse">
-      <div class="input">
-        <input id="input-view-reverse" type="checkbox" />
+      <p>Controls all collapsible fieldsets.</p>
+    </section>
+{%-unless page.layout == "document"%}
+    <section>
+      <div class="field switch" id="field-view-reverse">
+        <div class="input">
+          <input id="input-view-reverse" type="checkbox" />
+        </div>
+        <label for="input-view-reverse">Reverse Panels</label>
       </div>
-      <label for="input-view-reverse">Reverse Panels</label>
-    </div>
-    <p>Swaps the horizontal position of the output and control panels.</p>
-  </fieldset>
+      <p>Swaps the horizontal position of the output and control panels.</p>
+    </section>
 {%-endunless%}
+  </fieldset>
   <details>
     <summary>Switch Layout</summary>
     <p>You can switch to the [{%include a-page.html key=key html=name htms=

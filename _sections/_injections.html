@@ -1,0 +1,37 @@
+{%-if page.key == siteData.key1-%}
+  {%-capture closeColumn-%}
+</div>
+{%endcapture-%}
+  {%-capture closeColumns-%}
+</div>
+{%endcapture-%}
+  {%-capture openColumns-%}
+<div class="columns">
+{%endcapture-%}
+  {%-capture openColumnFluid-%}
+<div class="column fluid">
+{%endcapture-%}
+  {%-capture openColumnRigid-%}
+<div class="column rigid">
+{%endcapture-%}
+  {%-capture openColumnShort-%}
+<div class="column short">
+{%endcapture-%}
+  {%-capture openColumnShorter-%}
+<div class="column shorter">
+{%endcapture-%}
+  {%-assign fieldRowShortClass=" small"-%}
+{%-else-%}
+  {%-capture openGroup-%}
+<div class="group">
+{%endcapture-%}
+  {%-capture closeGroup-%}
+</div>
+{%endcapture-%}
+  {%-capture openSection-%}
+<section>
+{%endcapture-%}
+  {%-capture closeSection-%}
+</section>
+{%endcapture-%}
+{%-endif-%}

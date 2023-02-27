@@ -2,12 +2,32 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision E, 02/27/2023.
+- Form:
+  - `Justify` alignment for footer and contents.
+  - Reduced explicitness of some groupings.
+  - Reformatted output-region-specific controls.
+  - Split side label and content inputs to their own fields.
+  - Unified HTML using conditionals for variations.
+- Print:
+  - Regrouped setup fields.
+  - Removed `Outline` notice.
+- Template:
+  - Block-aligned front contents to center.
+  - Fixed front title width on hidden front contents.
+- UI:
+  - Appended colon (:) to text field labels.
+- UI2:
+  - Use only row fields.
+- View:
+  - Regrouped interface controls.
+
 ——Revision D, 02/24/2023.
-- Save:
-  - Fixed blank data file since Revision B.
 - Help:
   - Fixed UI template link.
-- UI:
+- Save:
+  - Fixed blank data file since Revision B.
+- UI1:
   - Removed template page menu item.
 
 ——Revision C, 02/22/2023.
@@ -26,7 +46,7 @@ J-Card Template: Changes
 - Script:
   - Extended element models to all others.
   - Form entry persistence flag.
-  - Replaced deprecated HTML styling tags with inline CSS.
+  - Replaced deprecated HTML styling tags with CSS equivalents.
 - Template:
   - Disabled user agent text size adjustments.
   - Guide color follows that of the text.
@@ -77,15 +97,15 @@ J-Card Template: Changes
   - Modularized everything where sensible.
   - Safe values.
 - Template:
-  - `Outline` no longer previewed.
+  - `Outline` no longer on preview.
   - Redone preset cover.
   - Variablized metrics.
 - UI:
   - Capitalize only the first character of field labels.
-  - Collapsible fieldsets (accordion).
+  - Collapsible fieldsets (accordions).
   - Length limits on string fields.
 - UI1:
-  - Jump menu entries open on a new tab or window.
+  - Jump menu entries open outside the window.
   - Link to UI2.
 - Window:
   - Replaced favicon with cover.
@@ -125,7 +145,7 @@ J-Card Template: Changes
 
 ——Revision 6, 03/14/2021.
 - Print:
-  - Fixed floating menu in printouts.
+  - Fixed floating menu in printout.
 
 ——Revision 5, 03/11/2021.
 - Form:
@@ -158,7 +178,7 @@ J-Card Template: Changes
 - Form:
   - Fixed `lower title size`.
 - Print:
-  - Card color applies to printout with non-Gecko user agents.
+  - Fixed card color not applied to printout with non-Gecko user agents.
 - Template:
   - Removed residual colon ':' in empty short back side labels.
 - UI:
