@@ -2,11 +2,37 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision F, 03/03/2023.
+- Form:
+  - `Correction` to correct user agent font size errors.
+  - Moved the no-save marker to just before the label suffix.
+- Load:
+  - Alert JSON parse errors.
+- Preview:
+  - Replaced template wrapper with <div>.
+- Script:
+  - Modification anesthesia mechanism.
+- UI:
+  - Always print the card name to the window title.
+  - Fixed skipping heading levels.
+  - `Privacy` jump menu link.
+- UI2:
+  - Cap panel width under the column layout.
+  - Fixed dangling fields.
+  - Fixed jump menu font size.
+  - Increased layout switch threshold width to 720px.
+    - Consistent to UI1.
+  - Increased panel minimum width.
+  - Tweaked panel padding.
+- View:
+  - `Force dark`.
+
 ——Revision E, 02/27/2023.
 - Form:
   - `Justify` alignment for footer and contents.
   - Reduced explicitness of some groupings.
   - Reformatted output-region-specific controls.
+  - Removed tooltips.
   - Split side label and content inputs to their own fields.
   - Unified HTML using conditionals for variations.
 - Print:

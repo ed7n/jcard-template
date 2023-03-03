@@ -17,7 +17,7 @@ const PATH_PAGE = "/jcard-template/";
 /** Site resource path. */
 const PATH_SITE = "https://ed7n.github.io/res/";
 /** Name of the cache to operate on. */
-const CACHE_NAME = "jcard-template-u1rE";
+const CACHE_NAME = "jcard-template-u1rF";
 /** Request URLs whose response is to be cached. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",
@@ -28,8 +28,9 @@ const CACHE_URLS = Object.freeze([
   PATH_PAGE + "res/fonts/alte-haas-grotesk-bold.ttf",
   PATH_PAGE + "res/fonts/alte-haas-grotesk.ttf",
   PATH_PAGE + "res/media/cover.png",
-  PATH_PAGE + "res/media/favicon.png",
   PATH_PAGE + "res/media/favicon-240.png",
+  PATH_PAGE + "res/media/favicon.png",
+  PATH_PAGE + "res/media/font-size-test.png",
   PATH_PAGE + "res/scripts/application-functions.mjs",
   PATH_PAGE + "res/scripts/application-model.mjs",
   PATH_PAGE + "res/scripts/constants.mjs",
@@ -40,7 +41,7 @@ const CACHE_URLS = Object.freeze([
   PATH_PAGE + "res/scripts/models.mjs",
   PATH_PAGE + "res/scripts/roots.mjs",
   PATH_PAGE + "res/scripts/start.mjs",
-  PATH_PAGE + "res/scripts/view.mjs",
+  PATH_PAGE + "res/scripts/views.mjs",
   PATH_PAGE + "res/styles/jcard.css",
   PATH_PAGE + "res/styles/view-1.css",
   PATH_PAGE + "res/styles/view.css",

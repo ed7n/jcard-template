@@ -4,14 +4,18 @@
  * Functions that the user invokes to edit the current instance.
  */
 
-import { NUL_STRING, COVER_IMAGE, CSS_NAMESPACE } from "./constants.mjs";
+import { NUL_STRING, CSS_NAMESPACE } from "./constants.mjs";
 import { replaceLineEnds } from "./functions.mjs";
-import {
-  getDataEntry,
-  getOutput,
-  setModifiedBy,
-  getRoot,
-} from "./application-functions.mjs";
+import { getRoot } from "./application-functions.mjs";
+
+/**
+ * Sets the boolean property given by its object and key to the value of the
+ * given entry.
+ */
+export function setBooleanProperty(entry, object, key, invert = false) {
+  object[key] = entry.valueOrPreset ^ invert;
+  return true;
+}
 
 /**
  * Sets the visibility of the given class word on the given output to the value
@@ -23,52 +27,28 @@ export function setClassWord(output, classs, entry, invert = false) {
   } else {
     output.element.classList.remove(classs);
   }
-  setModifiedBy(entry);
+  return true;
 }
 
 /** Sets the inner HTML of the given output to the value of the given entry. */
 export function setInnerHtml(output, entry) {
   output.element.innerHTML = replaceLineEnds(entry.valueOrPreset, "<br />");
-  setModifiedBy(entry);
+  return true;
+}
+
+/** Sets the inner text of the given output to the value of the given entry. */
+export function setInnerText(output, entry) {
+  output.element.innerText = entry.valueOrPreset;
+  return true;
 }
 
 /**
- * Sets the back contents to the given output. This operates on one side only.
+ * Sets the property given by its object and key to the value of the given
+ * entry.
  */
-export function setBackContents(
-  output,
-  label,
-  contents,
-  separator,
-  shortBack,
-  source
-) {
-  output.element.innerHTML = contents.valueOrPreset
-    ? (shortBack.valueOrPreset && label.valueOrPreset
-        ? '<span class="bold">' + label.valueOrPreset + ":&nbsp;&nbsp;</span>"
-        : NUL_STRING) +
-      replaceLineEnds(contents.valueOrPreset, separator.valueOrPreset)
-    : NUL_STRING;
-  setModifiedBy(source);
-}
-
-/** Sets the front contents to the given output. */
-export function setFrontContents(
-  output,
-  aContents,
-  bContents,
-  separator,
-  source
-) {
-  output.element.innerHTML = replaceLineEnds(
-    [aContents, bContents]
-      .map((entry) => {
-        return entry.valueOrPreset;
-      })
-      .join("\n"),
-    separator.valueOrPreset
-  );
-  setModifiedBy(source);
+export function setProperty(entry, object, key) {
+  object[key] = entry.valueOrPreset;
+  return true;
 }
 
 /** Sets the `src` of the given output to the file of the given entry. */
@@ -82,9 +62,10 @@ export function setSrc(output, entry) {
         URL.revokeObjectURL(src);
       }
       output.element.src = URL.createObjectURL(file);
-      setModifiedBy(entry);
+      return true;
     }
   }
+  return false;
 }
 
 /**
@@ -93,7 +74,7 @@ export function setSrc(output, entry) {
  */
 export function setStyle(output, style, entry, suffix) {
   output.element.style.setProperty(style, entry.valueOrPreset + suffix);
-  setModifiedBy(entry);
+  return true;
 }
 
 /**
@@ -102,7 +83,7 @@ export function setStyle(output, style, entry, suffix) {
  * prefixes, and capitalizations are handled here.
  */
 export function setStyleVariable(style, entry, suffix) {
-  setStyle(
+  return setStyle(
     getRoot(),
     "--" + CSS_NAMESPACE + style.charAt(0).toUpperCase() + style.substring(1),
     entry,
@@ -110,10 +91,28 @@ export function setStyleVariable(style, entry, suffix) {
   );
 }
 
-/** Resets the cover image. */
-export function resetCover() {
-  const entry = getDataEntry("coverImage");
-  entry.value = NUL_STRING;
-  getOutput("cover").element.src = COVER_IMAGE;
-  setModifiedBy(entry);
+/**
+ * Sets the back contents to the given output. This operates on one side only.
+ */
+export function setBackContents(output, label, contents, separator, shortBack) {
+  output.element.innerHTML = contents.valueOrPreset
+    ? (shortBack.valueOrPreset && label.valueOrPreset
+        ? '<span class="bold">' + label.valueOrPreset + ":&nbsp;&nbsp;</span>"
+        : NUL_STRING) +
+      replaceLineEnds(contents.valueOrPreset, separator.valueOrPreset)
+    : NUL_STRING;
+  return true;
+}
+
+/** Sets the front contents to the given output. */
+export function setFrontContents(output, aContents, bContents, separator) {
+  output.element.innerHTML = replaceLineEnds(
+    [aContents, bContents]
+      .map((entry) => {
+        return entry.valueOrPreset;
+      })
+      .join("\n"),
+    separator.valueOrPreset
+  );
+  return true;
 }

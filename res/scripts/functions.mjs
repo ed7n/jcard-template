@@ -35,10 +35,10 @@ export function replaceLineEnds(string = NUL_STRING, replacement = NUL_STRING) {
   return string.replace(regexps.lineEnd, replacement);
 }
 
-/** Tests the given data file and alerts on a fault. */
-export function testDataFile(file) {
+/** Tests the given file and alerts on a fault. */
+export function testFile(file) {
   if (file.size) {
-    if (regexps.json.test(file.type)) {
+    if (regexps.fileType.test(file.type)) {
       return true;
     }
     alert(MESSAGES.fileBadType + (file.type || "(empty)"));

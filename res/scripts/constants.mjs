@@ -16,6 +16,7 @@ export const MESSAGES = Object.freeze({
   discard: "This will discard any unsaved changes made to the current J-card.",
   fileBadType: "Bad file MIME type: ",
   fileEmpty: "File is empty.",
+  fileNul: "No file.",
   loadEmpty: "Nothing to load.",
 });
 /** Default cover image source. */
@@ -33,7 +34,7 @@ export const FILE_EXTENSION = ".jcard.json";
 /** Maximum file name length in characters. */
 export const FILE_NAME_MAX_LENGTH = 255 - FILE_EXTENSION.length;
 /** Default file name. */
-export const FILE_NAME = "Unnamed J-Card";
+export const FILE_NAME = "Unnamed";
 /** Data file MIME type. */
 export const FILE_TYPE = "application/json";
 /** Initial document title. */
@@ -43,8 +44,8 @@ export const TITLE = document.title;
 export const regexps = Object.freeze({
   /** Data file name extension. */
   fileExtension: new RegExp(/(\.jcard)?\.json$/),
+  /** Data file MIME type. */
+  fileType: new RegExp(/^(application\/json|text\/)/),
   /** Line end with trailing and leading blanks. */
   lineEnd: new RegExp(/\s*(\n|\r\n|\r)\s*/g),
-  /** JSON MIME type and subtypes. */
-  json: new RegExp(/^(application\/json|text\/)/),
 });

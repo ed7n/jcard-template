@@ -6,11 +6,12 @@
  */
 
 import { NUL_STRING, MESSAGES } from "./constants.mjs";
-import { qs, getInputSafeValue, setWindowSubtitle } from "./functions.mjs";
+import { getInputSafeValue, setWindowSubtitle } from "./functions.mjs";
 import {
+  loadFile,
   loadReader,
   print,
-  readLoadFile,
+  resetCover,
   save,
   saveCover,
   doPrint,
@@ -21,6 +22,7 @@ import {
   getLoadEntry,
   isModified,
   setModified,
+  setModifiedBy,
   getOutputs,
   getPrintEntry,
   getPrintEntries,
@@ -30,15 +32,32 @@ import {
   getViewEntry,
 } from "./application-functions.mjs";
 import {
-  setBackContents,
+  setBooleanProperty,
   setClassWord,
-  setFrontContents,
   setInnerHtml,
+  setInnerText,
+  setProperty,
   setSrc,
   setStyleVariable,
-  resetCover,
+  setBackContents,
+  setFrontContents,
 } from "./edits.mjs";
-import { collapseAll, expandAll } from "./view.mjs";
+import { collapseAll, expandAll, setForceDark } from "./views.mjs";
+
+/** Set post-modification events? */
+let anesthesia = true;
+
+/** Undoes and disables setting of post-modification events. */
+export function induceAnesthesia() {
+  anesthesia = true;
+  setModified(false);
+  window.removeEventListener("beforeunload", doBeforeUnload);
+}
+
+/** Resumes setting of post-modification events. */
+export function removeAnesthesia() {
+  anesthesia = false;
+}
 
 /** Adds event listeners and their handlers to elements. */
 export function setupEvents() {
@@ -52,7 +71,9 @@ export function setupEvents() {
 
 /** Adds listeners to buttons that invoke actions. */
 function setupButtonEvents() {
-  getButton("load").element.addEventListener("click", readLoadFile);
+  getButton("load").element.addEventListener("click", (event) => {
+    loadFile(event.target.files);
+  });
   getButton("print").element.addEventListener("click", print);
   getButton("resetCover").element.addEventListener("click", resetCover);
   getButton("save").element.addEventListener("click", save);
@@ -114,6 +135,7 @@ function setupEntryEvents() {
   addStyleVariableListener(i, "backSize", "pt");
   addStyleVariableListener(i, "cardColor");
   addStyleVariableListener(i, "fontFamily");
+  addStyleVariableListener(i, "fontSizeFactorInvert");
   addStyleVariableListener(i, "footerAlignment");
   addStyleVariableListener(i, "footerSize", "pt");
   addStyleVariableListener(i, "frontContentsAlignment");
@@ -130,34 +152,32 @@ function setupEntryEvents() {
 /** Adds listeners to file operators. */
 function setupFileEvents() {
   getReader().addEventListener("load", () => {
+    induceAnesthesia();
     loadReader();
-    setModified(false);
-    window.removeEventListener("beforeunload", doBeforeUnload);
+    removeAnesthesia();
   });
 }
 
 /** Adds listeners to entries that update entries. */
 function setupFormEvents() {
-  getSaveEntry("follow").element.addEventListener("change", (event) => {
-    getSaveEntry("name").element.disabled = getInputSafeValue(event.target);
-  });
-  getDataEntry("print2").element.addEventListener("change", (event) => {
-    if (getInputSafeValue(event.target)) {
-      Object.values(getPrintEntries()).forEach((entry) => {
-        entry.element.disabled = true;
-      });
-    } else {
-      Object.values(getPrintEntries()).forEach((entry) => {
-        entry.element.disabled = false;
-      });
-    }
-  });
+  const print2 = getDataEntry("print2");
+  addBooleanProperty(
+    getSaveEntry("follow"),
+    getSaveEntry("name").element,
+    "disabled"
+  );
+  Object.values(getPrintEntries()).forEach((entry) =>
+    addBooleanProperty(print2, entry.element, "disabled")
+  );
 }
 
 /** Adds listeners to entries that modifies the view. */
 function setupViewEvents() {
   getSaveEntry("name").element.addEventListener("input", (event) => {
     setWindowSubtitle(getInputSafeValue(event.target));
+  });
+  getViewEntry("forceDark").element.addEventListener("change", (event) => {
+    setForceDark(event.target.checked);
   });
   addClassListener(getViewEntry("reverse"), getRoot(), "reverse");
 }
@@ -181,26 +201,25 @@ function setupWindowEvents() {
 }
 
 /**
- * Adds an input event listener to the given entries that sets the back contents
- * to the given output.
- */
-function addBackListener(label, contents, separator, shortBack, output) {
-  [label, contents, separator, shortBack].forEach((entry) => {
-    entry.element.addEventListener("input", () => {
-      addBeforeUnloadListenerBy(entry);
-      setBackContents(output, label, contents, separator, shortBack, entry);
-    });
-  });
-}
-
-/**
  * Adds a `beforeunload` event listener to the window by modified flag and the
  * given entry.
  */
-function addBeforeUnloadListenerBy(source) {
-  if (!isModified() && source.save) {
+function addBeforeUnloadListenerBy(entry) {
+  if (!isModified() && entry.save) {
     window.addEventListener("beforeunload", doBeforeUnload);
   }
+}
+
+/**
+ * Adds a change event listener to the given entry that sets the given boolean
+ * property.
+ */
+function addBooleanProperty(entry, object, key, invert) {
+  entry.element.addEventListener("change", () => {
+    if (setBooleanProperty(entry, object, key, invert) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
+  });
 }
 
 /**
@@ -209,21 +228,9 @@ function addBeforeUnloadListenerBy(source) {
  */
 function addClassListener(entry, output, classs = NUL_STRING, invert) {
   entry.element.addEventListener("change", () => {
-    addBeforeUnloadListenerBy(entry);
-    setClassWord(output, classs, entry, invert);
-  });
-}
-
-/**
- * Adds an input event listener to the given entries that sets the front
- * contents to the given output.
- */
-function addFrontListener(aContents, bContents, separator, output) {
-  [aContents, bContents, separator].forEach((entry) => {
-    entry.element.addEventListener("input", () => {
-      addBeforeUnloadListenerBy(entry);
-      setFrontContents(output, aContents, bContents, separator, entry);
-    });
+    if (setClassWord(output, classs, entry, invert) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
   });
 }
 
@@ -233,8 +240,20 @@ function addFrontListener(aContents, bContents, separator, output) {
  */
 function addHtmlListener(entry, output) {
   entry.element.addEventListener("input", () => {
-    addBeforeUnloadListenerBy(entry);
-    setInnerHtml(output, entry);
+    if (setInnerHtml(output, entry) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
+  });
+}
+
+/**
+ * Adds an input event listener to the given entry that sets the given property.
+ */
+function addPropertyListener(entry, object, key) {
+  entry.element.addEventListener("input", () => {
+    if (setProperty(entry, object, key) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
   });
 }
 
@@ -244,8 +263,9 @@ function addHtmlListener(entry, output) {
  */
 function addSrcListener(entry, output) {
   entry.element.addEventListener("change", () => {
-    addBeforeUnloadListenerBy(entry);
-    setSrc(output, entry);
+    if (setSrc(output, entry) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
   });
 }
 
@@ -260,8 +280,9 @@ function addStyleListener(
   suffix = NUL_STRING
 ) {
   entry.element.addEventListener("input", () => {
-    addBeforeUnloadListenerBy(entry);
-    setStyle(output, style, entry, suffix);
+    if (setStyle(output, style, entry, suffix) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
   });
 }
 
@@ -276,9 +297,62 @@ function addStyleVariableListener(
 ) {
   const entry = entries[key];
   entry.element.addEventListener("input", () => {
-    addBeforeUnloadListenerBy(entry);
-    setStyleVariable(key, entry, suffix);
+    if (setStyleVariable(key, entry, suffix) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
   });
+}
+
+/**
+ * Adds an input event listener to the given entry that sets the inner text of
+ * the given output.
+ */
+function addTextListener(entry, output) {
+  entry.element.addEventListener("input", () => {
+    if (setInnerText(output, entry) && !hasAnesthesia()) {
+      doAfterModify(entry);
+    }
+  });
+}
+
+/**
+ * Adds an input event listener to the given entries that sets the back contents
+ * to the given output.
+ */
+function addBackListener(label, contents, separator, shortBack, output) {
+  [label, contents, separator, shortBack].forEach((entry) => {
+    entry.element.addEventListener("input", () => {
+      if (
+        setBackContents(output, label, contents, separator, shortBack) &&
+        !hasAnesthesia()
+      ) {
+        doAfterModify(entry);
+      }
+    });
+  });
+}
+
+/**
+ * Adds an input event listener to the given entries that sets the front
+ * contents to the given output.
+ */
+function addFrontListener(aContents, bContents, separator, output) {
+  [aContents, bContents, separator].forEach((entry) => {
+    entry.element.addEventListener("input", () => {
+      if (
+        setFrontContents(output, aContents, bContents, separator) &&
+        !hasAnesthesia()
+      ) {
+        doAfterModify(entry);
+      }
+    });
+  });
+}
+
+/** To be run after modification. */
+function doAfterModify(entry) {
+  addBeforeUnloadListenerBy(entry);
+  setModifiedBy(entry);
 }
 
 /** For use during the window `beforeunload` event. */
@@ -290,4 +364,9 @@ function doBeforeUnload(event) {
     event.returnValue = MESSAGES.discard;
     return MESSAGES.discard;
   }
+}
+
+/** Returns whether it is setting post-modification events. */
+function hasAnesthesia() {
+  return anesthesia;
 }

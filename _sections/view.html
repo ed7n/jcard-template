@@ -8,7 +8,7 @@
 <form>
   <p><i>These controls do not affect the template.</i></p>
   <fieldset>
-    <legend>Interface</legend>
+    <legend><h3>Interface</h3></legend>
     <section>
       <div class="field row" id="field-view-accordions">
         <label>Accordions:</label>
@@ -18,6 +18,16 @@
         </div>
       </div>
       <p>Controls all collapsible fieldsets.</p>
+    </section>
+    <section>
+      <div class="field switch" id="field-view-force-dark">
+        <div class="input">
+          <input id="input-view-force-dark" type="checkbox" />
+        </div>
+        <label for="input-view-force-dark">Force Dark</label>
+      </div>
+      <p>In case your web browser does not follow your color scheme
+preference.</p>
     </section>
 {%-unless page.layout == "document"%}
     <section>
@@ -32,7 +42,7 @@
 {%-endunless%}
   </fieldset>
   <details>
-    <summary>Switch Layout</summary>
+    <summary><h3>Switch Layout</h3></summary>
     <p>You can switch to the [{%include a-page.html key=key html=name htms=
 " user interface"%}] by tapping on the link.</p>
   </details>

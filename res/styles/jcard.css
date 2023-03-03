@@ -25,6 +25,14 @@
   --widthJCardOutline: 1pt;
 }
 
+#font-size-test {
+  border-width: 1px;
+  font-family: "Alte Haas Grotesk";
+  font-size: calc(12pt / var(--jCardFontSizeFactorInvert));
+  line-height: 1;
+  padding: 0.25em;
+}
+
 #jcard {
   margin: auto;
   text-size-adjust: none;
@@ -175,7 +183,7 @@
 #jcard .template-back {
   display: flex;
   flex-flow: column nowrap;
-  font-size: var(--jCardBackSize);
+  font-size: calc(var(--jCardBackSize) / var(--jCardFontSizeFactorInvert));
   height: var(--lengthJCardBack);
   justify-content: center;
   padding: 0 var(--spacerJCard);
@@ -206,7 +214,7 @@
 }
 
 #jcard .template-contents {
-  font-size: var(--jCardFrontSize);
+  font-size: calc(var(--jCardFrontSize) / var(--jCardFontSizeFactorInvert));
   line-height: 1.2;
   text-align: var(--jCardFrontContentsAlignment);
 }
@@ -233,7 +241,7 @@
 }
 
 #jcard .template-footer {
-  font-size: var(--jCardFooterSize);
+  font-size: calc(var(--jCardFooterSize) / var(--jCardFontSizeFactorInvert));
   text-align: var(--jCardFooterAlignment);
 }
 
@@ -268,12 +276,16 @@
 
 #jcard .template-front-title-lower,
 #jcard .template-spine-title-lower {
-  font-size: var(--jCardTitleLowerSize);
+  font-size: calc(
+    var(--jCardTitleLowerSize) / var(--jCardFontSizeFactorInvert)
+  );
 }
 
 #jcard .template-front-title-upper,
 #jcard .template-spine-title-upper {
-  font-size: var(--jCardTitleUpperSize);
+  font-size: calc(
+    var(--jCardTitleUpperSize) / var(--jCardFontSizeFactorInvert)
+  );
 }
 
 #jcard .template-note-group,
@@ -284,7 +296,7 @@
 }
 
 #jcard .template-note-group {
-  font-size: var(--jCardNoteSize);
+  font-size: calc(var(--jCardNoteSize) / var(--jCardFontSizeFactorInvert));
   text-align: var(--jCardNoteAlignment);
 }
 
@@ -324,12 +336,25 @@
   text-align: var(--jCardSpineTitleAlignment);
 }
 
-#template > output {
+#output {
   background-color: var(--colorAccentLowDent);
+  border-block-end-color: var(--colorAccentHigh);
+  border-block-end-style: solid;
+  border-block-end-width: var(--widthBorderDentEnd);
+  border-block-start-color: var(--colorAccentLow);
+  border-block-start-style: solid;
+  border-block-start-width: var(--widthBorderDentStart);
+  border-inline-end-color: var(--colorAccentHigh);
+  border-inline-end-style: solid;
+  border-inline-end-width: var(--widthBorderDentEnd);
+  border-inline-start-color: var(--colorAccentLow);
+  border-inline-start-style: solid;
+  border-inline-start-width: var(--widthBorderDentStart);
   display: flex;
   flex-flow: column nowrap;
   height: 100%;
   overflow: auto;
+  padding: var(--paddingEntry);
   width: 100%;
 }
 
@@ -340,6 +365,15 @@ form .follow-font-family {
 form label > sub,
 form label > sup {
   color: var(--colorAccentHigh);
+}
+
+@media (prefers-color-scheme: light) {
+  body:not(.dark) #output {
+    border-block-end-color: var(--colorAccentLow);
+    border-block-start-color: var(--colorAccentHigh);
+    border-inline-end-color: var(--colorAccentLow);
+    border-inline-start-color: var(--colorAccentHigh);
+  }
 }
 
 @media print {
@@ -363,7 +397,7 @@ form label > sup {
     --lengthJCardSpineTemplate: var(--lengthJCardSpine);
   }
 
-  #template > output {
+  #output {
     background-color: unset;
     border: unset;
     overflow: hidden;

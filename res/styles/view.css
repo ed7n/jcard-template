@@ -1,9 +1,14 @@
 article {
-  --spacerJCardPanel: 720px;
+  --lengthJCardPanelMax: calc(
+    var(--lengthUi1ColumnFluid) + var(--paddingJCardPanel) * 2 +
+      var(--widthScrollbar) - var(--marginField) - var(--lengthFieldRowSmallMin)
+  );
+  --lengthUi1ColumnFluid: 662px;
+  --paddingJCardPanel: calc(var(--paddingFieldset) * var(--factorGolden));
 }
 
 article > section:not(:last-of-type) {
-  border-block-end-color: var(--color);
+  border-block-end-color: var(--colorAccentMid);
   border-block-end-style: solid;
   border-block-end-width: var(--widthBorder);
 }
@@ -20,7 +25,12 @@ article > section:not(:first-of-type):not(:last-of-type) {
   flex-direction: row;
 }
 
-article > section:not(:first-of-type):not(:last-of-type) > section,
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:not(:first-of-type):not(:last-of-type),
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type,
 article
   > section:not(:first-of-type):not(:last-of-type)
   > section:last-of-type
@@ -51,15 +61,12 @@ article
 article
   > section:not(:first-of-type):not(:last-of-type)
   > section:last-of-type {
-  /* Scrollbar. */
-  box-sizing: content-box;
   flex-basis: calc(
-    var(--lengthFieldRowMin) + var(--paddingFieldset) * 2 + 8% -
-      var(--widthBorder2)
+    var(--lengthFieldRowSmallMin) * 2 + var(--marginField) +
+      var(--paddingFieldset) * 2 + var(--widthBorder2) +
+      var(--paddingJCardPanel) * 2 + var(--widthScrollbar)
   );
-  max-width: calc(
-    var(--spacerJCardPanel) - var(--spacer2) - var(--lengthFieldRowSmallMin)
-  );
+  max-width: var(--lengthJCardPanelMax);
 }
 
 article
@@ -83,6 +90,13 @@ article
   > section:last-of-type
   > :not(section) {
   flex-grow: 0;
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > nav {
+  margin-block-end: unset;
 }
 
 article
@@ -115,9 +129,18 @@ article
   > section:last-of-type
   > section
   > section {
-  margin-inline-end: 4%;
-  margin-inline-start: 4%;
+  margin-inline-end: var(--paddingJCardPanel);
+  margin-inline-start: var(--paddingJCardPanel);
   padding-block-start: var(--spacer2);
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > section
+  > section:last-of-type
+  > nav {
+  font-size: var(--fontSizeSmaller);
 }
 
 article
@@ -126,6 +149,15 @@ article
   > section
   > section:not(:first-child) {
   margin-block-start: var(--spacer6);
+}
+
+article.no-controls
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:first-of-type,
+article.no-controls
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type {
+  display: none;
 }
 
 article.reverse > section:not(:first-of-type):not(:last-of-type) {
@@ -140,7 +172,7 @@ article.reverse
   border-inline-start-style: unset;
 }
 
-@media (max-width: 639px), (max-aspect-ratio: 1.9999/3) {
+@media (max-width: 720px), (max-aspect-ratio: 1.9999/3) {
   article > section:not(:first-of-type):not(:last-of-type),
   article.reverse > section:not(:first-of-type):not(:last-of-type) {
     flex-direction: column;
@@ -175,6 +207,18 @@ article.reverse
     > section:not(:first-of-type):not(:last-of-type)
     > section:last-of-type
     > section
+    > section {
+    margin-inline-end: auto;
+    margin-inline-start: auto;
+    max-width: var(--lengthJCardPanelMax);
+    padding-inline-end: 4%;
+    padding-inline-start: 4%;
+  }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:last-of-type
+    > section
     > section:last-child {
     margin-block-end: var(--spacer16);
   }
@@ -187,7 +231,7 @@ article.reverse
   }
 }
 
-@media (min-width: 640px) and (min-aspect-ratio: 2/3), (max-width: 319px) {
+@media (min-width: 721px) and (min-aspect-ratio: 2/3), (max-width: 319px) {
   article
     > section:not(:first-of-type):not(:last-of-type)
     > section:last-of-type
@@ -212,7 +256,7 @@ article.reverse
 }
 
 @media (prefers-color-scheme: light) {
-  article
+  body:not(.dark) article
     > section:not(:first-of-type):not(:last-of-type)
     > section:last-of-type
     > nav:first-child {
@@ -226,11 +270,11 @@ article.reverse
   article > :not(section:not(:first-of-type):not(:last-of-type)),
   article
     > section:not(:first-of-type):not(:last-of-type)
-    > :not(section#template),
+    > :not(section:not(:first-of-type):not(:last-of-type)),
   article
     > section:not(:first-of-type):not(:last-of-type)
-    > section#template
-    > :not(output) {
+    > section:not(:first-of-type):not(:last-of-type)
+    > :not(#output) {
     display: none;
   }
 

@@ -20,13 +20,15 @@ export const application = Object.freeze({
   /** Root element. */
   root: new ElementModel(root),
   /** Collapsible fieldsets. */
-  accordions: Object.freeze((() => {
-    const out = [];
-    qsAll(root, "details").forEach((element) =>
-      out.push(new ElementModel(element))
-    );
-    return out;
-  })()),
+  accordions: Object.freeze(
+    (() => {
+      const out = [];
+      qsAll(root, "details").forEach((element) =>
+        out.push(new ElementModel(element))
+      );
+      return out;
+    })()
+  ),
   /** Form buttons. */
   buttons: Object.freeze({
     load: new FormButton({ id: "load" }),
@@ -83,6 +85,12 @@ export const application = Object.freeze({
       fontFamily: new DataFormEntry({
         id: "font-family",
         preset: "Alte Haas Grotesk",
+      }),
+      fontSizeFactorInvert: new DataFormEntry({
+        id: "font-size-factor-invert",
+        persistent: true,
+        preset: 1,
+        save: false,
       }),
       footer: new DataFormEntry({
         id: "footer",
@@ -207,10 +215,6 @@ export const application = Object.freeze({
         id: "load-cover",
         preset: NUL_STRING,
       }),
-      file: new FormEntry({
-        id: "load-file",
-        preset: NUL_STRING,
-      }),
     }),
     /** Print. */
     print: Object.freeze({
@@ -248,6 +252,10 @@ export const application = Object.freeze({
     }),
     /** View. */
     view: Object.freeze({
+      forceDark: new FormEntry({
+        id: "view-force-dark",
+        preset: false,
+      }),
       reverse: new FormEntry({
         id: "view-reverse",
         preset: false,
@@ -282,8 +290,17 @@ export const application = Object.freeze({
   anchor: document.createElement("a"),
   /** File reader. */
   reader: new FileReader(),
+  /** Source file input. */
+  source: new FormEntry({
+    id: "load-file",
+    preset: NUL_STRING,
+  }),
   /** Current instance. */
   instance: Object.seal({
     modified: false,
   }),
 });
+
+if (new URLSearchParams(location.search).has("debug")) {
+  console.log(application);
+}

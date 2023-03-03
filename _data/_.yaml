@@ -16,7 +16,7 @@ noHeader: false
 noNavPage: false
 noNavSite: false
 pathHome: ""
-pathIcon: "/jcard-template/res/media/favicon.png"
+pathIcon: "https://ed7n.github.io/jcard-template/res/media/favicon.png"
 pathRes: "https://ed7n.github.io/res"
 splitSubtitle: ": "
 splitTitle: " - "

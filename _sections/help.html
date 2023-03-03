@@ -12,7 +12,7 @@ beta (β).</p>
 <p>Need help with the print shop? You can either [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/print-shop"
 >read our guide</a>], or feel free to play around with each setting.</p>
 <details>
-  <summary>Offline Access</summary>
+  <summary><h3>Offline Access</h3></summary>
   <figure class="no-border no-padding">
     <{{htmlImgMono}}"{{sitePathRes}}/media/pwa.png" alt="PWA" />
   </figure>
@@ -20,9 +20,9 @@ beta (β).</p>
 a-page.html key="_pwa"%}].</p>
 </details>
 <details>
-  <summary>About {{siteClass}}</summary>
+  <summary><h3>About {{siteClass}}</h3></summary>
   <pre>{{siteTitle}} u{{pageData.version | slice: 7}}r{{pageData.version |
-slice: 18}} by Brendon, {{pageData.date | date: formDate}}.
+slice: 18}} by {{author}}, {{pageData.date | date: formDate}}.
 —{{pageData.head.description}}</pre>
   <p>Changes made to this application are logged to [<{{htmlAOut}}"{{gitHome}}/jcard-template/raw/master/CHANGES"
 >CHANGES</a>].</p>

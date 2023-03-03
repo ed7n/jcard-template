@@ -4,53 +4,46 @@
  * Start here.
  */
 
-import { EVENT_CHANGE } from "./constants.mjs";
-import { application } from "./application-model.mjs";
+import { EVENT_CHANGE, EVENT_INPUT } from "./constants.mjs";
 import {
   populate,
+  reset,
   update,
-  setModified,
   getButton,
   getDataEntries,
+  getEntries,
   getLoadEntries,
   getPrintEntries,
   getSaveEntries,
   getViewEntries,
 } from "./application-functions.mjs";
-import { setupEvents } from "./events.mjs";
+import { removeAnesthesia, setupEvents } from "./events.mjs";
 
-setupEvents();
+const SUFFIX_LABEL = ":";
+const SUFFIX_NOSAVE = "<sup>+</sup>";
+
 Object.values(getDataEntries())
   .filter((entry) => !entry.save)
   .forEach((entry) => {
     entry.element.labels.forEach((label) => {
-      label.innerHTML += "<sup>+</sup>";
+      const index = label.innerHTML.lastIndexOf(SUFFIX_LABEL);
+      if (index >= 0) {
+        label.innerHTML =
+          label.innerHTML.slice(0, index) +
+          SUFFIX_NOSAVE +
+          label.innerHTML.slice(index);
+      } else {
+        label.innerHTML += SUFFIX_NOSAVE;
+      }
     });
   });
-[
-  getDataEntries,
-  getLoadEntries,
-  getPrintEntries,
-  getSaveEntries,
-  getViewEntries,
-].forEach((getter) => {
-  const entries = Object.values(getter());
-  entries
-    .filter((entry) => entry.element.type === "number")
-    .forEach((entry) => {
-      entry.element.placeholder = entry.preset;
-    });
-  entries.forEach((entry) => {
-    entry.value = entry.preset;
+setupEvents();
+Object.values(getEntries())
+  .filter((entry) => entry.element.type === "number")
+  .forEach((entry) => {
+    entry.element.placeholder = entry.preset;
   });
-});
-[getLoadEntries, getPrintEntries, getSaveEntries].forEach((getter) => {
-  Object.values(getter())
-    .filter((entry) => entry.element.type === "checkbox")
-    .forEach((entry) => {
-      entry.element.dispatchEvent(EVENT_CHANGE);
-    });
-});
+reset();
 populate(
   {
     titleUpper: "The Numbers Game",
@@ -68,9 +61,16 @@ populate(
   true
 );
 update();
+[getLoadEntries, getPrintEntries, getSaveEntries, getViewEntries].forEach(
+  (getter) => {
+    Object.values(getter()).forEach((entry) => {
+      entry.element.dispatchEvent(
+        entry.element.type === "checkbox" || entry.element.type === "file"
+          ? EVENT_CHANGE
+          : EVENT_INPUT
+      );
+    });
+  }
+);
 getButton("resetCover").element.click();
-setModified(false);
-
-if (new URLSearchParams(location.search).has("debug")) {
-  console.log(application);
-}
+removeAnesthesia();

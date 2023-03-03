@@ -8,6 +8,7 @@
 import {
   NUL_OBJECT,
   NUL_STRING,
+  COVER_IMAGE,
   DATA_VERSION,
   EVENT_CHANGE,
   EVENT_INPUT,
@@ -18,8 +19,38 @@ import {
   MESSAGES,
   regexps,
 } from "./constants.mjs";
-import { defaultOrAsIs, testDataFile } from "./functions.mjs";
+import { defaultOrAsIs, testFile as testFile } from "./functions.mjs";
 import { application } from "./application-model.mjs";
+
+/** For use with `getEntries`. */
+const entries = (() => {
+  let out = {};
+  Object.entries(application.entries).forEach(([key, value]) => {
+    Object.entries(value).forEach(([subKey, value]) => {
+      out[key + subKey.charAt(0).toUpperCase + subKey.substring(1)] = value;
+    });
+  });
+  return Object.freeze(out);
+})();
+
+/** Alerts the current file properties. */
+export function alertFileProperties() {
+  const file = getFile();
+  if (file) {
+    alert(
+      "Name: " +
+        file.name +
+        "\nType: " +
+        file.type +
+        "\nSize: " +
+        file.size +
+        " bytes\nLast modified: " +
+        new Date(file.lastModified).toISOString()
+    );
+  } else {
+    alert(MESSAGES.fileNul);
+  }
+}
 
 /** Downloads the given file by its name and URL. */
 export function download(name = NUL_STRING, url = NUL_STRING) {
@@ -34,22 +65,46 @@ export function download(name = NUL_STRING, url = NUL_STRING) {
   application.anchor.click();
 }
 
+/**
+ * Loads the file at the given index of the given list. If successful, then this
+ * may be followed by `loadReader`.
+ */
+export function loadFile(files = getSource().valueOrPreset, index = 0) {
+  getSource().element.disabled = true;
+  if (files.length) {
+    const file = files[0];
+    if (testFile(file) && (!isModified() || confirm(MESSAGES.discard))) {
+      getReader().readAsText(file);
+      return (application.instance.file = file);
+    }
+  } else {
+    alert(MESSAGES.loadEmpty);
+  }
+  getSource().element.disabled = false;
+}
+
 /** Loads the reader contents into the current instance. */
 export function loadReader() {
-  populate(JSON.parse(getReader().result));
+  try {
+    populate(JSON.parse(getReader().result));
+  } catch (error) {
+    alert(error.toString());
+    getSource().element.disabled = false;
+    return;
+  }
   Object.values(getDataEntries())
     .filter((entry) => !entry.persistent && !entry.save)
     .forEach((entry) => {
       entry.value = entry.preset;
     });
   const name = getSaveEntry("name");
-  name.value = getLoadEntry("file").valueOrPreset[0].name.replace(
+  name.value = getSource().valueOrPreset[0].name.replace(
     regexps.fileExtension,
     NUL_STRING
   );
   name.element.dispatchEvent(EVENT_INPUT);
   update();
-  getLoadEntry("file").element.disabled = false;
+  getSource().element.disabled = false;
 }
 
 /**
@@ -91,21 +146,19 @@ export function print() {
   }
 }
 
-/**
- * Reads the load file. If successful, this should be followed by `loadReader`.
- */
-export function readLoadFile() {
-  getLoadEntry("file").element.disabled = true;
-  const files = getLoadEntry("file").valueOrPreset;
-  if (files.length) {
-    const file = files[0];
-    if (testDataFile(file) && (!isModified() || confirm(MESSAGES.discard))) {
-      return getReader().readAsText(file);
-    }
-  } else {
-    alert(MESSAGES.loadEmpty);
-  }
-  getLoadEntry("file").element.disabled = false;
+/** Resets form entries. */
+export function reset() {
+  return Object.values(getEntries()).forEach((entry) => {
+    entry.value = entry.preset;
+  });
+}
+
+/** Resets the cover image. */
+export function resetCover() {
+  const entry = getDataEntry("coverImage");
+  entry.value = NUL_STRING;
+  getOutput("cover").element.src = COVER_IMAGE;
+  setModifiedBy(entry);
 }
 
 /** Saves data form entries as a file download. */
@@ -234,6 +287,21 @@ export function getDataEntries() {
   return application.entries.data;
 }
 
+/** Returns the given form entry by its key. */
+export function getEntry(key = NUL_STRING) {
+  return getControl(getEntries, key);
+}
+
+/** Returns form entries. */
+export function getEntries() {
+  return entries;
+}
+
+/** Returns the current working file. */
+export function getFile() {
+  return application.instance.file;
+}
+
 /** Returns the given load form entry by its key. */
 export function getLoadEntry(key = NUL_STRING) {
   return getControl(getLoadEntries, key);
@@ -259,9 +327,14 @@ export function setModifiedBy(entry = NUL_OBJECT) {
   return setModified(isModified() || entry.save || false);
 }
 
+/** Returns the current instance name. */
+export function getName() {
+  return getSaveEntry("name").safeValue;
+}
+
 /** Returns the given J-card output by its key. */
 export function getOutput(key = NUL_STRING) {
-  return getOutputs()[key];
+  return getControl(getOutputs, key);
 }
 
 /** Returns J-card outputs. */
@@ -287,6 +360,11 @@ export function getReader() {
 /** Returns the root element. */
 export function getRoot() {
   return application.root;
+}
+
+/** Returns the source file input. */
+export function getSource() {
+  return application.source;
 }
 
 /** Returns the given save form entry by its key. */

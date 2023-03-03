@@ -6,8 +6,8 @@
 
 import { NUL_ELEMENT, NUL_OBJECT, NUL_STRING } from "./constants.mjs";
 import {
-  qs,
   defaultOrAsIs,
+  qs,
   getInputSafeValue,
   setInputValue,
 } from "./functions.mjs";
@@ -26,22 +26,22 @@ export class FormControl extends ElementModel {
   constructor(options = NUL_OBJECT, prefix = NUL_STRING) {
     super(
       defaultOrAsIs(NUL_ELEMENT, qs(application, "#" + prefix + options.id)),
-      options
+      options, options = NUL_OBJECT
     );
   }
 }
 
 /** Represents a form button. */
 export class FormButton extends FormControl {
-  constructor(options = NUL_OBJECT) {
-    super(options, "button-");
+  constructor(options = NUL_OBJECT, prefix = "button-") {
+    super(options, prefix);
   }
 }
 
 /** Represents a form entry. */
 export class FormEntry extends FormControl {
-  constructor(options = NUL_OBJECT) {
-    super(options, "input-");
+  constructor(options = NUL_OBJECT, prefix = "input-") {
+    super(options, prefix);
     /** Remain across instances? */
     this.persistent = defaultOrAsIs(true, options.persistent);
     /** Default value. */
@@ -78,10 +78,10 @@ export class DataFormEntry extends FormEntry {
 
 /** Represents a J-card template output. */
 export class JCardOutput extends ElementModel {
-  constructor(options = NUL_OBJECT) {
+  constructor(options = NUL_OBJECT, prefix = "template-") {
     super(
       options.class
-        ? defaultOrAsIs(NUL_ELEMENT, qs(template, ".template-" + options.class))
+        ? defaultOrAsIs(NUL_ELEMENT, qs(template, "." + prefix + options.class))
         : template,
       options
     );

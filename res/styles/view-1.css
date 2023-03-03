@@ -4,7 +4,7 @@ article > section#template:target {
 
 form .columns,
 form .columns:last-child {
-  margin-block-end: calc(-1 * var(--spacer2));
+  margin-block-end: calc(-1 * var(--marginField));
 }
 
 form .columns {
@@ -13,7 +13,7 @@ form .columns {
 }
 
 form .columns > :not(:last-child) {
-  margin-inline-end: var(--spacer2);
+  margin-inline-end: var(--marginField);
 }
 
 form .columns > .column {
@@ -42,7 +42,7 @@ form .columns > .column.shorter {
 
 @media print {
   article > :not(section#template),
-  article > section#template > :not(output),
+  article > section#template > :not(#output),
   body > :not(main),
   main > :not(article) {
     display: none;

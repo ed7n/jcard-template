@@ -1,5 +1,5 @@
 /**
- * J-Card Template: View
+ * J-Card Template: View Actions
  *
  * Functions that modify the view.
  */
@@ -18,4 +18,11 @@ export function expandAll() {
   return getAccordions().forEach((accordion) => {
     accordion.element.open = true;
   });
+}
+
+/** Sets whether the force dark body flag is enabled. */
+export function setForceDark(dark = true) {
+  dark
+    ? document.body.classList.add("dark")
+    : document.body.classList.remove("dark");
 }
