@@ -26,7 +26,7 @@ export class FormControl extends ElementModel {
   constructor(options = NUL_OBJECT, prefix = NUL_STRING) {
     super(
       defaultOrAsIs(NUL_ELEMENT, qs(application, "#" + prefix + options.id)),
-      options, options = NUL_OBJECT
+      options
     );
   }
 }
@@ -35,6 +35,19 @@ export class FormControl extends ElementModel {
 export class FormButton extends FormControl {
   constructor(options = NUL_OBJECT, prefix = "button-") {
     super(options, prefix);
+  }
+}
+
+/** Represents an Unagi menu item. */
+export class MenuButton extends FormButton {
+  constructor(options = NUL_OBJECT, prefix = "menuitem-") {
+    super(options, prefix);
+    /** Icon. */
+    this.icon = qs(this.element, ".icon");
+    /** Label. */
+    this.label = qs(this.element, "label");
+    /** Mnemonic. */
+    this.label = qs(this.element, ".mnemonic");
   }
 }
 

@@ -4,7 +4,7 @@
  * Functions that the user invokes to edit the current instance.
  */
 
-import { NUL_STRING, CSS_NAMESPACE } from "./constants.mjs";
+import { NUL_STRING, CSS_PREFIX } from "./constants.mjs";
 import { replaceLineEnds } from "./functions.mjs";
 import { getRoot } from "./application-functions.mjs";
 
@@ -85,7 +85,7 @@ export function setStyle(output, style, entry, suffix) {
 export function setStyleVariable(style, entry, suffix) {
   return setStyle(
     getRoot(),
-    "--" + CSS_NAMESPACE + style.charAt(0).toUpperCase() + style.substring(1),
+    "--" + CSS_PREFIX + style.charAt(0).toUpperCase() + style.substring(1),
     entry,
     suffix
   );

@@ -1,30 +1,26 @@
-<p>Edit the [<a href="#form">form</a>] to update the <span>
-{%-if page.key == siteData.key1-%}
-  [<a href="#template">template</a>],
-{%-else-%}
-  template,
-{%-endif-%}
-</span> then [<a href="#print">print</a>] this page when finished.</p>
+<p>Edit the [<a href="#form">form</a>] to update the template, then [<a href=
+"#print">print</a>] this page when finished, or [<a href="#save">save</a>] it
+for later.</p>
 <p>Font sizes are measured in points (pt). Features in preview are marked with
 beta (β).</p>
-<p>More usage information can be found in [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/usage"
+<p>For more usage information, see [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/usage"
 >Using {{siteTitle}}</a>].</p>
-<p>Need help with the print shop? You can either [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/print-shop"
->read our guide</a>], or feel free to play around with each setting.</p>
+<p>Need help with the print shop? You can read [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/print-shop"
+>our guide</a>].</p>
 <details>
   <summary><h3>Offline Access</h3></summary>
   <figure class="no-border no-padding">
     <{{htmlImgMono}}"{{sitePathRes}}/media/pwa.png" alt="PWA" />
   </figure>
-  <p>You can manage offline access to {{siteTitle}} with the [{%include
-a-page.html key="_pwa"%}].</p>
+  <p>Manage offline access to {{siteTitle}} with the [{%include a-page.html key=
+"_pwa"%}].</p>
 </details>
 <details>
   <summary><h3>About {{siteClass}}</h3></summary>
   <pre>{{siteTitle}} u{{pageData.version | slice: 7}}r{{pageData.version |
 slice: 18}} by {{author}}, {{pageData.date | date: formDate}}.
 —{{pageData.head.description}}</pre>
-  <p>Changes made to this application are logged to [<{{htmlAOut}}"{{gitHome}}/jcard-template/raw/master/CHANGES"
+  <p>Changes made to it are logged to [<{{htmlAOut}}"{{gitHome}}/jcard-template/raw/master/CHANGES"
 >CHANGES</a>].</p>
   <p>This work was based on the [<{{htmlAOut}}"https://unixispower.gitlab.io/jcard-template"
 >original version</a>] by Blaine Murphy.</p>

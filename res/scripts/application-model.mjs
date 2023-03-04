@@ -297,6 +297,7 @@ export const application = Object.freeze({
   }),
   /** Current instance. */
   instance: Object.seal({
+    file: null,
     modified: false,
   }),
 });

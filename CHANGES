@@ -2,6 +2,19 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision G, 03/04/2023.
+- Form:
+  - Moved `Correction` to `Font size factor`.
+- Help:
+  - Reworded most parts.
+- Load:
+  - Moved `Load cover` to `Upload cover`/
+    - Consistent with `Download cover`.
+  - Prompt on file sizes greater than 1 MiB.
+- View:
+  - Moved most controls up a level.
+  - Reworded `Force dark` description.
+
 ——Revision F, 03/03/2023.
 - Form:
   - `Correction` to correct user agent font size errors.
@@ -21,7 +34,7 @@ J-Card Template: Changes
   - Fixed dangling fields.
   - Fixed jump menu font size.
   - Increased layout switch threshold width to 720px.
-    - Consistent to UI1.
+    - Consistent with UI1.
   - Increased panel minimum width.
   - Tweaked panel padding.
 - View:

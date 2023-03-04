@@ -9,17 +9,18 @@ import {
   NUL_OBJECT,
   NUL_STRING,
   COVER_IMAGE,
+  DATA_TYPE,
   DATA_VERSION,
   EVENT_CHANGE,
   EVENT_INPUT,
   FILE_EXTENSION,
   FILE_NAME,
-  FILE_NAME_MAX_LENGTH,
-  FILE_TYPE,
+  FILE_NAME_LENGTH_MAX,
+  FILE_SIZE_MAX_SAFE,
   MESSAGES,
   regexps,
 } from "./constants.mjs";
-import { defaultOrAsIs, testFile as testFile } from "./functions.mjs";
+import { defaultOrAsIs, testFile } from "./functions.mjs";
 import { application } from "./application-model.mjs";
 
 /** For use with `getEntries`. */
@@ -52,6 +53,13 @@ export function alertFileProperties() {
   }
 }
 
+/** Closes the current instance. */
+export function close() {
+  setWindowSubtitle();
+  getSource().value = NUL_STRING;
+  application.instance.file = null;
+}
+
 /** Downloads the given file by its name and URL. */
 export function download(name = NUL_STRING, url = NUL_STRING) {
   const href = application.anchor.href;
@@ -72,8 +80,12 @@ export function download(name = NUL_STRING, url = NUL_STRING) {
 export function loadFile(files = getSource().valueOrPreset, index = 0) {
   getSource().element.disabled = true;
   if (files.length) {
-    const file = files[0];
-    if (testFile(file) && (!isModified() || confirm(MESSAGES.discard))) {
+    const file = files[index];
+    if (
+      testFile(file) &&
+      (file.size <= FILE_SIZE_MAX_SAFE || confirm(MESSAGES.loadLarge)) &&
+      (!isModified() || confirm(MESSAGES.discard))
+    ) {
       getReader().readAsText(file);
       return (application.instance.file = file);
     }
@@ -98,7 +110,7 @@ export function loadReader() {
       entry.value = entry.preset;
     });
   const name = getSaveEntry("name");
-  name.value = getSource().valueOrPreset[0].name.replace(
+  name.value = getFile().name.replace(
     regexps.fileExtension,
     NUL_STRING
   );
@@ -153,27 +165,14 @@ export function reset() {
   });
 }
 
-/** Resets the cover image. */
-export function resetCover() {
-  const entry = getDataEntry("coverImage");
-  entry.value = NUL_STRING;
-  getOutput("cover").element.src = COVER_IMAGE;
-  setModifiedBy(entry);
-}
-
 /** Saves data form entries as a file download. */
 export function save() {
   const file = new File(
     [JSON.stringify(preserve())],
-    getCardName().substring(0, FILE_NAME_MAX_LENGTH) + FILE_EXTENSION,
-    { type: FILE_TYPE }
+    getCardName().substring(0, FILE_NAME_LENGTH_MAX) + FILE_EXTENSION,
+    { type: DATA_TYPE }
   );
   return download(file.name, URL.createObjectURL(file));
-}
-
-/** Saves the cover image as a file download. */
-export function saveCover() {
-  return download(getCardName(), getOutput("cover").element.src);
 }
 
 /** Returns whether print form entries are valid and reports on a fault. */
@@ -250,6 +249,19 @@ export function undoPrint() {
   });
   element.style.opacity = NUL_STRING;
   element.classList.remove("half-margin", "outline", "variable-width");
+}
+
+/** Resets the cover image. */
+export function resetCover() {
+  const entry = getDataEntry("coverImage");
+  entry.value = NUL_STRING;
+  getOutput("cover").element.src = COVER_IMAGE;
+  setModifiedBy(entry);
+}
+
+/** Saves the cover image as a file download. */
+export function saveCover() {
+  return download(getCardName(), getOutput("cover").element.src);
 }
 
 /** Returns collapsible fieldsets. */

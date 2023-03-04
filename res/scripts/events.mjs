@@ -201,16 +201,6 @@ function setupWindowEvents() {
 }
 
 /**
- * Adds a `beforeunload` event listener to the window by modified flag and the
- * given entry.
- */
-function addBeforeUnloadListenerBy(entry) {
-  if (!isModified() && entry.save) {
-    window.addEventListener("beforeunload", doBeforeUnload);
-  }
-}
-
-/**
  * Adds a change event listener to the given entry that sets the given boolean
  * property.
  */
@@ -330,6 +320,16 @@ function addBackListener(label, contents, separator, shortBack, output) {
       }
     });
   });
+}
+
+/**
+ * Adds a `beforeunload` event listener to the window by modified flag and the
+ * given entry.
+ */
+function addBeforeUnloadListenerBy(entry) {
+  if (!isModified() && entry.save) {
+    window.addEventListener("beforeunload", doBeforeUnload);
+  }
 }
 
 /**
