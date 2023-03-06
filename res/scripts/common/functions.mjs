@@ -1,5 +1,5 @@
 /**
- * J-Card Template: Functions
+ * NET: Functions
  *
  * Shared independent functions.
  */
@@ -7,10 +7,10 @@
 import {
   NUL_ELEMENT,
   NUL_STRING,
-  MESSAGES,
   TITLE,
-  regexps,
+  regexps as commonRegexps,
 } from "./constants.mjs";
+import { MESSAGES, regexps } from "../constants.mjs";
 
 /** Shorthand for `element.querySelector(query)`. */
 export function qs(element = NUL_ELEMENT, query = NUL_STRING) {
@@ -32,7 +32,7 @@ export function defaultOrAsIs(defaultt, primitive) {
 
 /** Replaces line ends in the given string with the given replacement. */
 export function replaceLineEnds(string = NUL_STRING, replacement = NUL_STRING) {
-  return string.replace(regexps.lineEnd, replacement);
+  return string.replace(commonRegexps.lineEnd, replacement);
 }
 
 /** Tests the given file and alerts on a fault. */

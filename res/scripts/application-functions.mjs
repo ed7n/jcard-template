@@ -6,71 +6,53 @@
  */
 
 import {
-  NUL_OBJECT,
-  NUL_STRING,
   COVER_IMAGE,
-  DATA_TYPE,
   DATA_VERSION,
-  EVENT_CHANGE,
-  EVENT_INPUT,
-  FILE_EXTENSION,
   FILE_NAME,
-  FILE_NAME_LENGTH_MAX,
   FILE_SIZE_MAX_SAFE,
   MESSAGES,
   regexps,
 } from "./constants.mjs";
-import { defaultOrAsIs, testFile } from "./functions.mjs";
 import { application } from "./application-model.mjs";
+import { NUL_OBJECT, NUL_STRING, EVENT_INPUT } from "./common/constants.mjs";
+import { testFile } from "./common/functions.mjs";
+import {
+  download,
+  populate,
+  preserve,
+  print,
+  save,
+  update,
+  getControl,
+  getFile,
+  isModified,
+  setModified,
+  getOutput,
+  getReader,
+  getSource,
+} from "./common/application-functions.mjs";
 
-/** For use with `getEntries`. */
-const entries = (() => {
-  let out = {};
-  Object.entries(application.entries).forEach(([key, value]) => {
-    Object.entries(value).forEach(([subKey, value]) => {
-      out[key + subKey.charAt(0).toUpperCase + subKey.substring(1)] = value;
+/** For use with `getDataSaveEntries`. */
+const dataSaveEntries = (() => {
+  const out = {};
+  Object.entries(getDataEntries())
+    .filter(([, entry]) => entry.save)
+    .forEach(([key, entry]) => {
+      out[key] = entry;
     });
-  });
   return Object.freeze(out);
 })();
 
-/** Alerts the current file properties. */
-export function alertFileProperties() {
-  const file = getFile();
-  if (file) {
-    alert(
-      "Name: " +
-        file.name +
-        "\nType: " +
-        file.type +
-        "\nSize: " +
-        file.size +
-        " bytes\nLast modified: " +
-        new Date(file.lastModified).toISOString()
-    );
-  } else {
-    alert(MESSAGES.fileNul);
-  }
-}
+/** For use with `loadReader`. */
+const dataVolatileEntries = Object.entries(getDataEntries()).filter(
+  ([, entry]) => !entry.persistent && !entry.save
+);
 
 /** Closes the current instance. */
 export function close() {
   setWindowSubtitle();
   getSource().value = NUL_STRING;
   application.instance.file = null;
-}
-
-/** Downloads the given file by its name and URL. */
-export function download(name = NUL_STRING, url = NUL_STRING) {
-  const href = application.anchor.href;
-  application.anchor.download = name;
-  if (href !== url) {
-    if (href) {
-      URL.revokeObjectURL(href);
-    }
-    application.anchor.href = url;
-  }
-  application.anchor.click();
 }
 
 /**
@@ -84,7 +66,7 @@ export function loadFile(files = getSource().valueOrPreset, index = 0) {
     if (
       testFile(file) &&
       (file.size <= FILE_SIZE_MAX_SAFE || confirm(MESSAGES.loadLarge)) &&
-      (!isModified() || confirm(MESSAGES.discard))
+      (!isModified() || confirm(MESSAGES.loadDiscard))
     ) {
       getReader().readAsText(file);
       return (application.instance.file = file);
@@ -98,85 +80,49 @@ export function loadFile(files = getSource().valueOrPreset, index = 0) {
 /** Loads the reader contents into the current instance. */
 export function loadReader() {
   try {
-    populate(JSON.parse(getReader().result));
+    populateDataSaves(JSON.parse(getReader().result));
   } catch (error) {
     alert(error.toString());
     getSource().element.disabled = false;
     return;
   }
-  Object.values(getDataEntries())
-    .filter((entry) => !entry.persistent && !entry.save)
-    .forEach((entry) => {
-      entry.value = entry.preset;
-    });
+  dataVolatileEntries.forEach((entry) => {
+    entry.value = entry.preset;
+  });
   const name = getSaveEntry("name");
-  name.value = getFile().name.replace(
-    regexps.fileExtension,
-    NUL_STRING
-  );
+  name.value = getFile().name.replace(regexps.fileExtension, NUL_STRING);
   name.element.dispatchEvent(EVENT_INPUT);
-  update();
+  updateData();
   getSource().element.disabled = false;
 }
 
 /**
- * Populates data form entries with the given values. Those not to be saved are
- * excluded by default, and those undefined are set to their default. This is
- * opposite to `preserve`.
+ * Populates data form entry values that are to be saved with the given values.
  */
-export function populate(values = NUL_OBJECT, all = false) {
-  let entries = Object.entries(getDataEntries());
-  if (!all) {
-    entries = entries.filter(([, entry]) => entry.save);
-  }
-  return entries.forEach(([key, entry]) => {
-    entry.value = defaultOrAsIs(entry.preset, values[key]);
-  });
+export function populateDataSaves(values = NUL_OBJECT) {
+  return populate(values, getDataSaveEntries);
 }
 
-/**
- * Returns a snapshot of data form entry values. Those not to be saved are
- * excluded by default, and those undefined are set to their default. This is
- * opposite to `populate`.
- */
-export function preserve(all = false) {
+/** Returns a snapshot of data form entry values that are to be saved. */
+export function preserveDataSaves() {
   const out = { version: DATA_VERSION };
-  let entries = Object.entries(getDataEntries());
-  if (!all) {
-    entries = entries.filter(([, entry]) => entry.save);
-  }
-  entries.forEach(([key, entry]) => {
-    out[key] = entry.safeValue;
-  });
-  return Object.freeze(out);
+  return preserve(getDataSaveEntries, out);
+}
+
+/** Saves data form entries that are to be saved as a file download. */
+export function saveDataSaves() {
+  return save(preserveDataSaves, getName());
 }
 
 /** Prints the window only if print form entries are good. */
-export function print() {
-  if (testPrintFormEntries()) {
-    return window.print();
+export function testAndPrint() {
+  if (testPrintEntries()) {
+    return print();
   }
 }
 
-/** Resets form entries. */
-export function reset() {
-  return Object.values(getEntries()).forEach((entry) => {
-    entry.value = entry.preset;
-  });
-}
-
-/** Saves data form entries as a file download. */
-export function save() {
-  const file = new File(
-    [JSON.stringify(preserve())],
-    getCardName().substring(0, FILE_NAME_LENGTH_MAX) + FILE_EXTENSION,
-    { type: DATA_TYPE }
-  );
-  return download(file.name, URL.createObjectURL(file));
-}
-
 /** Returns whether print form entries are valid and reports on a fault. */
-export function testPrintFormEntries() {
+export function testPrintEntries() {
   try {
     Object.values(getPrintEntries()).forEach((entry) => {
       if (!entry.element.reportValidity()) {
@@ -190,14 +136,8 @@ export function testPrintFormEntries() {
 }
 
 /** Dispatches change or input events on data form entries. */
-export function update() {
-  return Object.values(getDataEntries()).forEach((entry) => {
-    entry.element.dispatchEvent(
-      entry.element.type === "checkbox" || entry.element.type === "file"
-        ? EVENT_CHANGE
-        : EVENT_INPUT
-    );
-  });
+export function updateData() {
+  return update([getDataEntries]);
 }
 
 /**
@@ -264,21 +204,6 @@ export function saveCover() {
   return download(getCardName(), getOutput("cover").element.src);
 }
 
-/** Returns collapsible fieldsets. */
-export function getAccordions() {
-  return application.accordions;
-}
-
-/** Returns the given form button by its key. */
-export function getButton(key = NUL_STRING) {
-  return getControl(getButtons, key);
-}
-
-/** Returns form buttons. */
-export function getButtons() {
-  return application.buttons;
-}
-
 /** Returns the current card name. */
 export function getCardName() {
   return (
@@ -299,19 +224,9 @@ export function getDataEntries() {
   return application.entries.data;
 }
 
-/** Returns the given form entry by its key. */
-export function getEntry(key = NUL_STRING) {
-  return getControl(getEntries, key);
-}
-
-/** Returns form entries. */
-export function getEntries() {
-  return entries;
-}
-
-/** Returns the current working file. */
-export function getFile() {
-  return application.instance.file;
+/** Returns data form entries that are to be saved. */
+export function getDataSaveEntries() {
+  return dataSaveEntries;
 }
 
 /** Returns the given load form entry by its key. */
@@ -324,16 +239,6 @@ export function getLoadEntries() {
   return application.entries.load;
 }
 
-/** Returns whether the current instance is modified. */
-export function isModified() {
-  return application.instance.modified;
-}
-
-/** Sets the modified flag to the given value. */
-export function setModified(value = true) {
-  return (application.instance.modified = value);
-}
-
 /** Sets the modified flag by the given data entry. */
 export function setModifiedBy(entry = NUL_OBJECT) {
   return setModified(isModified() || entry.save || false);
@@ -344,16 +249,6 @@ export function getName() {
   return getSaveEntry("name").safeValue;
 }
 
-/** Returns the given J-card output by its key. */
-export function getOutput(key = NUL_STRING) {
-  return getControl(getOutputs, key);
-}
-
-/** Returns J-card outputs. */
-export function getOutputs() {
-  return application.outputs;
-}
-
 /** Returns the given print form entry by its key. */
 export function getPrintEntry(key = NUL_STRING) {
   return getControl(getPrintEntries, key);
@@ -362,21 +257,6 @@ export function getPrintEntry(key = NUL_STRING) {
 /** Returns print form entries. */
 export function getPrintEntries() {
   return application.entries.print;
-}
-
-/** Returns the file reader. */
-export function getReader() {
-  return application.reader;
-}
-
-/** Returns the root element. */
-export function getRoot() {
-  return application.root;
-}
-
-/** Returns the source file input. */
-export function getSource() {
-  return application.source;
 }
 
 /** Returns the given save form entry by its key. */
@@ -397,9 +277,4 @@ export function getViewEntry(key = NUL_STRING) {
 /** Returns view form entries. */
 export function getViewEntries() {
   return application.entries.view;
-}
-
-/** Returns the given control by its getter and key. */
-function getControl(getter, key) {
-  return getter()[key];
 }

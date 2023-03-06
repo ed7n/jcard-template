@@ -1,22 +1,40 @@
 article {
-  --lengthJCardPanelMax: calc(
-    var(--lengthUi1ColumnFluid) + var(--paddingJCardPanel) * 2 +
-      var(--widthScrollbar) - var(--marginField) - var(--lengthFieldRowSmallMin)
+  --lengthPanelEnd: calc(
+    var(--lengthFieldRowSmallMin) * 2 + var(--marginField) +
+      var(--paddingFieldset) * 2 + var(--widthBorder2) + var(--paddingPanel) * 2 +
+      var(--widthScrollbar)
   );
-  --lengthUi1ColumnFluid: 662px;
-  --paddingJCardPanel: calc(var(--paddingFieldset) * var(--factorGolden));
+  --paddingPanel: calc(var(--paddingFieldset) * var(--factorGolden));
+}
+
+article > section:not(:last-of-type),
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:not(:not(:first-of-type):not(:last-of-type))
+  > section:not(:last-of-type),
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:last-of-type
+  > nav:first-of-type {
+  border-block-end-style: solid;
+}
+
+article > section:not(:last-of-type),
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:not(:not(:first-of-type):not(:last-of-type))
+  > section:not(:last-of-type) {
+  border-block-end-color: var(--colorAccentMid);
 }
 
 article > section:not(:last-of-type) {
-  border-block-end-color: var(--colorAccentMid);
-  border-block-end-style: solid;
   border-block-end-width: var(--widthBorder);
 }
 
 article > section:not(:first-of-type):not(:last-of-type),
 article
   > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type {
+  > section:not(:not(:first-of-type):not(:last-of-type)) {
   display: flex;
   flex-wrap: nowrap;
 }
@@ -30,10 +48,7 @@ article
   > section:not(:first-of-type):not(:last-of-type),
 article
   > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type,
-article
-  > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type
+  > section:not(:not(:first-of-type):not(:last-of-type))
   > section {
   flex-grow: 1;
 }
@@ -46,8 +61,7 @@ article
 
 article
   > section:not(:first-of-type):not(:last-of-type)
-  > section:first-of-type,
-article > section:not(:first-of-type):not(:last-of-type) > section:last-of-type,
+  > section:not(:not(:first-of-type):not(:last-of-type)),
 article
   > section:not(:first-of-type):not(:last-of-type)
   > section:last-of-type
@@ -57,32 +71,29 @@ article
 
 article
   > section:not(:first-of-type):not(:last-of-type)
-  > section:first-of-type,
-article
-  > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type {
-  flex-basis: calc(
-    var(--lengthFieldRowSmallMin) * 2 + var(--marginField) +
-      var(--paddingFieldset) * 2 + var(--widthBorder2) +
-      var(--paddingJCardPanel) * 2 + var(--widthScrollbar)
-  );
-  max-width: var(--lengthJCardPanelMax);
+  > section:not(:not(:first-of-type):not(:last-of-type)) {
+  flex-direction: column;
 }
 
 article
   > section:not(:first-of-type):not(:last-of-type)
-  > section:first-of-type,
-article
-  > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type
+  > section:not(:not(:first-of-type):not(:last-of-type))
   > section {
   overflow-y: scroll;
 }
 
 article
   > section:not(:first-of-type):not(:last-of-type)
+  > section:not(:not(:first-of-type):not(:last-of-type))
+  > section:not(:last-of-type) {
+  border-block-end-width: var(--widthBorder2);
+}
+
+article
+  > section:not(:first-of-type):not(:last-of-type)
   > section:last-of-type {
-  flex-direction: column;
+  flex-basis: var(--lengthPanelEnd);
+  max-width: var(--lengthPanelEnd);
 }
 
 article
@@ -105,7 +116,6 @@ article
   > nav:first-of-type {
   background-color: var(--colorAccentMin);
   border-block-end-color: var(--colorAccentLow);
-  border-block-end-style: solid;
   border-block-end-width: var(--widthBorderBumpEnd);
   border-inline-end-color: var(--colorAccentLow);
   border-inline-end-width: var(--widthBorderBumpStart);
@@ -120,7 +130,10 @@ article
   > section:last-of-type
   > nav:first-of-type
   + div.hr,
-article > section:not(:first-of-type):not(:last-of-type) > section:empty {
+article > section:not(:first-of-type):not(:last-of-type) > section:empty,
+article
+  > section:not(:first-of-type):not(:last-of-type)
+  > section:not(:not(:first-of-type):not(:last-of-type)):empty {
   display: none;
 }
 
@@ -129,8 +142,8 @@ article
   > section:last-of-type
   > section
   > section {
-  margin-inline-end: var(--paddingJCardPanel);
-  margin-inline-start: var(--paddingJCardPanel);
+  margin-inline-end: var(--paddingPanel);
+  margin-inline-start: var(--paddingPanel);
   padding-block-start: var(--spacer2);
 }
 
@@ -151,12 +164,9 @@ article
   margin-block-start: var(--spacer6);
 }
 
-article.no-controls
+article.no-panels
   > section:not(:first-of-type):not(:last-of-type)
-  > section:first-of-type,
-article.no-controls
-  > section:not(:first-of-type):not(:last-of-type)
-  > section:last-of-type {
+  > section:not(:not(:first-of-type):not(:last-of-type)) {
   display: none;
 }
 
@@ -178,13 +188,17 @@ article.reverse
     flex-direction: column;
   }
 
+  article > section:not(:first-of-type):not(:last-of-type) > section,
   article
     > section:not(:first-of-type):not(:last-of-type)
-    > section:first-of-type,
-  article
-    > section:not(:first-of-type):not(:last-of-type)
-    > section:last-of-type {
+    > section:not(:not(:first-of-type):not(:last-of-type)) {
     flex-basis: 50%;
+  }
+
+  article
+    > section:not(:first-of-type):not(:last-of-type)
+    > section:not(:not(:first-of-type):not(:last-of-type)) {
+    flex-shrink: var(--factorGolden);
     max-width: unset;
   }
 
@@ -210,7 +224,10 @@ article.reverse
     > section {
     margin-inline-end: auto;
     margin-inline-start: auto;
-    max-width: var(--lengthJCardPanelMax);
+    max-width: calc(
+      var(--lengthPanelEnd) - var(--paddingPanel) * 2 - var(--widthScrollbar) +
+        8%
+    );
     padding-inline-end: 4%;
     padding-inline-start: 4%;
   }
@@ -256,7 +273,8 @@ article.reverse
 }
 
 @media (prefers-color-scheme: light) {
-  body:not(.dark) article
+  body:not(.dark)
+    article
     > section:not(:first-of-type):not(:last-of-type)
     > section:last-of-type
     > nav:first-child {

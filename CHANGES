@@ -2,13 +2,21 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision H, 03/06/2023.
+- Load:
+  - Fixed blank discard message.
+- PWA:
+  - Forced header, navigation, and footer in NET-Installer.
+- Script:
+  - Factored out most parts shared with NET-Viewer.
+
 ——Revision G, 03/04/2023.
 - Form:
   - Moved `Correction` to `Font size factor`.
 - Help:
   - Reworded most parts.
 - Load:
-  - Moved `Load cover` to `Upload cover`/
+  - Moved `Load cover` to `Upload cover`.
     - Consistent with `Download cover`.
   - Prompt on file sizes greater than 1 MiB.
 - View:

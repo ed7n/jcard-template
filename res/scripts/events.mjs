@@ -5,32 +5,36 @@
  * happen.
  */
 
-import { NUL_STRING, MESSAGES } from "./constants.mjs";
-import { getInputSafeValue, setWindowSubtitle } from "./functions.mjs";
+import { MESSAGES } from "./constants.mjs";
 import {
   loadFile,
   loadReader,
-  print,
   resetCover,
-  save,
   saveCover,
+  saveDataSaves,
+  testAndPrint,
   doPrint,
   undoPrint,
-  getButton,
   getDataEntry,
   getDataEntries,
   getLoadEntry,
-  isModified,
-  setModified,
   setModifiedBy,
-  getOutputs,
   getPrintEntry,
   getPrintEntries,
-  getReader,
-  getRoot,
   getSaveEntry,
   getViewEntry,
 } from "./application-functions.mjs";
+import { setBackContents, setFrontContents } from "./edits.mjs";
+import { NUL_STRING } from "./common/constants.mjs";
+import { getInputSafeValue, setWindowSubtitle } from "./common/functions.mjs";
+import {
+  getButtons,
+  isModified,
+  setModified,
+  getOutputs,
+  getReader,
+  getRoot,
+} from "./common/application-functions.mjs";
 import {
   setBooleanProperty,
   setClassWord,
@@ -39,10 +43,8 @@ import {
   setProperty,
   setSrc,
   setStyleVariable,
-  setBackContents,
-  setFrontContents,
-} from "./edits.mjs";
-import { collapseAll, expandAll, setForceDark } from "./views.mjs";
+} from "./common/edits.mjs";
+import { collapseAll, expandAll, setForceDark } from "./common/views.mjs";
 
 /** Set post-modification events? */
 let anesthesia = true;
@@ -71,15 +73,14 @@ export function setupEvents() {
 
 /** Adds listeners to buttons that invoke actions. */
 function setupButtonEvents() {
-  getButton("load").element.addEventListener("click", (event) => {
-    loadFile(event.target.files);
-  });
-  getButton("print").element.addEventListener("click", print);
-  getButton("resetCover").element.addEventListener("click", resetCover);
-  getButton("save").element.addEventListener("click", save);
-  getButton("saveCover").element.addEventListener("click", saveCover);
-  getButton("viewCollapse").element.addEventListener("click", collapseAll);
-  getButton("viewExpand").element.addEventListener("click", expandAll);
+  const buttons = getButtons();
+  addActionListener(buttons.load, (event) => loadFile(event.target.files));
+  addActionListener(buttons.print, testAndPrint);
+  addActionListener(buttons.resetCover, resetCover);
+  addActionListener(buttons.save, saveDataSaves);
+  addActionListener(buttons.saveCover, saveCover);
+  addActionListener(buttons.viewCollapse, collapseAll);
+  addActionListener(buttons.viewExpand, expandAll);
 }
 
 /** Adds listeners to entries that update outputs. */
@@ -173,13 +174,13 @@ function setupFormEvents() {
 
 /** Adds listeners to entries that modifies the view. */
 function setupViewEvents() {
+  addClassListener(getViewEntry("reverse"), getRoot(), "reverse");
   getSaveEntry("name").element.addEventListener("input", (event) => {
     setWindowSubtitle(getInputSafeValue(event.target));
   });
   getViewEntry("forceDark").element.addEventListener("change", (event) => {
     setForceDark(event.target.checked);
   });
-  addClassListener(getViewEntry("reverse"), getRoot(), "reverse");
 }
 
 /** Adds listeners to the window. */
@@ -201,6 +202,13 @@ function setupWindowEvents() {
 }
 
 /**
+ * Adds a click event listener to the given button that runs the given function.
+ */
+function addActionListener(button, action) {
+  button.element.addEventListener("click", action);
+}
+
+/**
  * Adds a change event listener to the given entry that sets the given boolean
  * property.
  */
@@ -216,7 +224,7 @@ function addBooleanProperty(entry, object, key, invert) {
  * Adds a change event listener to the given entry that sets the visibility of
  * the given class word of the given output.
  */
-function addClassListener(entry, output, classs = NUL_STRING, invert) {
+function addClassListener(entry, output, classs, invert) {
   entry.element.addEventListener("change", () => {
     if (setClassWord(output, classs, entry, invert) && !hasAnesthesia()) {
       doAfterModify(entry);

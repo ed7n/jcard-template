@@ -11,12 +11,12 @@ navLabelSite: "Jump:"
 navLabelTree: "≡ Menu"
 noBackground: true
 noCurtain: false
-noFooter: false
-noHeader: false
-noNavPage: false
-noNavSite: false
+noFooter: true
+noHeader: true
+noNavPage: true
+noNavSite: true
 pathHome: ""
-pathIcon: "https://ed7n.github.io/jcard-template/res/media/favicon.png"
+pathIcon: "res/media/favicon.png"
 pathRes: "https://ed7n.github.io/res"
 splitSubtitle: ": "
 splitTitle: " - "

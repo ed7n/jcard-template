@@ -1,6 +1,10 @@
 path: ""
-version: "Update 1 Revision G"
-date: 2023-03-04
+version: "Update 1 Revision H"
+date: 2023-03-06
+noFooter: false
+noHeader: false
+noNavPage: false
+noNavSite: false
 head:
   description: "Printable in-browser template for cassette tape J-cards."
 body:

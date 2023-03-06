@@ -1,6 +1,11 @@
 path: "pwa"
 version: "Revision 1"
 date: 2023-02-19
+noCurtain: false
+noFooter: false
+noHeader: false
+noNavPage: false
+noNavSite: false
 head:
   title: "NET-Installer"
   manifest: "pwa.webmanifest"

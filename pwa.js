@@ -17,7 +17,7 @@ const PATH_PAGE = "/jcard-template/";
 /** Site resource path. */
 const PATH_SITE = "https://ed7n.github.io/res/";
 /** Name of the cache to operate on. */
-const CACHE_NAME = "jcard-template-u1rG";
+const CACHE_NAME = "jcard-template-u1rH";
 /** Request URLs whose response is to be cached. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",
@@ -33,15 +33,19 @@ const CACHE_URLS = Object.freeze([
   PATH_PAGE + "res/media/font-size-test.png",
   PATH_PAGE + "res/scripts/application-functions.mjs",
   PATH_PAGE + "res/scripts/application-model.mjs",
+  PATH_PAGE + "res/scripts/common/application-functions.mjs",
+  PATH_PAGE + "res/scripts/common/constants.mjs",
+  PATH_PAGE + "res/scripts/common/edits.mjs",
+  PATH_PAGE + "res/scripts/common/functions.mjs",
+  PATH_PAGE + "res/scripts/common/models.mjs",
+  PATH_PAGE + "res/scripts/common/views.mjs",
   PATH_PAGE + "res/scripts/constants.mjs",
   PATH_PAGE + "res/scripts/edits.mjs",
   PATH_PAGE + "res/scripts/events.mjs",
-  PATH_PAGE + "res/scripts/functions.mjs",
   PATH_PAGE + "res/scripts/main.js",
   PATH_PAGE + "res/scripts/models.mjs",
   PATH_PAGE + "res/scripts/roots.mjs",
   PATH_PAGE + "res/scripts/start.mjs",
-  PATH_PAGE + "res/scripts/views.mjs",
   PATH_PAGE + "res/styles/jcard.css",
   PATH_PAGE + "res/styles/view-1.css",
   PATH_PAGE + "res/styles/view.css",

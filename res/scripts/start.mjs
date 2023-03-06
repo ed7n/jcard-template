@@ -4,20 +4,14 @@
  * Start here.
  */
 
-import { EVENT_CHANGE, EVENT_INPUT } from "./constants.mjs";
+import { populateDataSaves, getDataEntries } from "./application-functions.mjs";
+import { removeAnesthesia, setupEvents } from "./events.mjs";
 import {
-  populate,
   reset,
   update,
   getButton,
-  getDataEntries,
   getEntries,
-  getLoadEntries,
-  getPrintEntries,
-  getSaveEntries,
-  getViewEntries,
-} from "./application-functions.mjs";
-import { removeAnesthesia, setupEvents } from "./events.mjs";
+} from "./common/application-functions.mjs";
 
 const SUFFIX_LABEL = ":";
 const SUFFIX_NOSAVE = "<sup>+</sup>";
@@ -29,9 +23,9 @@ Object.values(getDataEntries())
       const index = label.innerHTML.lastIndexOf(SUFFIX_LABEL);
       if (index >= 0) {
         label.innerHTML =
-          label.innerHTML.slice(0, index) +
+          label.innerHTML.substring(0, index) +
           SUFFIX_NOSAVE +
-          label.innerHTML.slice(index);
+          label.innerHTML.substring(index);
       } else {
         label.innerHTML += SUFFIX_NOSAVE;
       }
@@ -44,33 +38,18 @@ Object.values(getEntries())
     entry.element.placeholder = entry.preset;
   });
 reset();
-populate(
-  {
-    titleUpper: "The Numbers Game",
-    titleLower: "Dark Mathematicians",
-    footer: "Stereo Tape",
-    noteUpper: "Recorded",
-    noteLower: "August 2017",
-    sideALabel: "Side A",
-    sideAContents:
-      "One of Us\nTwo is the Shoe\nThree for Me\nFour Out the Door",
-    sideBLabel: "Side B",
-    sideBContents:
-      "Five is a Hive\nSix Movie Flicks\nSeven Ate Nine\nEight My Good Mate",
-  },
-  true
-);
+populateDataSaves({
+  titleUpper: "The Numbers Game",
+  titleLower: "Dark Mathematicians",
+  footer: "Stereo Tape",
+  noteUpper: "Recorded",
+  noteLower: "August 2017",
+  sideALabel: "Side A",
+  sideAContents: "One of Us\nTwo is the Shoe\nThree for Me\nFour Out the Door",
+  sideBLabel: "Side B",
+  sideBContents:
+    "Five is a Hive\nSix Movie Flicks\nSeven Ate Nine\nEight My Good Mate",
+});
 update();
-[getLoadEntries, getPrintEntries, getSaveEntries, getViewEntries].forEach(
-  (getter) => {
-    Object.values(getter()).forEach((entry) => {
-      entry.element.dispatchEvent(
-        entry.element.type === "checkbox" || entry.element.type === "file"
-          ? EVENT_CHANGE
-          : EVENT_INPUT
-      );
-    });
-  }
-);
 getButton("resetCover").element.click();
 removeAnesthesia();

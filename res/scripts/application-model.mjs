@@ -4,16 +4,17 @@
  * Whenever available, use `application-functions` to operate on the model.
  */
 
-import { NUL_STRING, FILE_NAME } from "./constants.mjs";
-import { qsAll } from "./functions.mjs";
+import { FILE_NAME } from "./constants.mjs";
 import { application as root } from "./roots.mjs";
+import { JCardOutput } from "./models.mjs";
+import { NUL_STRING } from "./common/constants.mjs";
+import { qsAll } from "./common/functions.mjs";
 import {
   DataFormEntry,
   ElementModel,
   FormButton,
   FormEntry,
-  JCardOutput,
-} from "./models.mjs";
+} from "./common/models.mjs";
 
 /** Application model. */
 export const application = Object.freeze({

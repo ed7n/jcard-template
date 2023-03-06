@@ -1,5 +1,5 @@
 /**
- * J-Card Template: View Actions
+ * NET: View Actions
  *
  * Functions that modify the view.
  */
