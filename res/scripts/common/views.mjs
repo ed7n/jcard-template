@@ -1,7 +1,7 @@
 /**
  * NET: View Actions
  *
- * Functions that modify the view.
+ * Functions modifying the view.
  */
 
 import { getAccordions } from "./application-functions.mjs";

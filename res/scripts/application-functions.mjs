@@ -14,7 +14,12 @@ import {
   regexps,
 } from "./constants.mjs";
 import { application } from "./application-model.mjs";
-import { NUL_OBJECT, NUL_STRING, EVENT_INPUT } from "./common/constants.mjs";
+import {
+  NUL_OBJECT,
+  NUL_STRING,
+  EVENT_INPUT,
+  MESSAGES as COMMON_MESSAGES,
+} from "./common/constants.mjs";
 import { testFile } from "./common/functions.mjs";
 import {
   download,
@@ -72,7 +77,7 @@ export function loadFile(files = getSource().valueOrPreset, index = 0) {
       return (application.instance.file = file);
     }
   } else {
-    alert(MESSAGES.loadEmpty);
+    alert(COMMON_MESSAGES.loadEmpty);
   }
   getSource().element.disabled = false;
 }

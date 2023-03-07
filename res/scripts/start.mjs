@@ -5,13 +5,14 @@
  */
 
 import { populateDataSaves, getDataEntries } from "./application-functions.mjs";
-import { removeAnesthesia, setupEvents } from "./events.mjs";
+import { setupEvents } from "./events.mjs";
 import {
   reset,
   update,
   getButton,
   getEntries,
 } from "./common/application-functions.mjs";
+import { removeAnesthesia } from "./common/events.mjs";
 
 const SUFFIX_LABEL = ":";
 const SUFFIX_NOSAVE = "<sup>+</sup>";

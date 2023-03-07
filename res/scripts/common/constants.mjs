@@ -11,6 +11,14 @@ export const NUL_OBJECT = Object.freeze({});
 export const NUL_STRING = "";
 export const SPACE = " ";
 
+/** Messages. */
+export const MESSAGES = Object.freeze({
+  fileBadType: "Bad file MIME type: ",
+  fileEmpty: "File is empty.",
+  fileNul: "No file.",
+  loadDiscard: "This discards any unsaved changes made to the current file.",
+  loadEmpty: "Nothing to load.",
+});
 /** Event: "change". */
 export const EVENT_CHANGE = Object.freeze(new Event("change"));
 /** Event: "input". */

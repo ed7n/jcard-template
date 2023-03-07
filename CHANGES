@@ -2,6 +2,13 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision I, 03/07/2023.
+- Event Condensing Coalescer (ECC).
+- Help:
+  - Rearranged subsections.
+- Script:
+  - Factored out more parts shared with NET-Viewer.
+
 ——Revision H, 03/06/2023.
 - Load:
   - Fixed blank discard message.

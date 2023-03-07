@@ -8,14 +8,6 @@ beta (β).</p>
 <p>Need help with the print shop? You can read [<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template/print-shop"
 >our guide</a>].</p>
 <details>
-  <summary><h3>Offline Access</h3></summary>
-  <figure class="no-border no-padding">
-    <{{htmlImgMono}}"{{sitePathRes}}/media/pwa.png" alt="PWA" />
-  </figure>
-  <p>Manage offline access to {{siteTitle}} with the [{%include a-page.html key=
-"_pwa"%}].</p>
-</details>
-<details>
   <summary><h3>About {{siteClass}}</h3></summary>
   <pre>{{siteTitle}} u{{pageData.version | slice: 7}}r{{pageData.version |
 slice: 18}} by {{author}}, {{pageData.date | date: formDate}}.
@@ -25,4 +17,25 @@ slice: 18}} by {{author}}, {{pageData.date | date: formDate}}.
   <p>This work was based on the [<{{htmlAOut}}"https://unixispower.gitlab.io/jcard-template"
 >original version</a>] by Blaine Murphy.</p>
   <p>Finally, <i>thanks to all who wrote to me--you know who you are.</i></p>
+</details>
+<details>
+  <summary><h3>Offline Access</h3></summary>
+  <figure class="no-border no-padding">
+    <{{htmlImgMono}}"{{sitePathRes}}/media/pwa.png" alt="PWA" />
+  </figure>
+  <p>Manage offline access to {{siteTitle}} with the [{%include a-page.html key=
+"_pwa"%}].</p>
+</details>
+<details>
+  <summary><h3>ECC</h3></summary>
+  <form>
+    <p>Event Condensing Coalescer (ECC) is a resource-saving technology that condenses duplicate bursts of some input events into one at the cost of output latency.</p>
+    <p>It is disabled by default.</p>
+    <div class="field switch" id="field-view-ecc">
+      <div class="input">
+        <input id="input-view-ecc" type="checkbox" />
+      </div>
+      <label for="input-view-ecc">Enable ECC</label>
+    </div>
+  </form>
 </details>

@@ -5,19 +5,19 @@
  */
 
 import {
+  DATA_TYPE,
+  FILE_EXTENSION,
+  FILE_NAME_LENGTH_MAX,
+} from "../constants.mjs";
+import { application } from "../application-model.mjs";
+import {
   NUL_OBJECT,
   NUL_STRING,
   EVENT_CHANGE,
   EVENT_INPUT,
-} from "./constants.mjs";
-import {
-  DATA_TYPE,
-  FILE_EXTENSION,
-  FILE_NAME_LENGTH_MAX,
   MESSAGES,
-} from "../constants.mjs";
+} from "./constants.mjs";
 import { defaultOrAsIs } from "./functions.mjs";
-import { application } from "../application-model.mjs";
 
 /** For use with `getEntries`. */
 const entries = (() => {

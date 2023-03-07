@@ -1,10 +1,11 @@
 /**
- * NET Application: Edit Actions
+ * NET: Edit Actions
  *
- * Functions that the user invokes to edit the current instance.
+ * Functions modifying the current instance.
  */
 
 import { CSS_PREFIX } from "../constants.mjs";
+import { NUL_STRING } from "./constants.mjs";
 import { replaceLineEnds } from "./functions.mjs";
 import { getRoot } from "./application-functions.mjs";
 
@@ -72,7 +73,7 @@ export function setSrc(output, entry) {
  * Sets the given style of the given output to the value of the given entry and
  * the given suffix.
  */
-export function setStyle(output, style, entry, suffix) {
+export function setStyle(output, style, entry, suffix = NUL_STRING) {
   output.element.style.setProperty(style, entry.valueOrPreset + suffix);
   return true;
 }
@@ -82,7 +83,7 @@ export function setStyle(output, style, entry, suffix) {
  * value of the given entry and the given suffix. Notation and namespace
  * prefixes, and capitalizations are handled here.
  */
-export function setStyleVariable(style, entry, suffix) {
+export function setStyleVariable(style, entry, suffix = NUL_STRING) {
   return setStyle(
     getRoot(),
     "--" + CSS_PREFIX + style.charAt(0).toUpperCase() + style.substring(1),

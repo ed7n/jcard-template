@@ -253,6 +253,10 @@ export const application = Object.freeze({
     }),
     /** View. */
     view: Object.freeze({
+      ecc: new FormEntry({
+        id: "view-ecc",
+        preset: false,
+      }),
       forceDark: new FormEntry({
         id: "view-force-dark",
         preset: false,

@@ -1,7 +1,7 @@
 /**
  * J-Card Template: Edit Actions
  *
- * Functions that the user invokes to edit the current instance.
+ * Functions modifying the current instance.
  */
 
 import { NUL_STRING } from "./common/constants.mjs";

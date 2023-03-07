@@ -4,6 +4,7 @@
  * Form and output model classes.
  */
 
+import { application, output } from "../roots.mjs";
 import { NUL_ELEMENT, NUL_OBJECT, NUL_STRING } from "./constants.mjs";
 import {
   defaultOrAsIs,
@@ -11,7 +12,6 @@ import {
   getInputSafeValue,
   setInputValue,
 } from "./functions.mjs";
-import { application, output } from "../roots.mjs";
 
 /** Represents an element. This is a wrapper for interoperability purposes. */
 export class ElementModel {

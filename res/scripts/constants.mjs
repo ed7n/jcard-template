@@ -6,11 +6,7 @@
 
 /** Messages. */
 export const MESSAGES = Object.freeze({
-  fileBadType: "Bad file MIME type: ",
-  fileEmpty: "File is empty.",
-  fileNul: "No file.",
   loadDiscard: "This discards any unsaved changes made to the current J-card.",
-  loadEmpty: "Nothing to load.",
   loadLarge: "Its size is greater than 1 MiB, proceed with loading?",
 });
 /** CSS custom property prefix. */

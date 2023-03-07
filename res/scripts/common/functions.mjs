@@ -4,23 +4,14 @@
  * Shared independent functions.
  */
 
+import { regexps } from "../constants.mjs";
 import {
   NUL_ELEMENT,
   NUL_STRING,
+  MESSAGES,
   TITLE,
   regexps as commonRegexps,
 } from "./constants.mjs";
-import { MESSAGES, regexps } from "../constants.mjs";
-
-/** Shorthand for `element.querySelector(query)`. */
-export function qs(element = NUL_ELEMENT, query = NUL_STRING) {
-  return element.querySelector(query);
-}
-
-/** Shorthand for `element.querySelectorAll(query)`. */
-export function qsAll(element = NUL_ELEMENT, query = NUL_STRING) {
-  return element.querySelectorAll(query);
-}
 
 /**
  * Returns the given primitive, passing undefined or null returns the given
@@ -28,29 +19,6 @@ export function qsAll(element = NUL_ELEMENT, query = NUL_STRING) {
  */
 export function defaultOrAsIs(defaultt, primitive) {
   return primitive === undefined || primitive === null ? defaultt : primitive;
-}
-
-/** Replaces line ends in the given string with the given replacement. */
-export function replaceLineEnds(string = NUL_STRING, replacement = NUL_STRING) {
-  return string.replace(commonRegexps.lineEnd, replacement);
-}
-
-/** Tests the given file and alerts on a fault. */
-export function testFile(file) {
-  if (file.size) {
-    if (regexps.fileType.test(file.type)) {
-      return true;
-    }
-    alert(MESSAGES.fileBadType + (file.type || "(empty)"));
-  } else {
-    alert(MESSAGES.fileEmpty);
-  }
-  return false;
-}
-
-/** Sets the window subtitle to the given value. */
-export function setWindowSubtitle(subtitle) {
-  return (document.title = (subtitle ? subtitle + " - " : NUL_STRING) + TITLE);
 }
 
 /**
@@ -101,4 +69,37 @@ export function setInputValue(element = NUL_ELEMENT, value = NUL_STRING) {
     case "TEXTAREA":
       return (element.value = value);
   }
+}
+
+/** Shorthand for `element.querySelector(query)`. */
+export function qs(element = NUL_ELEMENT, query = NUL_STRING) {
+  return element.querySelector(query);
+}
+
+/** Shorthand for `element.querySelectorAll(query)`. */
+export function qsAll(element = NUL_ELEMENT, query = NUL_STRING) {
+  return element.querySelectorAll(query);
+}
+
+/** Replaces line ends in the given string with the given replacement. */
+export function replaceLineEnds(string = NUL_STRING, replacement = NUL_STRING) {
+  return string.replace(commonRegexps.lineEnd, replacement);
+}
+
+/** Tests the given file and alerts on a fault. */
+export function testFile(file) {
+  if (file.size) {
+    if (regexps.fileType.test(file.type)) {
+      return true;
+    }
+    alert(MESSAGES.fileBadType + (file.type || "(empty)"));
+  } else {
+    alert(MESSAGES.fileEmpty);
+  }
+  return false;
+}
+
+/** Sets the window subtitle to the given value. */
+export function setWindowSubtitle(subtitle) {
+  return (document.title = (subtitle ? subtitle + " - " : NUL_STRING) + TITLE);
 }
