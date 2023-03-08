@@ -4,7 +4,12 @@
  * Start here.
  */
 
-import { populateDataSaves, getDataEntries } from "./application-functions.mjs";
+import {
+  populateDataSaves,
+  getApplicationEntry,
+  getDataEntries,
+  getViewEntry,
+} from "./application-functions.mjs";
 import { setupEvents } from "./events.mjs";
 import {
   reset,
@@ -16,6 +21,8 @@ import { removeAnesthesia } from "./common/events.mjs";
 
 const SUFFIX_LABEL = ":";
 const SUFFIX_NOSAVE = "<sup>+</sup>";
+
+const parameters = new URLSearchParams(location.search);
 
 Object.values(getDataEntries())
   .filter((entry) => !entry.save)
@@ -51,6 +58,12 @@ populateDataSaves({
   sideBContents:
     "Five is a Hive\nSix Movie Flicks\nSeven Ate Nine\nEight My Good Mate",
 });
+if (parameters.has("dark")) {
+  getViewEntry("forceDark").value = true;
+}
+if (parameters.has("ecc")) {
+  getApplicationEntry("ecc").value = true;
+}
 update();
 getButton("resetCover").element.click();
 removeAnesthesia();

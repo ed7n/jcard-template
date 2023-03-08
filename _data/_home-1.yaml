@@ -1,6 +1,6 @@
 path: ""
-version: "Update 1 Revision I"
-date: 2023-03-07
+version: "Update 1 Revision J"
+date: 2023-03-08
 noFooter: false
 noHeader: false
 noNavPage: false
@@ -22,9 +22,6 @@ menu:
   - label: "Save"
     href: "#save"
     title: "Save"
-  - label: "View"
-    href: "#view"
-    title: "View"
-  - label: "Help"
-    href: "#help"
-    title: "Help"
+  - label: "More"
+    href: "#more"
+    title: "More"

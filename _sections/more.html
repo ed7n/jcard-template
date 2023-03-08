@@ -1,0 +1,28 @@
+<form>
+<section>
+  <div class="field row" id="field-view-accordions">
+    <label>Accordions:</label>
+    <div class="input short">
+      <button id="button-view-collapse" type="button">Collapse</button>
+      <button id="button-view-expand" type="button">Expand</button>
+    </div>
+  </div>
+  <p>Controls all collapsible fieldsets.</p>
+</section>
+<details>
+<summary><h3>View</h3></summary>
+{% include_relative _sections/sections/view.html-%}
+</details>
+<details>
+<summary><h3>Application</h3></summary>
+{% include_relative _sections/sections/application.html-%}
+</details>
+<details>
+<summary><h3>Help</h3></summary>
+{% include_relative _sections/sections/help.html-%}
+</details>
+<details>
+<summary><h3>About</h3></summary>
+{% include_relative _sections/sections/about.html-%}
+</details>
+</form>

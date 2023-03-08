@@ -9,6 +9,7 @@ export const NUL_ELEMENT = Object.freeze(document.createElement(null));
 export const NUL_FUNCTION = Object.freeze(Function());
 export const NUL_OBJECT = Object.freeze({});
 export const NUL_STRING = "";
+export const NUL_TIMEOUT = -1;
 export const SPACE = " ";
 
 /** Messages. */
@@ -18,6 +19,7 @@ export const MESSAGES = Object.freeze({
   fileNul: "No file.",
   loadDiscard: "This discards any unsaved changes made to the current file.",
   loadEmpty: "Nothing to load.",
+  windowUnload: "This ejects any loaded files and quits the application.",
 });
 /** Event: "change". */
 export const EVENT_CHANGE = Object.freeze(new Event("change"));

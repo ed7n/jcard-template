@@ -1,0 +1,32 @@
+{%-if page.key == siteData.key1-%}
+  {%-assign key = "_home"-%}
+  {%-assign name = "new"-%}
+{%-else-%}
+  {%-assign key = siteData.key1-%}
+  {%-assign name = "original"-%}
+{%-endif-%}
+<section>
+  <div class="field switch" id="field-view-force-dark">
+    <div class="input">
+      <input id="input-view-force-dark" type="checkbox" />
+    </div>
+    <label for="input-view-force-dark">Force dark</label>
+  </div>
+  <p>Forces the dark color scheme.</p>
+</section>
+{%-unless page.layout == "document"%}
+<section>
+  <div class="field switch" id="field-view-reverse">
+    <div class="input">
+      <input id="input-view-reverse" type="checkbox" />
+    </div>
+    <label for="input-view-reverse">Reverse panels</label>
+  </div>
+  <p>Swaps the horizontal position of the output and control panels.</p>
+</section>
+{%-endunless%}
+<section>
+  <h4>Switch Interface</h4>
+  <p>You can switch to the [{%include a-page.html key=key html=name htms=
+" user interface"%}] by tapping on the link.</p>
+</section>

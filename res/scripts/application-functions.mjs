@@ -47,7 +47,6 @@ const dataSaveEntries = (() => {
     });
   return Object.freeze(out);
 })();
-
 /** For use with `loadReader`. */
 const dataVolatileEntries = Object.entries(getDataEntries()).filter(
   ([, entry]) => !entry.persistent && !entry.save
@@ -207,6 +206,16 @@ export function resetCover() {
 /** Saves the cover image as a file download. */
 export function saveCover() {
   return download(getCardName(), getOutput("cover").element.src);
+}
+
+/** Returns the given application form entry by its key. */
+export function getApplicationEntry(key = NUL_STRING) {
+  return getControl(getApplicationEntries, key);
+}
+
+/** Returns application form entries. */
+export function getApplicationEntries() {
+  return application.entries.application;
 }
 
 /** Returns the current card name. */

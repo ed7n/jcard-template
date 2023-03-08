@@ -6,7 +6,12 @@
  * one will be processed after a set timeout (`eccPeriod`).
  */
 
-import { NUL_ARRAY, NUL_FUNCTION, NUL_STRING } from "./constants.mjs";
+import {
+  NUL_ARRAY,
+  NUL_FUNCTION,
+  NUL_STRING,
+  NUL_TIMEOUT,
+} from "./constants.mjs";
 
 /** Bypass registrations? */
 let eccBypass = true;
@@ -20,7 +25,10 @@ let eccRetain = false;
 /** Cancels all pending applications. */
 export function drain() {
   eccRegistrar.forEach((registration) => {
-    clearTimeout(registration.timeout);
+    if (registration.timeout > NUL_TIMEOUT) {
+      clearTimeout(registration.timeout);
+      registration.timeout = NUL_TIMEOUT;
+    }
   });
   if (!isRetain()) {
     eccRegistrar.clear();
@@ -30,9 +38,10 @@ export function drain() {
 /** Processes all pending applications. */
 export function flush() {
   eccRegistrar.forEach((registration) => {
-    if (registration.timeout > 0) {
+    if (registration.timeout > NUL_TIMEOUT) {
       clearTimeout(registration.timeout);
       registration.handle();
+      registration.timeout = NUL_TIMEOUT;
     }
   });
 }
@@ -45,7 +54,7 @@ export function process(key) {
   const registration = eccRegistrar.get(key);
   registration.function.apply(null, registration.arguments);
   if (isRetain()) {
-    registration.timeout = 0;
+    registration.timeout = NUL_TIMEOUT;
   } else {
     eccRegistrar.delete(key);
   }
@@ -71,7 +80,7 @@ export function register(
     } else {
       registration = Object.seal({
         handle: () => process(key),
-        timeout: 0,
+        timeout: NUL_TIMEOUT,
         function: functionn,
         arguments: argumentss,
       });

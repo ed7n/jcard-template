@@ -42,6 +42,16 @@ export const application = Object.freeze({
   }),
   /** Form entries. */
   entries: Object.freeze({
+    application: Object.freeze({
+      ecc: new FormEntry({
+        id: "application-ecc",
+        preset: false,
+      }),
+      fontSizeFactorInvert: new FormEntry({
+        id: "application-font-size-factor-invert",
+        preset: 1,
+      }),
+    }),
     /** Data. */
     data: Object.freeze({
       backContentsAlignment: new DataFormEntry({
@@ -86,12 +96,6 @@ export const application = Object.freeze({
       fontFamily: new DataFormEntry({
         id: "font-family",
         preset: "Alte Haas Grotesk",
-      }),
-      fontSizeFactorInvert: new DataFormEntry({
-        id: "font-size-factor-invert",
-        persistent: true,
-        preset: 1,
-        save: false,
       }),
       footer: new DataFormEntry({
         id: "footer",
@@ -253,10 +257,6 @@ export const application = Object.freeze({
     }),
     /** View. */
     view: Object.freeze({
-      ecc: new FormEntry({
-        id: "view-ecc",
-        preset: false,
-      }),
       forceDark: new FormEntry({
         id: "view-force-dark",
         preset: false,

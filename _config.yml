@@ -4,3 +4,4 @@ defaults:
       path: ""
     values:
       layout: "application"
+exclude: ["CHANGES", "LICENSE", "README.md"]

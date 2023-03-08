@@ -20,12 +20,13 @@ import {
 
 /** Enable coalescing. */
 export const OPTIONS_COALESCE = Object.freeze({ coalesce: true });
-
 /** Enable coalescing and invert. */
 export const OPTIONS_COALESCE_INVERT = Object.freeze({
   coalesce: true,
   invert: true,
 });
+/** Invert. */
+export const OPTIONS_INVERT = Object.freeze({ invert: true });
 
 /** Set post-modification events? */
 let anesthesia = true;

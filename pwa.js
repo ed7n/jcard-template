@@ -1,5 +1,5 @@
 /**
- * NET Self-service Worker by Brendon, 02/19/2023.
+ * NET Self-service Worker u0r2 by Brendon, 03/08/2023.
  *
  * Self-registering service worker for progressive web applications.
  *
@@ -16,8 +16,12 @@
 const PATH_PAGE = "/jcard-template/";
 /** Site resource path. */
 const PATH_SITE = "https://ed7n.github.io/res/";
+/** Cache base name. Do not change this. */
+const CACHE_BASE = "jcard-template";
+/** Cache unique identification. Change this on versioning. */
+const CACHE_UNID = "u1rJ";
 /** Name of the cache to operate on. */
-const CACHE_NAME = "jcard-template-u1rI";
+const CACHE_NAME = CACHE_BASE + "_" + CACHE_UNID;
 /** Request URLs whose response is to be cached. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",
@@ -146,7 +150,9 @@ if (self.toString().includes("Window")) {
     event.waitUntil(
       caches.keys().then((keys) => {
         keys
-          .filter((key) => key !== CACHE_NAME)
+          .filter(
+            (key) => key.startsWith(CACHE_BASE) && !key.endsWith(CACHE_UNID)
+          )
           .forEach((key) => caches.delete(key));
       })
     );

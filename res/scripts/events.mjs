@@ -14,6 +14,8 @@ import {
   testAndPrint,
   doPrint,
   undoPrint,
+  getApplicationEntry,
+  getApplicationEntries,
   getDataEntry,
   getDataEntries,
   getLoadEntry,
@@ -83,7 +85,7 @@ export function doBeforeUnload(event) {
 
 /** Adds listeners to entries that modify the application. */
 function setupApplicationEvents() {
-  getViewEntry("ecc").element.addEventListener("change", (event) => {
+  getApplicationEntry("ecc").element.addEventListener("change", (event) => {
     ECC.setBypass(!getInputSafeValue(event.target));
   });
 }
@@ -188,7 +190,6 @@ function setupEntryEvents() {
   addStyleVariableListener(i, "backSize", OPTIONS_COALESCE_PT);
   addStyleVariableListener(i, "cardColor", OPTIONS_COALESCE);
   addStyleVariableListener(i, "fontFamily", OPTIONS_COALESCE);
-  addStyleVariableListener(i, "fontSizeFactorInvert", OPTIONS_COALESCE);
   addStyleVariableListener(i, "footerAlignment", OPTIONS_COALESCE);
   addStyleVariableListener(i, "footerSize", OPTIONS_COALESCE_PT);
   addStyleVariableListener(i, "frontContentsAlignment", OPTIONS_COALESCE);
@@ -200,6 +201,11 @@ function setupEntryEvents() {
   addStyleVariableListener(i, "textColor", OPTIONS_COALESCE);
   addStyleVariableListener(i, "titleLowerSize", OPTIONS_COALESCE_PT);
   addStyleVariableListener(i, "titleUpperSize", OPTIONS_COALESCE_PT);
+  addStyleVariableListener(
+    getApplicationEntries(),
+    "fontSizeFactorInvert",
+    OPTIONS_COALESCE
+  );
 }
 
 /** Adds listeners to file operators. */
@@ -209,6 +215,15 @@ function setupFileEvents() {
     loadReader();
     ECC.flush();
     removeAnesthesia();
+  });
+  getRoot().element.addEventListener("dragover", (event) => {
+    event.preventDefault();
+  });
+  getRoot().element.addEventListener("drop", (event) => {
+    event.preventDefault();
+    if (event.dataTransfer.files.length) {
+      loadFile(event.dataTransfer.files);
+    }
   });
 }
 

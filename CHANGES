@@ -2,6 +2,18 @@ J-Card Template: Changes
 
 —Update 1
 
+——Revision J, 03/08/2023.
+- Form:
+  - Moved `Font size factor` to `Application` subsection under `More`.
+- Load:
+  - Drag and drop support.
+- PWA:
+  - Updated NET-Installer.
+- Script:
+  - Fixed ECC timeout operations on drain and flush.
+- UI:
+  - Regrouped `Help` and `View` sections to `More`.
+
 ——Revision I, 03/07/2023.
 - Event Condensing Coalescer (ECC).
 - Help:
