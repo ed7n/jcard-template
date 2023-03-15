@@ -1,4 +1,3 @@
-{{openSection-}}
 {{openColumns-}}
 {{openColumnFluid-}}
 <div class="field row" id="field-footer">
@@ -8,19 +7,16 @@
   </div>
 </div>
 {{closeColumn-}}
-{{closeSection-}}
-{{openSection-}}
 {{openColumnShort-}}
-{{openGroup-}}
-<div class="field row small" id="field-footer-size">
+<div class="field row {{-fieldRowShortClass}}" id="field-footer-size">
   <label for="input-footer-size">Size:</label>
-  <div class="input short">
+  <div class="input shorter">
     <input id="input-footer-size" type="number" min="0" max="1023" step="0.1" />
   </div>
 </div>
-<div class="field row small" id="field-footer-alignment">
+<div class="field row {{-fieldRowShortClass}}" id="field-footer-alignment">
   <label for="input-footer-alignment">Alignment:</label>
-  <div class="input short">
+  <div class="input shorter">
     <select id="input-footer-alignment">
       <option value="left">Left</option>
       <option value="center">Center</option>
@@ -29,7 +25,5 @@
     </select>
   </div>
 </div>
-{{closeGroup-}}
 {{closeColumn-}}
 {{closeColumns-}}
-{{closeSection-}}

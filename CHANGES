@@ -1,10 +1,29 @@
 J-Card Template: Changes
 
+—Update 2
+
+——Revision 0, 03/15/2023.
+- `Height` to adjust the cover height factor.
+  - Does not affect `Fill cover`.
+- Removed `Black and white`.
+- Removed `Print 2`.
+  - `Short spine` takes its place.
+- Removed Update 2 notices.
+- Form:
+  - Grouped cover controls into a `Cover` accordion.
+  - Note that cover images must be saved separately.
+- Save:
+  - Fixed `Follow titles`.
+- UI:
+  - Link directly to Gateway's contact page.
+- UI2:
+  - Use same-sized fields per form (sub)section for visual uniformity.
+
 —Update 1
 
 ——Revision J, 03/08/2023.
 - Form:
-  - Moved `Font size factor` to `Application` subsection under `More`.
+  - Moved `Font size factor` into `Application` under `More`.
 - Load:
   - Drag and drop support.
 - PWA:
@@ -44,7 +63,7 @@ J-Card Template: Changes
 
 ——Revision F, 03/03/2023.
 - Form:
-  - `Correction` to correct user agent font size errors.
+  - `Correction` to correct font size errors.
   - Moved the no-save marker to just before the label suffix.
 - Load:
   - Alert JSON parse errors.
@@ -128,7 +147,7 @@ J-Card Template: Changes
 - Overhauled most of everything.
 - Deprecated `Print 2`.
 - New user interface (UI2).
-- Progressive web app (PWA).
+- Progressive web application (PWA).
 - Form:
   - `Back contents visibility`.
   - `Reset Cover`.

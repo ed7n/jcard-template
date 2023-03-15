@@ -19,13 +19,13 @@ const PATH_SITE = "https://ed7n.github.io/res/";
 /** Cache base name. Do not change this. */
 const CACHE_BASE = "jcard-template";
 /** Cache unique identification. Change this on versioning. */
-const CACHE_UNID = "u1rJ";
+const CACHE_UNID = "u2r0";
 /** Name of the cache to operate on. */
 const CACHE_NAME = CACHE_BASE + "_" + CACHE_UNID;
 /** Request URLs whose response is to be cached. */
 const CACHE_URLS = Object.freeze([
   PATH_PAGE + "",
-  PATH_PAGE + "2",
+  PATH_PAGE + "1",
   PATH_PAGE + "pwa",
   PATH_PAGE + "pwa.js",
   PATH_PAGE + "pwa.webmanifest",

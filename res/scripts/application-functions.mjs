@@ -83,12 +83,17 @@ export function loadFile(files = getSource().valueOrPreset, index = 0) {
 
 /** Loads the reader contents into the current instance. */
 export function loadReader() {
+  let data;
   try {
-    populateDataSaves(JSON.parse(getReader().result));
+    data = JSON.parse(getReader().result);
   } catch (error) {
     alert(error.toString());
     getSource().element.disabled = false;
     return;
+  }
+  populateDataSaves(data);
+  if (data.print2) {
+    getPrintEntry("count").value = 2;
   }
   dataVolatileEntries.forEach((entry) => {
     entry.value = entry.preset;
@@ -115,7 +120,7 @@ export function preserveDataSaves() {
 
 /** Saves data form entries that are to be saved as a file download. */
 export function saveDataSaves() {
-  return save(preserveDataSaves, getName());
+  return save(preserveDataSaves, getCardName());
 }
 
 /** Prints the window only if print form entries are good. */

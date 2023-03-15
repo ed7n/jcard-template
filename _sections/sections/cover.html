@@ -1,0 +1,28 @@
+{{openColumns-}}
+{{openColumnFluid-}}
+<div class="field row" id="field-cover-image">
+  <label for="input-cover-image">Image:</label>
+  <div class="input fluid">
+    <input id="input-cover-image" type="file" accept="image/*" />
+    <button id="button-cover-reset" type="button">Reset</button>
+  </div>
+</div>
+{{closeColumn-}}
+{{openColumnShort-}}
+{{openGroup-}}
+<div class="field switch" id="field-fill-cover">
+  <div class="input">
+    <input id="input-fill-cover" type="checkbox" />
+  </div>
+  <label for="input-fill-cover">Fill cover</label>
+</div>
+<div class="field row small" id="field-cover-height-factor">
+  <label for="input-cover-height-factor">Height (×):</label>
+  <div class="input short">
+    <input id="input-cover-height-factor" type="number" min="0" max="1" step="0.01" />
+  </div>
+</div>
+{{closeGroup-}}
+{{closeColumn-}}
+{{closeColumns-}}
+<p><sup>+</sup>Cover images must be saved separately.</p>

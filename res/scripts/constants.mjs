@@ -14,7 +14,7 @@ export const CSS_PREFIX = "jCard";
 /** Data MIME type. */
 export const DATA_TYPE = "application/json";
 /** Data version. */
-export const DATA_VERSION = "1A";
+export const DATA_VERSION = "2";
 /** Data file name extension. */
 export const FILE_EXTENSION = ".jcard.json";
 /** Maximum file name length in characters. */

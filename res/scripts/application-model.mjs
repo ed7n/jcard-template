@@ -32,9 +32,9 @@ export const application = Object.freeze({
   ),
   /** Form buttons. */
   buttons: Object.freeze({
+    coverReset: new FormButton({ id: "cover-reset" }),
     load: new FormButton({ id: "load" }),
     print: new FormButton({ id: "print" }),
-    resetCover: new FormButton({ id: "reset-cover" }),
     save: new FormButton({ id: "save" }),
     saveCover: new FormButton({ id: "save-cover" }),
     viewCollapse: new FormButton({ id: "view-collapse" }),
@@ -66,11 +66,6 @@ export const application = Object.freeze({
         id: "back-size",
         preset: 8,
       }),
-      blackAndWhite: new DataFormEntry({
-        id: "black-and-white",
-        preset: false,
-        save: false,
-      }),
       bold: new DataFormEntry({
         id: "bold",
         preset: false,
@@ -88,6 +83,10 @@ export const application = Object.freeze({
         persistent: true,
         preset: NUL_STRING,
         save: false,
+      }),
+      coverHeightFactor: new DataFormEntry({
+        id: "cover-height-factor",
+        preset: 1,
       }),
       fillCover: new DataFormEntry({
         id: "fill-cover",
@@ -152,10 +151,6 @@ export const application = Object.freeze({
       noteUpper: new DataFormEntry({
         id: "note-upper",
         preset: NUL_STRING,
-      }),
-      print2: new DataFormEntry({
-        id: "print-2",
-        preset: false,
       }),
       reverse: new DataFormEntry({
         id: "reverse",

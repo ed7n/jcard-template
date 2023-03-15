@@ -65,5 +65,5 @@ if (parameters.has("ecc")) {
   getApplicationEntry("ecc").value = true;
 }
 update();
-getButton("resetCover").element.click();
+getButton("coverReset").element.click();
 removeAnesthesia();

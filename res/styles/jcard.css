@@ -1,4 +1,7 @@
 #jcard .template {
+  --heightJCardCover: calc(
+    var(--lengthJCardCover) * var(--jCardCoverHeightFactor)
+  );
   --lengthJCardBack: var(--lengthJCardBackStandard);
   --lengthJCardBackDelta: calc(
     var(--lengthJCardBackTemplate) - var(--lengthJCardBack)
@@ -220,7 +223,7 @@
 }
 
 #jcard .template-cover {
-  height: var(--lengthJCardCover);
+  height: var(--heightJCardCover);
   object-fit: cover;
   position: absolute;
   width: var(--lengthJCardCover);
@@ -256,11 +259,11 @@
   align-items: stretch;
   display: flex;
   flex-flow: column nowrap;
-  height: calc(var(--lengthJCardHeight) - var(--lengthJCardCover));
+  height: calc(var(--lengthJCardHeight) - var(--heightJCardCover));
   justify-content: space-between;
   padding: calc(var(--spacerJCard) / 3) var(--spacerJCard);
   position: relative;
-  top: var(--lengthJCardCover);
+  top: var(--heightJCardCover);
 }
 
 #jcard .template-front-title-group,

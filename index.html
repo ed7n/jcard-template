@@ -1,22 +1,29 @@
 ---
-key: "_home-1"
-layout: "document"
+key: "_home"
 ---
 {%-include variables.html-%}
 <link rel="stylesheet" href="{{sitePathRes}}/styles/input.css" />
 <link rel="stylesheet" href="{{sitePathRes}}/styles/form.css" />
-<link rel="stylesheet" href="res/styles/view-1.css" />
+<link rel="stylesheet" href="res/styles/view.css" />
 <link rel="stylesheet" href="res/styles/jcard.css" />
 <script type="module" src="res/scripts/main.js"></script>
-<p><i>We will soon switch to the [{%include a-page.html key="_home" html=
-"<strong>new user interface</strong>"%}] by default. Read more [<{{htmlAOut}}"{{
-siteData.eon}}/pages/news/20230217">about the upcoming Update 2</a>].</i></p>
-<div class="hr"></div>
-<section id="template">
-{%include_relative _sections/template.html-%}
-</section>
-{%include sections.html-%}
+<section></section>
 <section>
-  <div class="hr"></div>
-  <p><i>Built on <span class="bolder">NET</span> technology.</i></p>
+  <section></section>
+  <section id="template">
+{%include_relative _sections/template.html-%}
+  </section>
+  <section>
+{%include nav-page.html%}
+    <section>
+{%include sections.html-%}
+      <section>
+        <div class="hr"></div>
+        <p><i>Built on <span class="bolder">NET</span> technology.</i></p>
+{%include nav-site.html%}
+      </section>
+    </section>
+{%include nav-tree.html%}
+  </section>
 </section>
+<section></section>

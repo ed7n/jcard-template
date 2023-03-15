@@ -96,8 +96,8 @@ function setupButtonEvents() {
   addActionListener(buttons.load, (event) =>
     loadFile(getInputSafeValue(event.target))
   );
+  addActionListener(buttons.coverReset, resetCover);
   addActionListener(buttons.print, testAndPrint);
-  addActionListener(buttons.resetCover, resetCover);
   addActionListener(buttons.save, saveDataSaves);
   addActionListener(buttons.saveCover, saveCover);
   addActionListener(buttons.viewCollapse, collapseAll);
@@ -130,12 +130,6 @@ function setupEntryEvents() {
     "hidden",
     OPTIONS_COALESCE_INVERT
   );
-  addClassListener(
-    i.blackAndWhite,
-    o.root,
-    "black-and-white",
-    OPTIONS_COALESCE
-  );
   addClassListener(i.bold, o.root, "bold", OPTIONS_COALESCE);
   addClassListener(i.fillCover, o.cover, "fill", OPTIONS_COALESCE);
   addClassListener(i.forceCaps, o.root, "force-caps", OPTIONS_COALESCE);
@@ -158,7 +152,6 @@ function setupEntryEvents() {
     OPTIONS_COALESCE_INVERT
   );
   addClassListener(i.italicize, o.root, "italicize", OPTIONS_COALESCE);
-  addClassListener(i.print2, o.root, "print-2", OPTIONS_COALESCE);
   addClassListener(i.reverse, o.root, "reverse", OPTIONS_COALESCE);
   addClassListener(i.shortBack, o.root, "short-back", OPTIONS_COALESCE);
   addClassListener(i.shortSpine, o.root, "short-spine", OPTIONS_COALESCE);
@@ -189,6 +182,7 @@ function setupEntryEvents() {
   addStyleVariableListener(i, "backContentsAlignment", OPTIONS_COALESCE);
   addStyleVariableListener(i, "backSize", OPTIONS_COALESCE_PT);
   addStyleVariableListener(i, "cardColor", OPTIONS_COALESCE);
+  addStyleVariableListener(i, "coverHeightFactor", OPTIONS_COALESCE);
   addStyleVariableListener(i, "fontFamily", OPTIONS_COALESCE);
   addStyleVariableListener(i, "footerAlignment", OPTIONS_COALESCE);
   addStyleVariableListener(i, "footerSize", OPTIONS_COALESCE_PT);
@@ -229,14 +223,15 @@ function setupFileEvents() {
 
 /** Adds listeners to entries that update entries. */
 function setupFormEvents() {
-  const print2 = getDataEntry("print2");
+  addBooleanListener(
+    getDataEntry("fillCover"),
+    getDataEntry("coverHeightFactor").element,
+    "disabled"
+  );
   addBooleanListener(
     getSaveEntry("follow"),
     getSaveEntry("name").element,
     "disabled"
-  );
-  Object.values(getPrintEntries()).forEach((entry) =>
-    addBooleanListener(print2, entry.element, "disabled")
   );
 }
 
@@ -255,17 +250,13 @@ function setupViewEvents() {
 function setupWindowEvents() {
   window.addEventListener("beforeprint", () => {
     ECC.flush();
-    if (getDataEntry("print2").valueOrPreset) {
-      doPrint(1, 2);
-    } else {
-      doPrint(
-        getPrintEntry("start").valueOrPreset,
-        getPrintEntry("count").valueOrPreset,
-        getPrintEntry("margin").valueOrPreset,
-        getPrintEntry("opacity").valueOrPreset,
-        getPrintEntry("outline").valueOrPreset
-      );
-    }
+    doPrint(
+      getPrintEntry("start").valueOrPreset,
+      getPrintEntry("count").valueOrPreset,
+      getPrintEntry("margin").valueOrPreset,
+      getPrintEntry("opacity").valueOrPreset,
+      getPrintEntry("outline").valueOrPreset
+    );
   });
   window.addEventListener("afterprint", undoPrint);
 }

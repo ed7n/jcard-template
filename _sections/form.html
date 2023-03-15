@@ -16,11 +16,11 @@
     </div>
     <label for="input-force-caps">Force CAPS</label>
   </div>
-  <div class="field switch" id="field-print-2">
+  <div class="field switch" id="field-short-spine">
     <div class="input">
-      <input id="input-print-2" type="checkbox" />
+      <input id="input-short-spine" type="checkbox" />
     </div>
-    <label for="input-print-2"><s>Print 2</s></label>
+    <label for="input-short-spine">Short spine</label>
   </div>
 </div>
 <details>
@@ -32,20 +32,6 @@
       </div>
       <label for="input-reverse">Reverse</label>
     </div>
-    <div class="field switch" id="field-short-spine">
-      <div class="input">
-        <input id="input-short-spine" type="checkbox" />
-      </div>
-      <label for="input-short-spine">Short spine<sub>β</sub></label>
-    </div>
-    <div class="field switch" id="field-fill-cover">
-      <div class="input">
-        <input id="input-fill-cover" type="checkbox" />
-      </div>
-      <label for="input-fill-cover">Fill cover</label>
-    </div>
-  </div>
-  <div class="group">
     <div class="field switch" id="field-bold">
       <div class="input">
         <input id="input-bold" type="checkbox" />
@@ -58,20 +44,9 @@
       </div>
       <label class="oblique" for="input-italicize">Italicize</label>
     </div>
-    <div class="field row switch" id="field-reset-cover">
-      <div class="input short">
-        <button id="button-reset-cover" type="button">Reset Cover</button>
-      </div>
-    </div>
   </div>
   <p><samp>Short back</samp> is 0.6 in. <samp>Short spine</samp> is 0.4 in.</p>
 </details>
-<div class="field row" id="field-cover-image">
-  <label for="input-cover-image">Cover image:</label>
-  <div class="input fluid">
-    <input id="input-cover-image" type="file" accept="image/*" />
-  </div>
-</div>
 <div class="field row" id="field-font-family">
   <label for="input-font-family">Font family:</label>
   <div class="input fluid">
@@ -86,41 +61,30 @@
       <option>monospace</option>
       <option>sans-serif</option>
       <option>serif</option>
-      <option>system-ui</option>
-      <option>ui-monospace</option>
-      <option>ui-rounded</option>
-      <option>ui-sans-serif</option>
-      <option>ui-serif</option>
     </datalist>
   </div>
 </div>
 {{closeColumn-}}
-{{closeSection-}}
-{{openSection-}}
 {{openColumnShort-}}
-<div class="field switch" id="field-black-and-white">
-  <div class="input">
-    <input id="input-black-and-white" type="checkbox" />
-  </div>
-  <label for="input-black-and-white">Black and white</label>
-</div>
-{{openGroup-}}
-<div class="field row small" id="field-card-color">
+<div class="field row {{-fieldRowShortClass}}" id="field-card-color">
   <label for="input-card-color">Card color:</label>
-  <div class="input short">
+  <div class="input shorter">
     <input id="input-card-color" type="color" />
   </div>
 </div>
-<div class="field row small" id="field-text-color">
+<div class="field row {{-fieldRowShortClass}}" id="field-text-color">
   <label for="input-text-color">Text color:</label>
-  <div class="input short">
+  <div class="input shorter">
     <input id="input-text-color" type="color" />
   </div>
 </div>
-{{closeGroup-}}
 {{closeColumn-}}
 {{closeColumns-}}
 </section>
+<details>
+<summary><h3>Cover</h3></summary>
+{% include_relative _sections/sections/cover.html-%}
+</details>
 <details open>
 <summary><h3>Titles</h3></summary>
 {% include_relative _sections/sections/titles.html-%}
