@@ -2,6 +2,7 @@ root: "/jcard-template"
 author: "Brendon"
 class: "NET Application"
 title: "J-Card Template"
+subtitle: "Printable in-browser template for cassette tape J-cards."
 host: "ed7n.github.io"
 formDate: "%m/%d/%Y"
 gitHome: "https://github.com/ed7n"
@@ -15,7 +16,7 @@ noFooter: true
 noHeader: true
 noNavPage: true
 noNavSite: true
-pathHome: ""
+pathHome: "home"
 pathIcon: "res/media/favicon.png"
 pathRes: "https://ed7n.github.io/res"
 splitSubtitle: ": "

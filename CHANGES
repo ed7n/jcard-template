@@ -2,6 +2,18 @@ J-Card Template: Changes
 
 —Update 2
 
+——Revision 1, 03/17/2023.
+- Form:
+  - Ungrouped template flag options.
+    - Moved corresponding note to `Help`.
+- Help:
+  - Removed preview marker (β).
+- Save:
+  - Use ECC with `File name`.
+- Script:
+  - Apply URL parameter hooks after initial update.
+  - `reverse` URL parameter hook.
+
 ——Revision 0, 03/15/2023.
 - `Height` to adjust the cover height factor.
   - Does not affect `Fill cover`.
@@ -10,6 +22,7 @@ J-Card Template: Changes
   - `Short spine` takes its place.
 - Removed Update 2 notices.
 - Form:
+  - Cleaned up `Font family` datalist ("suggestions").
   - Grouped cover controls into a `Cover` accordion.
   - Note that cover images must be saved separately.
 - Save:
@@ -30,6 +43,7 @@ J-Card Template: Changes
   - Updated NET-Installer.
 - Script:
   - Fixed ECC timeout operations on drain and flush.
+  - `dark` and `ecc` URL parameter hooks.
 - UI:
   - Regrouped `Help` and `View` sections to `More`.
 
@@ -103,7 +117,7 @@ J-Card Template: Changes
 - UI:
   - Appended colon (:) to text field labels.
 - UI2:
-  - Use only row fields.
+  - Use only row `Form` fields.
 - View:
   - Regrouped interface controls.
 

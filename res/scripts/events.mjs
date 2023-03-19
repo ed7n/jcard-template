@@ -62,8 +62,8 @@ export function setupEvents() {
   setupEntryEvents();
   setupFileEvents();
   setupFormEvents();
-  setupWindowEvents();
   setupViewEvents();
+  setupWindowEvents();
 }
 
 /** To be run after modification. */
@@ -238,9 +238,12 @@ function setupFormEvents() {
 /** Adds listeners to entries that modify the view. */
 function setupViewEvents() {
   addClassListener(getViewEntry("reverse"), getRoot(), "reverse");
-  getSaveEntry("name").element.addEventListener("input", (event) => {
-    setWindowSubtitle(getInputSafeValue(event.target));
-  });
+  getSaveEntry("name").element.addEventListener(
+    "input",
+    makeHandler((event) => {
+      setWindowSubtitle(getInputSafeValue(event.target));
+    }, OPTIONS_COALESCE)
+  );
   getViewEntry("forceDark").element.addEventListener("change", (event) => {
     setForceDark(getInputSafeValue(event.target));
   });

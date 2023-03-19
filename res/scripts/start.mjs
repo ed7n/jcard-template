@@ -11,6 +11,7 @@ import {
   getViewEntry,
 } from "./application-functions.mjs";
 import { setupEvents } from "./events.mjs";
+import { EVENT_CHANGE } from "./common/constants.mjs";
 import {
   reset,
   update,
@@ -22,7 +23,25 @@ import { removeAnesthesia } from "./common/events.mjs";
 const SUFFIX_LABEL = ":";
 const SUFFIX_NOSAVE = "<sup>+</sup>";
 
-const parameters = new URLSearchParams(location.search);
+const PARAMS = Object.freeze({
+  dark: Object.freeze({
+    getter: getViewEntry,
+    key: "forceDark",
+    value: true,
+  }),
+  ecc: Object.freeze({
+    getter: getApplicationEntry,
+    key: "ecc",
+    value: true,
+  }),
+  reverse: Object.freeze({
+    getter: getViewEntry,
+    key: "reverse",
+    value: true,
+  }),
+});
+
+const argumentss = new URLSearchParams(location.search);
 
 Object.values(getDataEntries())
   .filter((entry) => !entry.save)
@@ -58,12 +77,13 @@ populateDataSaves({
   sideBContents:
     "Five is a Hive\nSix Movie Flicks\nSeven Ate Nine\nEight My Good Mate",
 });
-if (parameters.has("dark")) {
-  getViewEntry("forceDark").value = true;
-}
-if (parameters.has("ecc")) {
-  getApplicationEntry("ecc").value = true;
-}
 update();
 getButton("coverReset").element.click();
+Object.entries(PARAMS).forEach(([argument, handle]) => {
+  if (argumentss.has(argument)) {
+    const entry = handle.getter(handle.key);
+    entry.value = handle.value;
+    entry.element.dispatchEvent(EVENT_CHANGE);
+  }
+});
 removeAnesthesia();

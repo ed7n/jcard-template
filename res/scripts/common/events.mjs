@@ -177,7 +177,7 @@ export function addTextListener(entry, output, options = NUL_OBJECT) {
 export function makeHandler(functionn = NUL_FUNCTION, options = NUL_OBJECT) {
   if (options.coalesce) {
     const symbol = Symbol();
-    return () => ECC.register(symbol, functionn);
+    return (...argumentss) => ECC.register(symbol, functionn, argumentss);
   }
   return functionn;
 }
