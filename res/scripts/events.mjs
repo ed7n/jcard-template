@@ -4,7 +4,7 @@
  * A single call to `setupEvents` makes the magic happen.
  */
 
-import { MESSAGES } from "./constants.mjs";
+import { FILE_NAME, MESSAGES } from "./constants.mjs";
 import {
   loadFile,
   loadReader,
@@ -241,7 +241,7 @@ function setupViewEvents() {
   getSaveEntry("name").element.addEventListener(
     "input",
     makeHandler((event) => {
-      setWindowSubtitle(getInputSafeValue(event.target));
+      setWindowSubtitle(getInputSafeValue(event.target) || FILE_NAME);
     }, OPTIONS_COALESCE)
   );
   getViewEntry("forceDark").element.addEventListener("change", (event) => {

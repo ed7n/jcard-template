@@ -2,6 +2,12 @@ J-Card Template: Changes
 
 —Update 2
 
+——Revision 2, 03/19/2023.
+- UI1:
+  - Emulate UI2 form layout on insufficient space.
+- Window:
+  - Trim file name on title.
+
 ——Revision 1, 03/17/2023.
 - Form:
   - Ungrouped template flag options.
@@ -86,7 +92,6 @@ J-Card Template: Changes
 - Script:
   - Modification anesthesia mechanism.
 - UI:
-  - Always print the card name to the window title.
   - Fixed skipping heading levels.
   - `Privacy` jump menu link.
 - UI2:
@@ -99,6 +104,8 @@ J-Card Template: Changes
   - Tweaked panel padding.
 - View:
   - `Force dark`.
+- Window:
+  - Always print the file name on title.
 
 ——Revision E, 02/27/2023.
 - Form:

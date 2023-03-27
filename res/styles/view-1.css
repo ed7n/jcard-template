@@ -3,7 +3,8 @@ article > section#template:target {
 }
 
 form .columns,
-form .columns:last-child {
+form .columns:last-child,
+form .columns:not(:last-child) > .column:last-child {
   margin-block-end: calc(-1 * var(--marginField));
 }
 
@@ -12,8 +13,8 @@ form .columns {
   flex-flow: row wrap;
 }
 
-form .columns > :not(:last-child) {
-  margin-inline-end: var(--marginField);
+form .columns > :not(:first-child) {
+  margin-inline-start: var(--marginField);
 }
 
 form .columns > .column {
@@ -22,7 +23,8 @@ form .columns > .column {
 
 form .columns > .column.fluid,
 form .columns > .column.rigid {
-  flex-basis: var(--lengthFieldRowMin);
+  flex-basis: 66.6666%;
+  min-width: var(--lengthFieldRowMin);
 }
 
 form .columns > .column.fluid,
@@ -37,7 +39,8 @@ form .columns > .column.rigid {
 
 form .columns > .column.short,
 form .columns > .column.shorter {
-  flex-basis: var(--lengthFieldRowSmallMin);
+  flex-basis: calc(33.3333% - var(--marginField));
+  min-width: var(--lengthFieldRowSmallMin);
 }
 
 @media print {

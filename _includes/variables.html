@@ -80,9 +80,10 @@
 {%-assign siteHost      = siteData.host           -%}
 {%-assign siteRoot      = siteData.root           -%}
 {%-assign sitePathRes   = siteData.pathRes        -%}
-{%-capture htmlAOut   -%} a class="out" rel="noopener" target="_blank" href= {%-endcapture-%}
-{%-capture htmlImg    -%} img loading="lazy" src=                            {%-endcapture-%}
-{%-capture htmlImgMono-%} img class="mono" loading="lazy" src=               {%-endcapture-%}
+{%-capture htmlAOut   -%} a class="out" rel="noreferrer" target="_blank" href= {%-endcapture-%}
+{%-capture htmlFormOut-%} form rel="noreferrer" target="_blank" action=        {%-endcapture-%}
+{%-capture htmlImg    -%} img loading="lazy" src=                              {%-endcapture-%}
+{%-capture htmlImgMono-%} img class="mono" loading="lazy" src=                 {%-endcapture-%}
 {%-if pageData.path == siteData.pathHome-%}
   {%-assign pageIsHome = true-%}
 {%-endif-%}

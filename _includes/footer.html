@@ -3,7 +3,29 @@
   {%-assign pageHasStyleHeaderFooter = true%}
 {%endunless-%}
 <footer>
-{%include page-info.html-%}
+<section>
+  <section class="banner" role="banner">
+    {%include banner.html%}
+  </section>
+{%-if pageDate or pageVersion or foot%}
+  <section>
+  {%-if pageDate%}
+    <p>
+    {%-if pageVersion-%}
+      {{-pageVersion-}},
+    {%-else-%}
+      This page is dated on
+    {%-endif%} {{pageDate | date: formDate-}}
+    .</p>
+  {%-elsif pageVersion%}
+    <p>{{pageVersion}}</p>
+  {%-endif%}
+  {%-if foot%}
+    <p>{{foot}}</p>
+  {%-endif%}
+  </section>
+{%-endif%}
+</section>
 {%-unless noNavSite%}
 {%include nav-site.html-%}
 {%-endunless%}
