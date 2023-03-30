@@ -46,6 +46,8 @@ import {
   addSrcListener,
   addStyleVariableListener,
   makeHandler,
+  doAfterEdit,
+  doBeforeEdit,
   induceAnesthesia,
   removeAnesthesia,
   hasAnesthesia,
@@ -254,11 +256,11 @@ function setupWindowEvents() {
   window.addEventListener("beforeprint", () => {
     ECC.flush();
     doPrint(
-      getPrintEntry("start").valueOrPreset,
-      getPrintEntry("count").valueOrPreset,
-      getPrintEntry("margin").valueOrPreset,
-      getPrintEntry("opacity").valueOrPreset,
-      getPrintEntry("outline").valueOrPreset
+      getPrintEntry("start").valueOrLkgOrPreset,
+      getPrintEntry("count").valueOrLkgOrPreset,
+      getPrintEntry("margin").valueOrLkgOrPreset,
+      getPrintEntry("opacity").valueOrLkgOrPreset,
+      getPrintEntry("outline").valueOrLkgOrPreset
     );
   });
   window.addEventListener("afterprint", undoPrint);
@@ -280,12 +282,11 @@ function addBackListener(
     entry.element.addEventListener(
       "input",
       makeHandler(() => {
-        if (
+        return (
+          doBeforeEdit(entry) &&
           setBackContents(output, label, contents, separator, shortBack) &&
-          !hasAnesthesia()
-        ) {
-          doAfterModify(entry);
-        }
+          doAfterEdit(entry)
+        );
       }, options)
     );
   });
@@ -316,12 +317,11 @@ function addFrontListener(
     entry.element.addEventListener(
       "input",
       makeHandler(() => {
-        if (
+        return (
+          doBeforeEdit(entry) &&
           setFrontContents(output, aContents, bContents, separator) &&
-          !hasAnesthesia()
-        ) {
-          doAfterModify(entry);
-        }
+          doAfterEdit(entry)
+        );
       }, options)
     );
   });

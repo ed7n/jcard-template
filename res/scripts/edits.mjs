@@ -11,11 +11,13 @@ import { replaceLineEnds } from "./common/functions.mjs";
  * Sets the back contents to the given output. This operates on one side only.
  */
 export function setBackContents(output, label, contents, separator, shortBack) {
-  output.element.innerHTML = contents.valueOrPreset
-    ? (shortBack.valueOrPreset && label.valueOrPreset
-        ? '<span class="bold">' + label.valueOrPreset + ":&nbsp;&nbsp;</span>"
+  output.element.innerHTML = contents.valueOrLkgOrPreset
+    ? (shortBack.valueOrLkgOrPreset && label.valueOrLkgOrPreset
+        ? '<span class="bold">' +
+          label.valueOrLkgOrPreset +
+          ":&nbsp;&nbsp;</span>"
         : NUL_STRING) +
-      replaceLineEnds(contents.valueOrPreset, separator.valueOrPreset)
+      replaceLineEnds(contents.valueOrLkgOrPreset, separator.valueOrLkgOrPreset)
     : NUL_STRING;
   return true;
 }
@@ -25,10 +27,10 @@ export function setFrontContents(output, aContents, bContents, separator) {
   output.element.innerHTML = replaceLineEnds(
     [aContents, bContents]
       .map((entry) => {
-        return entry.valueOrPreset;
+        return entry.valueOrLkgOrPreset;
       })
       .join("\n"),
-    separator.valueOrPreset
+    separator.valueOrLkgOrPreset
   );
   return true;
 }

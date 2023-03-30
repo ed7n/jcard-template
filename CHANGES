@@ -2,6 +2,17 @@ J-Card Template: Changes
 
 —Update 2
 
+——Revision 3, 03/30/2023.
+- Form:
+  - Changed switch entry styles to row.
+  - Ungrouped output controls.
+- PWA:
+  - Updated NET-Installer.
+- Script:
+  - Use last known valid value for invalid but empty entries.
+- View:
+  - Fluidified accordion button widths.
+
 ——Revision 2, 03/19/2023.
 - UI1:
   - Emulate UI2 form layout on insufficient space.
@@ -113,7 +124,7 @@ J-Card Template: Changes
   - Reduced explicitness of some groupings.
   - Reformatted output-region-specific controls.
   - Removed tooltips.
-  - Split side label and content inputs to their own fields.
+  - Split side label and content entries to their own fields.
   - Unified HTML using conditionals for variations.
 - Print:
   - Regrouped setup fields.

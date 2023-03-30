@@ -9,7 +9,7 @@
     <meta name="description" content="{{pageData.head.description}}" />
   {%-endif%}
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-  {%-if pathIcon-%}
+  {%-if pathIcon%}
     <link rel="icon" href="{{pathIcon}}" />
   {%-endif-%}
   {%-if pageData.head.manifest%}
@@ -17,4 +17,4 @@
   {%-endif%}
     <link rel="stylesheet" href="{{sitePathRes}}/styles/base.css" />
     <link rel="stylesheet" href="{{sitePathRes}}/styles/layout.css" />
-    {%include title.html%}
+    {%include page/title.html%}

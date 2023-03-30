@@ -1,5 +1,5 @@
 /**
- * NET Self-service Worker u0r2 by Brendon, 03/08/2023.
+ * NET Self-service Worker u0r3 by Brendon, 03/30/2023.
  *
  * Self-registering service worker for progressive web applications.
  *
@@ -19,7 +19,7 @@ const PATH_SITE = "https://ed7n.github.io/res/";
 /** Cache base name. Do not change this. */
 const CACHE_BASE = "jcard-template";
 /** Cache unique identification. Change this on versioning. */
-const CACHE_UNID = "u2r2-2";
+const CACHE_UNID = "u2r3";
 /** Name of the cache to operate on. */
 const CACHE_NAME = CACHE_BASE + "_" + CACHE_UNID;
 /** Request URLs whose response is to be cached. */
@@ -85,18 +85,20 @@ if (self.toString().includes("Window")) {
   }
 
   async function unregister() {
-    try {
-      action.disabled = true;
-      action.removeEventListener("click", unregister);
-      status.innerHTML = "Unregistering…";
-      await container
-        .getRegistration()
-        .then((registration) => registration.unregister());
-      status.innerHTML = "Deleting cache…";
-      await caches.delete(CACHE_NAME);
-      status.innerHTML = "Done.";
-    } catch (error) {
-      status.innerHTML = error;
+    if (confirm("This may remove offline access to the application.")) {
+      try {
+        action.disabled = true;
+        action.removeEventListener("click", unregister);
+        status.innerHTML = "Unregistering…";
+        await container
+          .getRegistration()
+          .then((registration) => registration.unregister());
+        status.innerHTML = "Deleting cache…";
+        await caches.delete(CACHE_NAME);
+        status.innerHTML = "Done.";
+      } catch (error) {
+        status.innerHTML = error;
+      }
     }
   }
 

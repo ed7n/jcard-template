@@ -7,11 +7,15 @@
 import { regexps } from "../constants.mjs";
 import {
   NUL_ELEMENT,
+  NUL_OBJECT,
   NUL_STRING,
   MESSAGES,
   TITLE,
   regexps as commonRegexps,
 } from "./constants.mjs";
+
+/** For use with `getInputValue`. */
+const OPTIONS_BYPASS = Object.freeze({ bypassValidity: true });
 
 /**
  * Returns the given primitive, passing undefined or null returns the given
@@ -21,31 +25,16 @@ export function defaultOrAsIs(defaultt, primitive) {
   return primitive === undefined || primitive === null ? defaultt : primitive;
 }
 
+/** Returns the value of the given input, select, or textarea element. */
+export function getInputValue(element = NUL_ELEMENT) {
+  return getInputValueBy(element, OPTIONS_BYPASS);
+}
+
 /**
  * Returns the fail-safe value of the given input, select, or textarea element.
  */
 export function getInputSafeValue(element = NUL_ELEMENT, preset) {
-  switch (element.tagName) {
-    case "INPUT":
-      switch (element.type) {
-        case undefined:
-          return undefined;
-        case "checkbox":
-        case "radio":
-          return element.checked;
-        case "file":
-          return element.files;
-        case "number":
-          return element.value.length && element.checkValidity()
-            ? element.value
-            : defaultOrAsIs(0, preset);
-      }
-    case "SELECT":
-    case "TEXTAREA":
-      return element.checkValidity()
-        ? element.value
-        : defaultOrAsIs(NUL_STRING, preset);
-  }
+  return getInputValueBy(element, { preset: preset });
 }
 
 /** Sets the value of the given input, select, or textarea element. */
@@ -102,4 +91,33 @@ export function testFile(file) {
 /** Sets the window subtitle to the given value. */
 export function setWindowSubtitle(subtitle) {
   return (document.title = (subtitle ? subtitle + " - " : NUL_STRING) + TITLE);
+}
+
+/**
+ * Returns the value of the given input, select, or textarea element with the
+ * given options.
+ */
+function getInputValueBy(element = NUL_ELEMENT, options = NUL_OBJECT) {
+  switch (element.tagName) {
+    case "INPUT":
+      switch (element.type) {
+        case undefined:
+          return undefined;
+        case "checkbox":
+        case "radio":
+          return element.checked;
+        case "file":
+          return element.files;
+        case "number":
+          return options.bypassValidity ||
+            (element.value.length && element.checkValidity())
+            ? element.value
+            : defaultOrAsIs(0, options.preset);
+      }
+    case "SELECT":
+    case "TEXTAREA":
+      return options.bypassValidity || element.checkValidity()
+        ? element.value
+        : defaultOrAsIs(NUL_STRING, options.preset);
+  }
 }

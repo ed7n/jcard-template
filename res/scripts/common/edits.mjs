@@ -14,7 +14,7 @@ import { getRoot } from "./application-functions.mjs";
  * given entry.
  */
 export function setBooleanProperty(entry, object, key, invert = false) {
-  object[key] = entry.valueOrPreset ^ invert;
+  object[key] = entry.valueOrLkgOrPreset ^ invert;
   return true;
 }
 
@@ -23,7 +23,7 @@ export function setBooleanProperty(entry, object, key, invert = false) {
  * of the given entry.
  */
 export function setClassWord(output, classs, entry, invert = false) {
-  if (entry.valueOrPreset ^ invert) {
+  if (entry.valueOrLkgOrPreset ^ invert) {
     output.element.classList.add(classs);
   } else {
     output.element.classList.remove(classs);
@@ -33,13 +33,16 @@ export function setClassWord(output, classs, entry, invert = false) {
 
 /** Sets the inner HTML of the given output to the value of the given entry. */
 export function setInnerHtml(output, entry) {
-  output.element.innerHTML = replaceLineEnds(entry.valueOrPreset, "<br />");
+  output.element.innerHTML = replaceLineEnds(
+    entry.valueOrLkgOrPreset,
+    "<br />"
+  );
   return true;
 }
 
 /** Sets the inner text of the given output to the value of the given entry. */
 export function setInnerText(output, entry) {
-  output.element.innerText = entry.valueOrPreset;
+  output.element.innerText = entry.valueOrLkgOrPreset;
   return true;
 }
 
@@ -48,13 +51,13 @@ export function setInnerText(output, entry) {
  * entry.
  */
 export function setProperty(entry, object, key) {
-  object[key] = entry.valueOrPreset;
+  object[key] = entry.valueOrLkgOrPreset;
   return true;
 }
 
 /** Sets the `src` of the given output to the file of the given entry. */
 export function setSrc(output, entry) {
-  const files = entry.valueOrPreset;
+  const files = entry.valueOrLkgOrPreset;
   if (files.length) {
     const file = files[0];
     if (file) {
@@ -74,7 +77,7 @@ export function setSrc(output, entry) {
  * the given suffix.
  */
 export function setStyle(output, style, entry, suffix = NUL_STRING) {
-  output.element.style.setProperty(style, entry.valueOrPreset + suffix);
+  output.element.style.setProperty(style, entry.valueOrLkgOrPreset + suffix);
   return true;
 }
 

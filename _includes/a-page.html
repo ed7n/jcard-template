@@ -14,7 +14,7 @@
 <a
 {%-if include.class%} class="{{include.class}}"
 {%-endif-%}
-{%-if include.class == "out"%} rel="noreferrer" target="_blank"
+{%-if include.class == "out"%} {{htmlAOut | slice: 14, 32}}
 {%-endif%} href="{{siteRoot}}/{{aPageRoot}}{{aPageData.path}}
 {%-if include.href-%}
   {{-include.href-}}

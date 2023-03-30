@@ -46,12 +46,11 @@ export function addBooleanListener(entry, object, key, options = NUL_OBJECT) {
   entry.element.addEventListener(
     "change",
     makeHandler(() => {
-      if (
+      return (
+        doBeforeEdit(entry) &&
         setBooleanProperty(entry, object, key, options.invert) &&
-        !hasAnesthesia()
-      ) {
-        doAfterModify(entry);
-      }
+        doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -64,12 +63,11 @@ export function addClassListener(entry, output, classs, options = NUL_OBJECT) {
   entry.element.addEventListener(
     "change",
     makeHandler(() => {
-      if (
+      return (
+        doBeforeEdit(entry) &&
         setClassWord(output, classs, entry, options.invert) &&
-        !hasAnesthesia()
-      ) {
-        doAfterModify(entry);
-      }
+        doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -82,9 +80,9 @@ export function addHtmlListener(entry, output, options = NUL_OBJECT) {
   entry.element.addEventListener(
     "input",
     makeHandler(() => {
-      if (setInnerHtml(output, entry) && !hasAnesthesia()) {
-        doAfterModify(entry);
-      }
+      return (
+        doBeforeEdit(entry) && setInnerHtml(output, entry) && doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -96,9 +94,11 @@ export function addPropertyListener(entry, object, key, options = NUL_OBJECT) {
   entry.element.addEventListener(
     "input",
     makeHandler(() => {
-      if (setProperty(entry, object, key) && !hasAnesthesia()) {
-        doAfterModify(entry);
-      }
+      return (
+        doBeforeEdit(entry) &&
+        setProperty(entry, object, key) &&
+        doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -111,9 +111,7 @@ export function addSrcListener(entry, output, options = NUL_OBJECT) {
   entry.element.addEventListener(
     "change",
     makeHandler(() => {
-      if (setSrc(output, entry) && !hasAnesthesia()) {
-        doAfterModify(entry);
-      }
+      return doBeforeEdit(entry) && setSrc(output, entry) && doAfterEdit(entry);
     }, options)
   );
 }
@@ -131,9 +129,11 @@ export function addStyleListener(
   entry.element.addEventListener(
     "input",
     makeHandler(() => {
-      if (setStyle(output, style, entry, options.suffix) && !hasAnesthesia()) {
-        doAfterModify(entry);
-      }
+      return (
+        doBeforeEdit(entry) &&
+        setStyle(output, style, entry, options.suffix) &&
+        doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -151,9 +151,11 @@ export function addStyleVariableListener(
   entry.element.addEventListener(
     "input",
     makeHandler(() => {
-      if (setStyleVariable(key, entry, options.suffix) && !hasAnesthesia()) {
-        doAfterModify(entry);
-      }
+      return (
+        doBeforeEdit(entry) &&
+        setStyleVariable(key, entry, options.suffix) &&
+        doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -166,9 +168,9 @@ export function addTextListener(entry, output, options = NUL_OBJECT) {
   entry.element.addEventListener(
     "input",
     makeHandler(() => {
-      if (setInnerText(output, entry) && !hasAnesthesia()) {
-        doAfterModify(entry);
-      }
+      return (
+        doBeforeEdit(entry) && setInnerText(output, entry) && doAfterEdit(entry)
+      );
     }, options)
   );
 }
@@ -180,6 +182,20 @@ export function makeHandler(functionn = NUL_FUNCTION, options = NUL_OBJECT) {
     return (...argumentss) => ECC.register(symbol, functionn, argumentss);
   }
   return functionn;
+}
+
+/** To be run after an edit. */
+export function doAfterEdit(entry) {
+  if (!hasAnesthesia()) {
+    doAfterModify(entry);
+  }
+  return true;
+}
+
+/** To be run before an edit. */
+export function doBeforeEdit(entry) {
+  entry.onAfterSetValue();
+  return true;
 }
 
 /** Undoes and disables setting of post-modification events. */

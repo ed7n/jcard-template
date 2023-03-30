@@ -1,6 +1,6 @@
 {%-include variables.html-%}
 <!DOCTYPE html>
-{%include head.html%}
+{%include page/head.html%}
     <link rel="stylesheet" href="{{sitePathRes}}/styles/application.css" />
   {%-if pageTitle%}
     <meta name="application-name" content="{{pageTitle}}" />
@@ -8,15 +8,15 @@
   </head>
   <body>
 {%-unless noCurtain%}
-{%include curtain.html-%}
+{%include page/curtain.html-%}
 {%-endunless-%}
 {%-unless noBackground%}
-{%include background.html-%}
+{%include page/background.html-%}
 {%-endunless%}
     <main>
       <article>
 {%-unless noHeader%}
-{%include header.html-%}
+{%include page/header.html-%}
 {%-endunless-%}
 {%-unless noNavPage%}
 {%include nav-page.html-%}
@@ -25,7 +25,7 @@
 }}      </article>
     </main>
 {%-unless noFooter%}
-{%include footer.html-%}
+{%include page/footer.html-%}
 {%-endunless-%}
 {%-unless noNavPage%}
 {%include nav-tree.html-%}

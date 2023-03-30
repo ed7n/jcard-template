@@ -4,23 +4,27 @@
 {%endunless-%}
 {%-if pageData.body.banner-%}
 <header>
-  {{pageData.body.banner}}
+  <section>
+    {{pageData.body.banner}}
   {%-assign pageHasHeader = true-%}
 {%-elsif pageIsHome-%}
-<header class="banner">
-  {%include banner.html%}
+<header>
+  <section class="banner">
+    {%include banner.html%}
   {%-assign pageHasHeader = true-%}
 {%-elsif pageTitle or pageSubtitle-%}
 <header>
+  <section class="heading">
   {%-if pageTitle%}
-  <h1>{{pageTitle}}</h1>
+    <h1>{{pageTitle}}</h1>
   {%-endif-%}
   {%-if pageSubtitle%}
-  <p class="subtitle">{{pageSubtitle}}</p>
+    <p class="subtitle">{{pageSubtitle}}</p>
   {%-endif-%}
   {%-assign pageHasHeader = true-%}
 {%-endif-%}
 {%-if pageHasHeader%}
+  </section>
 </header>
 <div class="hr"></div>
 {%-endif-%}

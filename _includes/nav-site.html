@@ -1,13 +1,27 @@
-{%-unless pageHasStyleNav-%}
+{%-if siteData.menu-%}
+  {%-unless pageHasStyleNav-%}
 <link rel="stylesheet" href="{{sitePathRes}}/styles/nav.css" />
-  {%-assign pageHasStyleNav = true%}
+    {%-assign pageHasStyleNav = true%}
 {%endunless-%}
 <nav>
-  <span>{{navLabelSite}}</span><ul class="line"><li
->[<{{htmlAOut}}"{{siteData.eon}}/net/jcard-template"
->Home</a>]</li><li
->[<{{htmlAOut}}"{{siteData.eon}}/pages/privacy"
->Privacy</a>]</li><li
->[<{{htmlAOut}}"https://brendonirwan.github.io/pages/contact"
->Contact</a>]</li></ul>
+  <span>{{navLabelSite}}</span><ul class="line">
+  {%-for entry in siteData.menu-%}
+    <li
+>[<a
+    {%-if entry.class%} class="{{entry.class}}"
+    {%-endif-%}
+    {%-if entry.class == "out"%} {{htmlAOut | slice: 14, 32}}
+    {%-endif%}
+    {%-if data[entry.key].path and data[entry.key].body.title and entry.key
+    %} href="{{siteRoot}}/{{data[entry.key].path}}"
+>{{data[entry.key].body.title}}
+    {%-elsif entry.href and entry.label%} href="{{entry.href}}"
+>{{entry.label}}
+    {%-else-%}
+>(nil)
+    {%-endif-%}
+    </a>]</li>
+  {%-endfor-%}
+  </ul>
 </nav>
+{%-endif-%}

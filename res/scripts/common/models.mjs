@@ -9,6 +9,7 @@ import { NUL_ELEMENT, NUL_OBJECT, NUL_STRING } from "./constants.mjs";
 import {
   defaultOrAsIs,
   qs,
+  getInputValue,
   getInputSafeValue,
   setInputValue,
 } from "./functions.mjs";
@@ -59,11 +60,45 @@ export class FormEntry extends FormControl {
     this.persistent = defaultOrAsIs(true, options.persistent);
     /** Default value. */
     this.preset = defaultOrAsIs(NUL_STRING, options.preset);
+    /** Last known valid value. */
+    this.lkg = this.preset;
+  }
+
+  /** To be run after setting its value. */
+  onAfterSetValue() {
+    if (this.element.checkValidity && this.element.checkValidity()) {
+      const out = this.value;
+      if (out !== NUL_STRING) {
+        this.lkg = out;
+      }
+    }
   }
 
   /** Returns its fail-safe value. */
   get safeValue() {
     return getInputSafeValue(this.element, NUL_STRING);
+  }
+
+  /** Returns its value. */
+  get value() {
+    return getInputValue(this.element);
+  }
+
+  /** Returns its last-known-valid-default fail-safe value. */
+  get valueOrLkg() {
+    return getInputSafeValue(this.element, this.lkg);
+  }
+
+  /**
+   * Returns its last-known-valid-preset-default fail-safe value. Preset on
+   * empty, and last-known-valid on invalid otherwise.
+   */
+  get valueOrLkgOrPreset() {
+    if (this.element.checkValidity && this.element.checkValidity()) {
+      const out = this.value;
+      return out === NUL_STRING ? this.preset : out;
+    }
+    return this.lkg;
   }
 
   /** Returns its preset-default fail-safe value. */
@@ -73,7 +108,9 @@ export class FormEntry extends FormControl {
 
   /** Sets its value. */
   set value(value) {
-    return setInputValue(this.element, value);
+    const out = setInputValue(this.element, value);
+    this.onAfterSetValue();
+    return out;
   }
 }
 

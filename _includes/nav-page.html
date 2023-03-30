@@ -7,18 +7,16 @@
   <span>{{navLabelPage}}</span><ul class="line">
   {%-for entry in pageData.menu-%}
     <li
->[
-    {%-if data[entry.key].path and data[entry.key].body.title and entry.key-%}
-      <a class="up" href="{{siteRoot}}/{{data[entry.key].path}}"
->{{data[entry.key].body.title}}</a>
-    {%-elsif entry.href and entry.label-%}
-      <a href="{{entry.href}}"
->{{entry.label}}</a>
+>[<a
+    {%-if data[entry.key].path and data[entry.key].body.title and entry.key
+    %} class="up" href="{{siteRoot}}/{{data[entry.key].path}}"
+>{{data[entry.key].body.title}}
+    {%-elsif entry.href and entry.label%} href="{{entry.href}}"
+>{{entry.label}}
     {%-else-%}
-      <a
->(nil)</a>
+>(nil)
     {%-endif-%}
-    ]</li>
+    </a>]</li>
   {%-endfor-%}
   </ul>
 </nav>

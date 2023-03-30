@@ -63,7 +63,7 @@ export function close() {
  * Loads the file at the given index of the given list. If successful, then this
  * may be followed by `loadReader`.
  */
-export function loadFile(files = getSource().valueOrPreset, index = 0) {
+export function loadFile(files = getSource().value, index = 0) {
   getSource().element.disabled = true;
   if (files.length) {
     const file = files[index];
@@ -123,6 +123,24 @@ export function saveDataSaves() {
   return save(preserveDataSaves, getCardName());
 }
 
+/** Dispatches change or input events on data form entries. */
+export function updateData() {
+  return update([getDataEntries]);
+}
+
+/** Resets the cover image. */
+export function resetCover() {
+  const entry = getDataEntry("coverImage");
+  entry.value = NUL_STRING;
+  getOutput("cover").element.src = COVER_IMAGE;
+  setModifiedBy(entry);
+}
+
+/** Saves the cover image as a file download. */
+export function saveCover() {
+  return download(getCardName(), getOutput("cover").element.src);
+}
+
 /** Prints the window only if print form entries are good. */
 export function testAndPrint() {
   if (testPrintEntries()) {
@@ -142,11 +160,6 @@ export function testPrintEntries() {
     return false;
   }
   return true;
-}
-
-/** Dispatches change or input events on data form entries. */
-export function updateData() {
-  return update([getDataEntries]);
 }
 
 /**
@@ -200,19 +213,6 @@ export function undoPrint() {
   element.classList.remove("half-margin", "outline", "variable-width");
 }
 
-/** Resets the cover image. */
-export function resetCover() {
-  const entry = getDataEntry("coverImage");
-  entry.value = NUL_STRING;
-  getOutput("cover").element.src = COVER_IMAGE;
-  setModifiedBy(entry);
-}
-
-/** Saves the cover image as a file download. */
-export function saveCover() {
-  return download(getCardName(), getOutput("cover").element.src);
-}
-
 /** Returns the given application form entry by its key. */
 export function getApplicationEntry(key = NUL_STRING) {
   return getControl(getApplicationEntries, key);
@@ -226,10 +226,10 @@ export function getApplicationEntries() {
 /** Returns the current card name. */
 export function getCardName() {
   return (
-    (getSaveEntry("follow").valueOrPreset
-      ? getDataEntry("titleUpper").valueOrPreset ||
-        getDataEntry("titleLower").valueOrPreset
-      : getSaveEntry("name").valueOrPreset) || FILE_NAME
+    (getSaveEntry("follow").valueOrLkgOrPreset
+      ? getDataEntry("titleUpper").valueOrLkgOrPreset ||
+        getDataEntry("titleLower").valueOrLkgOrPreset
+      : getSaveEntry("name").valueOrLkgOrPreset) || FILE_NAME
   );
 }
 
