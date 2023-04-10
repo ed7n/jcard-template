@@ -182,7 +182,7 @@ article.reverse
   border-inline-start-style: unset;
 }
 
-@media (max-width: 720px), (max-aspect-ratio: 1.9999/3) {
+@media (max-width: 45rem), (max-aspect-ratio: 1.9999/3) {
   article > section:not(:first-of-type):not(:last-of-type),
   article.reverse > section:not(:first-of-type):not(:last-of-type) {
     flex-direction: column;
@@ -248,7 +248,8 @@ article.reverse
   }
 }
 
-@media (min-width: 721px) and (min-aspect-ratio: 2/3), (max-width: 319px) {
+@media (min-width: 45.001rem) and (min-aspect-ratio: 2/3),
+  (max-width: 19.999rem) {
   article
     > section:not(:first-of-type):not(:last-of-type)
     > section:last-of-type

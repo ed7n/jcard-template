@@ -2,6 +2,12 @@ J-Card Template: Changes
 
 —Update 2
 
+——Revision 4, 04/04/2023.
+- PWA:
+  - Updated NET-Installer.
+- Window:
+  - Reset title after initialization.
+
 ——Revision 3, 03/30/2023.
 - Form:
   - Changed switch entry styles to row.

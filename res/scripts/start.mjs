@@ -12,6 +12,7 @@ import {
 } from "./application-functions.mjs";
 import { setupEvents } from "./events.mjs";
 import { EVENT_CHANGE } from "./common/constants.mjs";
+import { setWindowSubtitle } from "./common/functions.mjs";
 import {
   reset,
   update,
@@ -78,6 +79,7 @@ populateDataSaves({
     "Five is a Hive\nSix Movie Flicks\nSeven Ate Nine\nEight My Good Mate",
 });
 update();
+setWindowSubtitle();
 getButton("coverReset").element.click();
 Object.entries(PARAMS).forEach(([argument, handle]) => {
   if (argumentss.has(argument)) {
